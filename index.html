@@ -161,6 +161,19 @@
   .portada-foot{margin-top:16px;text-align:center;color:rgba(255,255,255,.6);font-size:11.5px}
   .leaf{animation:sway 6s ease-in-out infinite}
   @keyframes sway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(6deg)}}
+  .breathe{animation:breathe 4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{r:64;opacity:.55}50%{r:78;opacity:.25}}
+
+  /* ===== MENU FLOR ===== */
+  .flower-wrap{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;pointer-events:none}
+  .flower-overlay{position:fixed;inset:0;background:rgba(42,52,65,.45);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:65;pointer-events:none}
+  .flower-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
+  .flower-center{position:absolute;bottom:18px;width:64px;height:64px;border-radius:50%;background:var(--gh-green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -6px var(--sh-green);cursor:pointer;z-index:80;pointer-events:auto;transition:transform .3s var(--ease-bounce)}
+  .flower-center.open{transform:rotate(45deg) scale(1.05)}
+  .petal{position:absolute;bottom:18px;left:50%;width:60px;height:60px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#fff;color:var(--brand-green-dark);border:1.5px solid var(--border-light);box-shadow:var(--sh-md);cursor:pointer;z-index:75;pointer-events:none;opacity:0;transform:translate(-50%,0) scale(.4);transition:transform .35s var(--ease-bounce),opacity .25s ease;font-size:10px;font-weight:700;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.4px}
+  .petal span{display:block}
+  .flower-overlay.open .petal{opacity:1;pointer-events:auto;transform:translate(calc(-50% + var(--x)),var(--y)) scale(1)}
+  .petal.done{background:var(--brand-green-soft);color:var(--brand-green-deep);border-color:var(--brand-green)}
 </style>
 </head>
 <body>
@@ -198,20 +211,19 @@
       <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#0FBF8B" stop-opacity=".35"/><stop offset="1" stop-color="#0FBF8B" stop-opacity="0"/></radialGradient>
     </defs>
     <rect width="390" height="844" fill="url(#sky)"/>
-    <circle cx="300" cy="150" r="150" fill="url(#halo)"/>
-    <circle cx="60" cy="210" r="90" fill="url(#halo)"/>
+    <circle cx="300" cy="140" r="160" fill="url(#halo)"/>
+    <circle cx="50" cy="200" r="100" fill="url(#halo)"/>
+    <!-- aro de bienestar (respiración) -->
+    <circle cx="195" cy="300" r="86" fill="none" stroke="#0FBF8B" stroke-width="2" opacity=".35"/>
+    <circle class="breathe" cx="195" cy="300" r="64" fill="none" stroke="#0FBF8B" stroke-width="2.5" opacity=".55"/>
+    <circle cx="195" cy="300" r="42" fill="#0FBF8B" opacity=".18"/>
+    <g class="leaf" style="transform-origin:195px 300px">
+      <path d="M195 264 q22 -2 22 24 q-22 10 -22 -24z" fill="#E6F9F2" opacity=".9"/>
+      <path d="M195 264 q-22 -2 -22 24 q22 10 22 -24z" fill="#0FBF8B" opacity=".9"/>
+    </g>
     <!-- colinas de bienestar -->
     <path fill="url(#hill1)" opacity=".85" d="M0 560 C70 500 140 540 210 500 C280 460 330 500 390 470 L390 700 L0 700 Z"/>
     <path fill="url(#hill2)" d="M0 640 C80 590 160 630 240 580 C300 545 350 590 390 560 L390 844 L0 844 Z"/>
-    <!-- silueta persona estirándose -->
-    <g fill="none" stroke="#E6F9F2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
-      <circle cx="195" cy="330" r="16" fill="#E6F9F2" stroke="none"/>
-      <path d="M195 346 L195 410"/>
-      <path d="M195 360 L150 320"/>
-      <path d="M195 360 L240 320"/>
-      <path d="M195 410 L165 470"/>
-      <path d="M195 410 L225 470"/>
-    </g>
     <!-- hojas flotantes -->
     <g class="leaf" style="transform-origin:70px 250px">
       <path d="M70 250 q18 -22 38 -6 q-6 24 -38 6z" fill="#0FBF8B" opacity=".9"/>
@@ -280,7 +292,6 @@
 
   <div class="tabs">
     <button class="tab-btn active" data-mod="inicio" onclick="goTo('inicio')"><svg class="icon icon-sm"><use href="#i-user"/></svg>Inicio</button>
-    <button class="tab-btn" data-mod="pausa" onclick="goTo('pausa')"><svg class="icon icon-sm"><use href="#i-bolt"/></svg>Nueva pausa</button>
     <button class="tab-btn" data-mod="resumen" onclick="goTo('resumen')"><svg class="icon icon-sm"><use href="#i-list"/></svg>Resumen</button>
   </div>
 
@@ -305,40 +316,6 @@
     </div>
   </section>
 
-  <!-- NUEVA PAUSA -->
-  <section class="mod" data-mod="pausa">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-bolt"/></svg></div>
-        <div class="card-head-text"><div class="card-title">Registrar pausa</div><div class="card-sub">Elige el tipo de pausa o reto</div></div>
-      </div>
-      <div class="field"><label class="label label-req">Tipo de pausa</label>
-        <div class="opt-grid">
-          <div class="opt"><input type="radio" name="tipoPausa" id="tpVisual" value="Visual"><label for="tpVisual"><svg class="icon"><use href="#i-eye"/></svg>Visual</label></div>
-          <div class="opt"><input type="radio" name="tipoPausa" id="tpAuditiva" value="Auditiva"><label for="tpAuditiva"><svg class="icon"><use href="#i-ear"/></svg>Auditiva</label></div>
-          <div class="opt"><input type="radio" name="tipoPausa" id="tpActiva" value="Activa"><label for="tpActiva"><svg class="icon"><use href="#i-bolt"/></svg>Activa</label></div>
-        </div>
-      </div>
-      <div id="tipBox" style="display:none">
-        <div class="tip-card" id="tipCard">
-          <span class="tip-tag" id="tipTag">Reto</span>
-          <div class="tip-title" id="tipTitle">—</div>
-          <div class="tip-desc" id="tipDesc">—</div>
-          <div class="tip-dur"><svg class="icon icon-sm"><use href="#i-clock"/></svg><span id="tipDur">—</span></div>
-        </div>
-        <button type="button" class="btn btn-soft btn-block" onclick="otroReto()"><svg class="icon icon-sm"><use href="#i-refresh"/></svg>Probar otro reto</button>
-        <div class="field" style="margin-top:16px"><label class="label">Evidencia fotográfica <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
-          <div class="upload" id="uploadPausa">
-            <input type="file" id="filePausa" accept="image/*" capture="environment">
-            <div id="defPausa"><div class="upload-ic"><svg class="icon icon-lg"><use href="#i-camera"/></svg></div><div class="upload-t">Foto de tu pausa</div><div class="upload-h">Cámara o galería</div></div>
-            <div id="prevPausa" style="display:none"><img id="imgPausa" class="preview-img"><div class="preview-act"><button type="button" class="btn btn-outline btn-sm" onclick="event.stopPropagation();document.getElementById('filePausa').click()"><svg class="icon icon-sm"><use href="#i-upload"/></svg>Cambiar</button><button type="button" class="btn btn-danger btn-sm" onclick="event.stopPropagation();quitarFotoPausa()"><svg class="icon icon-sm"><use href="#i-trash"/></svg>Quitar</button></div></div>
-          </div>
-        </div>
-        <div class="save-row"><button class="btn btn-primary btn-block" onclick="registrarPausa()"><svg class="icon"><use href="#i-check"/></svg>Marcar pausa como realizada</button></div>
-      </div>
-    </div>
-  </section>
-
   <!-- RESUMEN -->
   <section class="mod" data-mod="resumen">
     <div class="card">
@@ -353,16 +330,43 @@
       </div>
       <div id="listaPausas"></div>
       <div class="field" style="margin-top:6px"><label class="label">Observaciones</label><textarea id="observaciones" class="textarea" placeholder="¿Cómo te sentiste hoy?"></textarea></div>
-      <div class="save-row"><button class="btn btn-primary btn-block" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Guardar jornada</button></div>
+      <div class="save-row"><button class="btn btn-primary btn-block" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Guardar observaciones</button></div>
     </div>
   </section>
 
 </main>
 
-<!-- BOTTOM NAV -->
-<nav class="bottomnav">
-  <button class="nav-fab" onclick="goTo('pausa')"><svg class="icon"><use href="#i-plus"/></svg>Nueva pausa</button>
-</nav>
+<!-- MENU FLOR -->
+<div class="flower-overlay" id="flowerOverlay" onclick="if(event.target===this)cerrarFlor()">
+  <div class="petal" style="--x:-78px;--y:-58px" onclick="elegirTipo('Visual')" id="petalVisual"><svg class="icon"><use href="#i-eye"/></svg><span>Visual</span></div>
+  <div class="petal" style="--x:0px;--y:-92px" onclick="elegirTipo('Auditiva')" id="petalAuditiva"><svg class="icon"><use href="#i-ear"/></svg><span>Auditiva</span></div>
+  <div class="petal" style="--x:78px;--y:-58px" onclick="elegirTipo('Activa')" id="petalActiva"><svg class="icon"><use href="#i-bolt"/></svg><span>Activa</span></div>
+</div>
+<div class="flower-wrap">
+  <button class="flower-center" id="flowerBtn" onclick="toggleFlor()"><svg class="icon icon-lg"><use href="#i-plus"/></svg></button>
+</div>
+
+<!-- MODAL PAUSA -->
+<div class="overlay" id="pausaModal"><div class="modal" style="max-width:420px;text-align:left">
+  <div class="tip-card" id="tipCard" style="margin-bottom:14px">
+    <span class="tip-tag" id="tipTag">Reto</span>
+    <div class="tip-title" id="tipTitle">—</div>
+    <div class="tip-desc" id="tipDesc">—</div>
+    <div class="tip-dur"><svg class="icon icon-sm"><use href="#i-clock"/></svg><span id="tipDur">—</span></div>
+  </div>
+  <button type="button" class="btn btn-soft btn-block" onclick="otroReto()"><svg class="icon icon-sm"><use href="#i-refresh"/></svg>Probar otro reto</button>
+  <div class="field" style="margin-top:16px"><label class="label">Evidencia fotográfica <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
+    <div class="upload" id="uploadPausa">
+      <input type="file" id="filePausa" accept="image/*" capture="environment">
+      <div id="defPausa"><div class="upload-ic"><svg class="icon icon-lg"><use href="#i-camera"/></svg></div><div class="upload-t">Foto de tu pausa</div><div class="upload-h">Cámara o galería</div></div>
+      <div id="prevPausa" style="display:none"><img id="imgPausa" class="preview-img"><div class="preview-act"><button type="button" class="btn btn-outline btn-sm" onclick="event.stopPropagation();document.getElementById('filePausa').click()"><svg class="icon icon-sm"><use href="#i-upload"/></svg>Cambiar</button><button type="button" class="btn btn-danger btn-sm" onclick="event.stopPropagation();quitarFotoPausa()"><svg class="icon icon-sm"><use href="#i-trash"/></svg>Quitar</button></div></div>
+    </div>
+  </div>
+  <div class="save-row" style="display:flex;gap:8px">
+    <button class="btn btn-outline" style="flex:1" onclick="cerrarPausaModal()">Cancelar</button>
+    <button class="btn btn-primary" style="flex:2" onclick="registrarPausa()"><svg class="icon"><use href="#i-check"/></svg>Completar pausa</button>
+  </div>
+</div></div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"><svg class="icon icon-sm"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
@@ -371,8 +375,12 @@
 <div class="overlay" id="loadingOverlay"><div class="modal"><div class="spinner"></div><div class="modal-msg" id="loadingMsg">Guardando...</div></div></div>
 <div class="overlay" id="successModal"><div class="modal">
   <div class="ok-ic"><svg class="icon icon-xl"><use href="#i-check"/></svg></div>
-  <div class="ok-title">Jornada guardada</div>
-  <div class="ok-sub">Tus pausas de hoy quedaron registradas.</div>
+  <div class="ok-title" id="okTitle">¡Pausa completada!</div>
+  <div class="ok-sub" id="okSub">Tu pausa de hoy quedó registrada.</div>
+  <div class="tip-card" id="beneficioCard" style="text-align:left;margin-bottom:18px">
+    <span class="tip-tag"><svg class="icon icon-sm"><use href="#i-leaf"/></svg> Beneficio</span>
+    <div class="tip-desc" id="beneficioTexto">—</div>
+  </div>
   <button class="btn btn-primary btn-block" onclick="cerrarModalExito()"><svg class="icon"><use href="#i-check"/></svg>Listo</button>
 </div></div>
 
@@ -398,6 +406,12 @@ const TIPS = {
   ]
 };
 
+const BENEFICIOS = {
+  Visual: 'Descansar la vista reduce la fatiga ocular, previene dolores de cabeza y mejora tu enfoque para el resto de la jornada.',
+  Auditiva: 'Una pausa auditiva baja tu nivel de estrés, regula la respiración y mejora tu capacidad de concentración.',
+  Activa: 'Moverte unos segundos mejora tu circulación, libera tensión muscular y previene lesiones por esfuerzo repetitivo.'
+};
+
 let persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '' };
 let pausasHoy = [];
 let fechaHoy = '';
@@ -416,8 +430,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('fileIngreso').addEventListener('change', manejarFotoIngreso);
   document.getElementById('filePausa').addEventListener('change', manejarFotoPausa);
-  document.querySelectorAll('input[name="tipoPausa"]').forEach(r => r.addEventListener('change', onTipoChange));
+  actualizarEstadoFlor();
 });
+
+// ===== MENU FLOR =====
+function toggleFlor() {
+  if (yaTomoPausaHoy()) { mostrarToast('Ya completaste tu pausa de hoy. ¡Vuelve mañana!'); return; }
+  const ov = document.getElementById('flowerOverlay');
+  const btn = document.getElementById('flowerBtn');
+  const abrir = !ov.classList.contains('open');
+  ov.classList.toggle('open', abrir);
+  btn.classList.toggle('open', abrir);
+}
+function cerrarFlor() {
+  document.getElementById('flowerOverlay').classList.remove('open');
+  document.getElementById('flowerBtn').classList.remove('open');
+}
+function yaTomoPausaHoy() { return pausasHoy.length >= 1; }
+function actualizarEstadoFlor() {
+  document.getElementById('flowerBtn').style.opacity = yaTomoPausaHoy() ? '.45' : '1';
+}
+function elegirTipo(tipo) {
+  cerrarFlor();
+  tipoActual = tipo;
+  mostrarTipAleatorio();
+  document.getElementById('pausaModal').classList.add('show');
+}
+function cerrarPausaModal() {
+  document.getElementById('pausaModal').classList.remove('show');
+  quitarFotoPausa();
+  tipoActual = ''; tipActual = null;
+}
 
 // ===== SESIÓN / PORTADA =====
 function cargarSesion() {
@@ -516,7 +559,6 @@ function mostrarTipAleatorio() {
   document.getElementById('tipTitle').textContent = tipActual.titulo;
   document.getElementById('tipDesc').textContent = tipActual.desc;
   document.getElementById('tipDur').textContent = tipActual.dur;
-  document.getElementById('tipBox').style.display = 'block';
 }
 
 function otroReto() { mostrarTipAleatorio(); }
@@ -544,21 +586,58 @@ function quitarFotoPausa() {
 }
 
 function registrarPausa() {
+  if (!persona.nombre || !persona.cedula || !persona.area) {
+    mostrarToast('Completa tu información en Inicio');
+    document.getElementById('pausaModal').classList.remove('show');
+    goTo('inicio');
+    return;
+  }
   if (!tipoActual || !tipActual) { mostrarToast('Selecciona un tipo de pausa'); return; }
-  pausasHoy.push({
+
+  const pausa = {
     tipo: tipoActual,
     titulo: tipActual.titulo,
     hora: new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
     foto: fotoPausaBase64
-  });
+  };
+  pausasHoy.push(pausa);
   guardarSesionLocal();
   renderPausas();
-  quitarFotoPausa();
-  document.querySelectorAll('input[name="tipoPausa"]').forEach(r => r.checked = false);
-  document.getElementById('tipBox').style.display = 'none';
-  mostrarToast('Pausa registrada · ' + tipActual.titulo);
-  tipoActual = ''; tipActual = null;
-  goTo('resumen');
+
+  mostrarLoading('Guardando tu pausa...');
+  const gestion = {
+    area: persona.area,
+    nombre: persona.nombre,
+    cedula: persona.cedula,
+    fecha: fechaHoy,
+    fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil,
+    fotoPerfilURL: persona.fotoPerfilURL || '',
+    pausas: pausasHoy,
+    observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value.trim() : '',
+    finalizada: true
+  };
+
+  fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
+    .then(r => r.json())
+    .then(res => {
+      ocultarLoading();
+      if (res && res.success) {
+        if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
+        if (res.pausas) pausasHoy = res.pausas;
+        guardarSesionLocal();
+        document.getElementById('pausaModal').classList.remove('show');
+        document.getElementById('okTitle').textContent = '¡Pausa ' + tipoActual.toLowerCase() + ' completada!';
+        document.getElementById('okSub').textContent = 'Quedó registrada en tu jornada de hoy.';
+        document.getElementById('beneficioTexto').textContent = BENEFICIOS[tipoActual];
+        document.getElementById('successModal').classList.add('show');
+        quitarFotoPausa();
+        tipoActual = ''; tipActual = null;
+        actualizarEstadoFlor();
+      } else {
+        mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
+      }
+    })
+    .catch(err => { ocultarLoading(); mostrarToast('Error de conexión: ' + err.message); });
 }
 
 // ===== CONTADORES Y LISTA =====
