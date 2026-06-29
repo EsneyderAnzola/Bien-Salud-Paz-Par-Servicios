@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2A3441">
+<title>Pausas Saludables · Par Servicios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand-green:#0FBF8B; --brand-green-dark:#0A9E72; --brand-green-soft:#E6F9F2; --brand-green-deep:#086B4D;
+    --bg-main:#2A3441; --dark:#2A3441; --dark2:#3D4A5C; --dark-soft:#F1F4F8; --text-light:#FFFFFF; --cream:#FAFCFE;
+    --bg-light:#FFFFFF; --bg-surface:#F7F9FB; --border-light:#E5EAF0; --text-dark:#1A202C; --text-main:#3D4A5C; --text-muted:#5B6878;
+    --danger:#DC2626; --danger-soft:#FEF2F2; --warning:#F59E0B; --warning-soft:#FEF3C7; --success:#0FBF8B; --success-soft:#E6F9F2;
+    --sh-green:rgba(15,191,139,.25); --sh-sm:0 1px 2px rgba(42,52,65,.06); --sh-md:0 4px 14px rgba(42,52,65,.10); --sh-lg:0 14px 40px rgba(42,52,65,.14);
+    --gh:linear-gradient(135deg,#2A3441 0%,#3D4A5C 52%,#0A9E72 100%); --gh-green:linear-gradient(135deg,#0FBF8B 0%,#0A9E72 100%); --gh-soft:linear-gradient(135deg,#FAFCFE 0%,#E6F9F2 100%);
+    --r-xl:26px; --r-lg:20px; --r-md:14px; --r-sm:11px;
+    --ease:.3s cubic-bezier(.4,0,.2,1); --ease-bounce:.4s cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Barlow',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-surface);color:var(--text-dark);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:120px}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.5px}
+  .icon{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  svg{pointer-events:none}
+  button,.btn,.opt label,.upload,.tip-card{touch-action:manipulation}
+  .icon-lg{width:22px;height:22px}.icon-sm{width:15px;height:15px}.icon-xl{width:30px;height:30px}
+
+  /* TOPBAR */
+  .topbar{background:var(--gh);color:#fff;padding:18px 20px 24px;border-radius:0 0 28px 28px;position:sticky;top:0;z-index:40;overflow:hidden}
+  .topbar::before{content:'';position:absolute;top:-60px;right:-30px;width:170px;height:170px;background:radial-gradient(circle,rgba(15,191,139,.28) 0%,transparent 70%)}
+  .topbar-row{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+  .logo-mini{height:34px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+  .topbar-brand{flex:1}.topbar-brand b{font-family:'Bebas Neue';font-weight:400;font-size:18px;letter-spacing:1px;display:block}.topbar-brand span{font-size:11.5px;opacity:.78;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:1.5px}
+  .greet{max-width:720px;margin:16px auto 0;position:relative;z-index:1}
+  .greet h1{font-size:21px}.greet p{font-size:12.5px;opacity:.82;margin-top:3px;font-family:'Barlow'}
+  .pausas-counter{max-width:720px;margin:14px auto 0;display:flex;gap:10px;position:relative;z-index:1}
+  .pc-pill{flex:1;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-md);padding:9px 12px;text-align:center}
+  .pc-pill b{display:block;font-family:'Bebas Neue';font-size:19px}.pc-pill span{font-size:10px;opacity:.78;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow Condensed'}
+
+  /* STAGE / TABS */
+  .stage{max-width:720px;margin:-12px auto 0;padding:0 16px;position:relative;z-index:2}
+  .tabs{display:flex;gap:8px;margin-bottom:14px;background:#fff;border-radius:var(--r-lg);padding:6px;box-shadow:var(--sh-sm)}
+  .tab-btn{flex:1;padding:10px 6px;border:none;background:transparent;border-radius:var(--r-md);font-family:'Barlow Condensed';font-weight:700;letter-spacing:.6px;text-transform:uppercase;font-size:12px;color:var(--text-muted);cursor:pointer;transition:var(--ease);display:flex;align-items:center;justify-content:center;gap:6px}
+  .tab-btn.active{background:var(--brand-green);color:#fff;box-shadow:0 4px 12px -4px var(--sh-green)}
+  .mod{display:none;animation:fadeIn .3s ease}.mod.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .card{background:var(--bg-light);border-radius:var(--r-xl);padding:22px;box-shadow:var(--sh-md);margin-bottom:14px}
+  .card-head{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+  .card-chip{width:46px;height:46px;background:var(--brand-green-soft);color:var(--brand-green-dark);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .card-head-text{flex:1;min-width:0}.card-title{font-family:'Bebas Neue';font-size:17px;letter-spacing:.5px}.card-sub{font-size:12.5px;color:var(--text-muted);margin-top:1px}
+
+  /* FIELDS */
+  .field{margin-bottom:15px}.field:last-child{margin-bottom:0}
+  .label{display:block;font-size:12.5px;font-weight:600;color:var(--text-main);margin-bottom:7px}
+  .label-req::after{content:'*';color:var(--danger);margin-left:3px}
+  .input,.select,.textarea{width:100%;padding:13px 15px;border:1.5px solid var(--border-light);border-radius:var(--r-md);background:var(--bg-surface);font-family:inherit;font-size:15px;color:var(--text-dark);transition:all .15s ease;min-height:48px}
+  .input::placeholder,.textarea::placeholder{color:#9aa3b0}
+  .input:focus,.select:focus,.textarea:focus{outline:none;border-color:var(--brand-green);background:#fff;box-shadow:0 0 0 4px var(--brand-green-soft)}
+  .select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%230A9E72' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+  .textarea{min-height:78px;resize:vertical}
+
+  /* OPTIONS */
+  .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:9px}
+  .opt{position:relative}.opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);cursor:pointer;font-size:12.5px;font-weight:600;color:var(--text-main);transition:var(--ease);text-align:center;min-height:62px}
+  .opt label:hover{border-color:var(--brand-green);color:var(--brand-green-dark)}
+  .opt input:checked+label{background:var(--gh-green);border-color:var(--brand-green-dark);color:#fff;box-shadow:0 6px 16px -6px var(--sh-green)}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border:1.5px solid transparent;border-radius:var(--r-md);font-family:'Barlow Condensed';font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;cursor:pointer;transition:var(--ease);min-height:48px;white-space:nowrap}
+  .btn-primary{background:var(--brand-green);color:#fff;box-shadow:0 6px 16px -4px var(--sh-green)}.btn-primary:hover:not(:disabled){background:var(--brand-green-dark)}
+  .btn-soft{background:var(--brand-green-soft);color:var(--brand-green-deep)}.btn-soft:hover{background:#d4f3e8}
+  .btn-outline{background:#fff;color:var(--text-main);border-color:var(--border-light)}
+  .btn-danger{background:transparent;color:var(--danger);border-color:var(--border-light)}.btn-danger:hover{background:var(--danger-soft);border-color:var(--danger)}
+  .btn-block{width:100%}.btn-sm{padding:8px 13px;font-size:12px;min-height:38px}
+  .save-row{margin-top:20px;padding-top:18px;border-top:1px dashed var(--border-light)}
+
+  /* ALERTS */
+  .alert{display:flex;align-items:flex-start;gap:11px;padding:14px;border-radius:var(--r-md);font-size:13px;margin-bottom:16px;border:1.5px solid}
+  .alert-warn{background:var(--warning-soft);color:#92660a;border-color:#f3dcae}
+
+  /* TIP CARD (pausa) */
+  .tip-card{border:1.5px solid var(--border-light);border-radius:var(--r-lg);padding:18px;background:var(--gh-soft);margin-bottom:14px}
+  .tip-tag{display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed';font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;border-radius:20px;background:var(--brand-green);color:#fff;margin-bottom:11px}
+  .tip-title{font-family:'Bebas Neue';font-size:18px;color:var(--text-dark);margin-bottom:6px}
+  .tip-desc{font-size:13.5px;color:var(--text-main);line-height:1.6}
+  .tip-dur{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--brand-green-deep);font-weight:600;margin-top:10px}
+
+  /* UPLOAD */
+  .upload{position:relative;border:2px dashed var(--border-light);border-radius:var(--r-lg);padding:22px 16px;text-align:center;cursor:pointer;transition:all .15s;background:var(--bg-surface)}
+  .upload:hover{border-color:var(--brand-green);background:var(--brand-green-soft)}
+  .upload.has{padding:12px;border-style:solid;border-color:var(--success);background:var(--success-soft)}
+  .upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .upload-ic{width:42px;height:42px;background:var(--brand-green-soft);color:var(--brand-green-dark);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:9px}
+  .upload-t{font-size:13px;font-weight:600}.upload-h{font-size:11.5px;color:var(--text-muted);margin-top:2px}
+  .preview-img{max-width:100%;max-height:190px;border-radius:var(--r-md);display:block;margin:0 auto}
+  .preview-act{display:flex;gap:8px;margin-top:11px;justify-content:center}
+
+  /* LISTA PAUSAS DEL DÍA */
+  .item{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-lg);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+  .item-ic{width:38px;height:38px;border-radius:10px;background:var(--brand-green-soft);color:var(--brand-green-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .item-body{flex:1;min-width:0}.item-body b{font-size:13.5px;display:block}.item-body span{font-size:11.5px;color:var(--text-muted)}
+  .empty-hint{text-align:center;color:var(--text-muted);font-size:13px;padding:18px 0}
+
+  /* RESUMEN */
+  .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .sum-cell{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);padding:14px;text-align:center}
+  .sum-cell b{font-family:'Bebas Neue';font-size:22px;color:var(--brand-green-dark);display:block}
+  .sum-cell span{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow Condensed'}
+
+  /* BOTTOM NAV */
+  .bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--border-light);padding:12px 18px;padding-bottom:max(12px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center}
+  .nav-fab{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;border-radius:30px;border:none;background:var(--gh-green);color:#fff;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.8px;text-transform:uppercase;font-size:13.5px;cursor:pointer;box-shadow:0 10px 24px -6px var(--sh-green);transition:var(--ease)}
+  .nav-fab:hover{transform:translateY(-2px)}
+
+  /* TOAST */
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 18px;border-radius:var(--r-md);font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-lg);opacity:0;pointer-events:none;transition:all .3s;z-index:9998}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .icon{color:var(--brand-green)}
+
+  /* OVERLAYS */
+  .overlay{position:fixed;inset:0;background:rgba(42,52,65,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.overlay.show{display:flex}
+  .modal{background:#fff;border-radius:var(--r-xl);padding:30px 26px;max-width:380px;width:100%;text-align:center;box-shadow:var(--sh-lg)}
+  .spinner{width:40px;height:40px;border:3.5px solid var(--brand-green-soft);border-top-color:var(--brand-green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}@keyframes spin{to{transform:rotate(360deg)}}
+  .modal-msg{font-size:14px;color:var(--text-main);font-weight:500}
+  .ok-ic{width:68px;height:68px;background:var(--success-soft);color:var(--success);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .ok-title{font-family:'Bebas Neue';font-size:21px;margin-bottom:6px}.ok-sub{font-size:14px;color:var(--text-main);margin-bottom:20px}
+  @media(max-width:480px){.card{padding:18px}.sum-grid{grid-template-columns:1fr 1fr}}
+
+  /* ===== PORTADA ===== */
+  .portada{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;overflow:hidden;background:var(--dark);transition:transform .6s cubic-bezier(.7,0,.25,1),opacity .55s ease}
+  .portada.hide{transform:translateY(-101%);opacity:0;pointer-events:none}
+  .portada-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .portada-content{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:max(34px,env(safe-area-inset-top)) 26px max(28px,env(safe-area-inset-bottom));max-width:460px;width:100%;margin:0 auto;overflow-y:auto}
+  .portada-logo{height:46px;margin-bottom:18px;filter:drop-shadow(0 4px 12px rgba(15,191,139,.3))}
+  .portada-brand{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase}
+  .portada-hero{margin-top:18px}
+  .portada-hero h1{color:#fff;font-size:36px;line-height:1.05;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+  .portada-hero h1 span{color:var(--brand-green)}
+  .portada-hero p{color:rgba(255,255,255,.82);font-size:14px;margin-top:9px;max-width:280px;font-family:'Barlow'}
+  .portada-form{margin-top:24px}
+  .portada-err{display:none;color:#fff;background:rgba(220,38,38,.9);border-radius:13px;padding:11px 15px;font-size:13px;margin-bottom:13px;text-align:center;font-weight:500}
+  .pinput{position:relative;margin-bottom:12px}
+  .pinput .pic{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.85);display:flex}
+  .pinput input,.pinput select{width:100%;padding:16px 18px 16px 50px;border-radius:30px;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-family:inherit;font-size:14.5px;transition:.2s;appearance:none;-webkit-appearance:none}
+  .pinput input::placeholder{color:rgba(255,255,255,.65)}
+  .pinput input:focus,.pinput select:focus{outline:none;border-color:var(--brand-green);background:rgba(255,255,255,.2);box-shadow:0 0 0 4px rgba(15,191,139,.18)}
+  .pinput select option{color:#000}
+  .foto-ingreso{display:flex;align-items:center;gap:13px;padding:11px 14px;border-radius:24px;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;cursor:pointer;margin-bottom:13px;transition:.2s}
+  .foto-ingreso:hover{background:rgba(255,255,255,.2)}
+  .foto-ingreso.has{border-color:var(--brand-green)}
+  .fi-ic{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .fi-prev{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--brand-green)}
+  .fi-txt b{font-size:13.5px;font-weight:600;display:block}.fi-txt span{font-size:11px;opacity:.78}
+  .btn-portada{width:100%;margin-top:4px;padding:17px;border:none;border-radius:30px;background:var(--gh-green);color:#fff;font-family:'Barlow Condensed';font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 16px 34px -12px var(--sh-green);transition:transform .2s,box-shadow .2s}
+  .btn-portada:hover{transform:translateY(-2px)}
+  .btn-portada:active{transform:translateY(0)}
+  .portada-foot{margin-top:16px;text-align:center;color:rgba(255,255,255,.6);font-size:11.5px}
+  .leaf{animation:sway 6s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(6deg)}}
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="14" x2="18" y2="14"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 8.5a6 6 0 1112 0c0 4-3 5-3 8.5a3 3 0 01-6 0"/><path d="M9 9a3 3 0 016 0c0 1.5-1.5 2-1.5 3.5"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></symbol>
+  <symbol id="i-arrowr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+</svg>
+
+<!-- PORTADA -->
+<div class="portada" id="portada">
+  <svg class="portada-bg" viewBox="0 0 390 844" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3D4A5C"/><stop offset=".55" stop-color="#2A3441"/><stop offset="1" stop-color="#1c232d"/>
+      </linearGradient>
+      <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0FBF8B"/><stop offset="1" stop-color="#0A9E72"/></linearGradient>
+      <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A9E72"/><stop offset="1" stop-color="#086B4D"/></linearGradient>
+      <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#0FBF8B" stop-opacity=".35"/><stop offset="1" stop-color="#0FBF8B" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="390" height="844" fill="url(#sky)"/>
+    <circle cx="300" cy="150" r="150" fill="url(#halo)"/>
+    <circle cx="60" cy="210" r="90" fill="url(#halo)"/>
+    <!-- colinas de bienestar -->
+    <path fill="url(#hill1)" opacity=".85" d="M0 560 C70 500 140 540 210 500 C280 460 330 500 390 470 L390 700 L0 700 Z"/>
+    <path fill="url(#hill2)" d="M0 640 C80 590 160 630 240 580 C300 545 350 590 390 560 L390 844 L0 844 Z"/>
+    <!-- silueta persona estirándose -->
+    <g fill="none" stroke="#E6F9F2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+      <circle cx="195" cy="330" r="16" fill="#E6F9F2" stroke="none"/>
+      <path d="M195 346 L195 410"/>
+      <path d="M195 360 L150 320"/>
+      <path d="M195 360 L240 320"/>
+      <path d="M195 410 L165 470"/>
+      <path d="M195 410 L225 470"/>
+    </g>
+    <!-- hojas flotantes -->
+    <g class="leaf" style="transform-origin:70px 250px">
+      <path d="M70 250 q18 -22 38 -6 q-6 24 -38 6z" fill="#0FBF8B" opacity=".9"/>
+    </g>
+    <g class="leaf" style="transform-origin:330 230px;animation-delay:1.4s">
+      <path d="M330 230 q16 -20 34 -5 q-5 22 -34 5z" fill="#E6F9F2" opacity=".55"/>
+    </g>
+    <g class="leaf" style="transform-origin:100 130px;animation-delay:2.6s">
+      <path d="M100 130 q14 -18 30 -4 q-4 20 -30 4z" fill="#0FBF8B" opacity=".7"/>
+    </g>
+  </svg>
+  <div class="portada-content">
+    <svg class="portada-logo" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" aria-label="Par Servicios">
+      <text x="0" y="40" font-family="Bebas Neue, sans-serif" font-size="34" fill="#fff">PAR</text>
+      <text x="78" y="40" font-family="Bebas Neue, sans-serif" font-size="34" fill="#0FBF8B">SERVICIOS</text>
+    </svg>
+    <div class="portada-brand"><svg class="icon icon-sm"><use href="#i-leaf"/></svg> Bienestar laboral</div>
+    <div class="portada-hero">
+      <h1>Pausas<br><span>Saludables</span></h1>
+      <p>Cuida tu cuerpo y tu mente durante la jornada. Regístrate y comienza tus pausas de hoy.</p>
+    </div>
+    <div class="portada-form" id="portadaForm">
+      <div class="portada-err" id="portadaErr">Completa tu área, nombre, cédula y tu foto.</div>
+      <div class="pinput">
+        <span class="pic"><svg class="icon"><use href="#i-map"/></svg></span>
+        <input type="text" id="areaColaborador" placeholder="Área en la que trabajas" autocomplete="off">
+      </div>
+      <div class="pinput">
+        <span class="pic"><svg class="icon"><use href="#i-user"/></svg></span>
+        <input type="text" id="nombreColaborador" placeholder="Nombre completo" autocomplete="name">
+      </div>
+      <div class="pinput">
+        <span class="pic"><svg class="icon"><use href="#i-id"/></svg></span>
+        <input type="tel" id="cedulaColaborador" placeholder="Cédula" inputmode="numeric">
+      </div>
+      <label class="foto-ingreso" id="fotoIngresoBox">
+        <input type="file" id="fileIngreso" accept="image/*" capture="user" style="display:none">
+        <span class="fi-ic" id="fiIcon"><svg class="icon icon-lg"><use href="#i-camera"/></svg></span>
+        <img class="fi-prev" id="fotoIngresoPrev" style="display:none" alt="">
+        <span class="fi-txt"><b id="fiTitle">Tu foto</b><span id="fiSub">Toca para tomarla (cámara frontal)</span></span>
+      </label>
+      <button class="btn-portada" onclick="comenzar()">Comenzar <svg class="icon"><use href="#i-arrowr"/></svg></button>
+      <div class="portada-foot">Una herramienta de <b style="color:#0FBF8B;font-weight:700">PAR SERVICIOS</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-row">
+    <svg class="logo-mini" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" aria-label="Par Servicios">
+      <text x="0" y="40" font-family="Bebas Neue, sans-serif" font-size="34" fill="#fff">PAR</text>
+      <text x="78" y="40" font-family="Bebas Neue, sans-serif" font-size="34" fill="#0FBF8B">SERVICIOS</text>
+    </svg>
+    <div class="topbar-brand"><b>Pausas Saludables</b><span>Bienestar en tu jornada</span></div>
+  </div>
+  <div class="greet"><h1 id="heroGreet">Hola</h1><p id="heroDate"></p></div>
+  <div class="pausas-counter">
+    <div class="pc-pill"><b id="cntVisual">0</b><span>Visuales</span></div>
+    <div class="pc-pill"><b id="cntAuditiva">0</b><span>Auditivas</span></div>
+    <div class="pc-pill"><b id="cntActiva">0</b><span>Activas</span></div>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+
+  <div class="tabs">
+    <button class="tab-btn active" data-mod="inicio" onclick="goTo('inicio')"><svg class="icon icon-sm"><use href="#i-user"/></svg>Inicio</button>
+    <button class="tab-btn" data-mod="pausa" onclick="goTo('pausa')"><svg class="icon icon-sm"><use href="#i-bolt"/></svg>Nueva pausa</button>
+    <button class="tab-btn" data-mod="resumen" onclick="goTo('resumen')"><svg class="icon icon-sm"><use href="#i-list"/></svg>Resumen</button>
+  </div>
+
+  <!-- INICIO -->
+  <section class="mod active" data-mod="inicio">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-user"/></svg></div>
+        <div class="card-head-text"><div class="card-title">Mi información</div><div class="card-sub">Datos del colaborador</div></div>
+      </div>
+      <div class="field"><label class="label">Área</label><input type="text" id="iArea" class="input"></div>
+      <div class="field"><label class="label">Nombre completo</label><input type="text" id="iNombre" class="input"></div>
+      <div class="field"><label class="label">Cédula</label><input type="tel" id="iCedula" class="input" inputmode="numeric"></div>
+      <div class="save-row"><button class="btn btn-primary btn-block" onclick="guardarPersona()"><svg class="icon"><use href="#i-save"/></svg>Guardar cambios</button></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-leaf"/></svg></div>
+        <div class="card-head-text"><div class="card-title">¿Por qué hacer pausas?</div><div class="card-sub">Tip del día</div></div>
+      </div>
+      <p style="font-size:13.5px;color:var(--text-main);line-height:1.65">Las pausas activas, visuales y auditivas reducen la fatiga, mejoran tu concentración y previenen lesiones por esfuerzo repetitivo. Realiza al menos 3 pausas al día, una de cada tipo.</p>
+    </div>
+  </section>
+
+  <!-- NUEVA PAUSA -->
+  <section class="mod" data-mod="pausa">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-bolt"/></svg></div>
+        <div class="card-head-text"><div class="card-title">Registrar pausa</div><div class="card-sub">Elige el tipo de pausa o reto</div></div>
+      </div>
+      <div class="field"><label class="label label-req">Tipo de pausa</label>
+        <div class="opt-grid">
+          <div class="opt"><input type="radio" name="tipoPausa" id="tpVisual" value="Visual"><label for="tpVisual"><svg class="icon"><use href="#i-eye"/></svg>Visual</label></div>
+          <div class="opt"><input type="radio" name="tipoPausa" id="tpAuditiva" value="Auditiva"><label for="tpAuditiva"><svg class="icon"><use href="#i-ear"/></svg>Auditiva</label></div>
+          <div class="opt"><input type="radio" name="tipoPausa" id="tpActiva" value="Activa"><label for="tpActiva"><svg class="icon"><use href="#i-bolt"/></svg>Activa</label></div>
+        </div>
+      </div>
+      <div id="tipBox" style="display:none">
+        <div class="tip-card" id="tipCard">
+          <span class="tip-tag" id="tipTag">Reto</span>
+          <div class="tip-title" id="tipTitle">—</div>
+          <div class="tip-desc" id="tipDesc">—</div>
+          <div class="tip-dur"><svg class="icon icon-sm"><use href="#i-clock"/></svg><span id="tipDur">—</span></div>
+        </div>
+        <button type="button" class="btn btn-soft btn-block" onclick="otroReto()"><svg class="icon icon-sm"><use href="#i-refresh"/></svg>Probar otro reto</button>
+        <div class="field" style="margin-top:16px"><label class="label">Evidencia fotográfica <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
+          <div class="upload" id="uploadPausa">
+            <input type="file" id="filePausa" accept="image/*" capture="environment">
+            <div id="defPausa"><div class="upload-ic"><svg class="icon icon-lg"><use href="#i-camera"/></svg></div><div class="upload-t">Foto de tu pausa</div><div class="upload-h">Cámara o galería</div></div>
+            <div id="prevPausa" style="display:none"><img id="imgPausa" class="preview-img"><div class="preview-act"><button type="button" class="btn btn-outline btn-sm" onclick="event.stopPropagation();document.getElementById('filePausa').click()"><svg class="icon icon-sm"><use href="#i-upload"/></svg>Cambiar</button><button type="button" class="btn btn-danger btn-sm" onclick="event.stopPropagation();quitarFotoPausa()"><svg class="icon icon-sm"><use href="#i-trash"/></svg>Quitar</button></div></div>
+          </div>
+        </div>
+        <div class="save-row"><button class="btn btn-primary btn-block" onclick="registrarPausa()"><svg class="icon"><use href="#i-check"/></svg>Marcar pausa como realizada</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUMEN -->
+  <section class="mod" data-mod="resumen">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-list"/></svg></div>
+        <div class="card-head-text"><div class="card-title">Pausas de hoy</div><div class="card-sub" id="resumenFecha">—</div></div>
+      </div>
+      <div class="sum-grid">
+        <div class="sum-cell"><b id="sumVisual">0</b><span>Visuales</span></div>
+        <div class="sum-cell"><b id="sumAuditiva">0</b><span>Auditivas</span></div>
+        <div class="sum-cell"><b id="sumActiva">0</b><span>Activas</span></div>
+      </div>
+      <div id="listaPausas"></div>
+      <div class="field" style="margin-top:6px"><label class="label">Observaciones</label><textarea id="observaciones" class="textarea" placeholder="¿Cómo te sentiste hoy?"></textarea></div>
+      <div class="save-row"><button class="btn btn-primary btn-block" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Guardar jornada</button></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottomnav">
+  <button class="nav-fab" onclick="goTo('pausa')"><svg class="icon"><use href="#i-plus"/></svg>Nueva pausa</button>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><svg class="icon icon-sm"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
+
+<!-- OVERLAYS -->
+<div class="overlay" id="loadingOverlay"><div class="modal"><div class="spinner"></div><div class="modal-msg" id="loadingMsg">Guardando...</div></div></div>
+<div class="overlay" id="successModal"><div class="modal">
+  <div class="ok-ic"><svg class="icon icon-xl"><use href="#i-check"/></svg></div>
+  <div class="ok-title">Jornada guardada</div>
+  <div class="ok-sub">Tus pausas de hoy quedaron registradas.</div>
+  <button class="btn btn-primary btn-block" onclick="cerrarModalExito()"><svg class="icon"><use href="#i-check"/></svg>Listo</button>
+</div></div>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyE5D68jF30LfY-62SYD18G5RvyE0B3iMBYawlPsh1Era4tGKbxTaDB39Nu2gkjy7DU/exec';
+const LS_KEY = 'pausas_par_v1';
+
+const TIPS = {
+  Visual: [
+    { titulo: 'Regla 20-20-20', desc: 'Mira un objeto a 6 metros de distancia durante 20 segundos. Ayuda a relajar el enfoque de tus ojos.', dur: '20 segundos' },
+    { titulo: 'Parpadeo consciente', desc: 'Parpadea lento y completo 15 veces para hidratar tus ojos y reducir la fatiga visual.', dur: '30 segundos' },
+    { titulo: 'Enfoque cercano-lejano', desc: 'Alterna la mirada entre un objeto cercano y uno lejano, 10 repeticiones.', dur: '1 minuto' }
+  ],
+  Auditiva: [
+    { titulo: 'Pausa de silencio', desc: 'Cierra los ojos y trata de identificar 3 sonidos distintos de tu entorno.', dur: '30 segundos' },
+    { titulo: 'Sonidos relajantes', desc: 'Escucha un sonido natural (lluvia, mar, viento) mientras respiras profundo.', dur: '1 minuto' },
+    { titulo: 'Respiración guiada', desc: 'Inhala contando 4 segundos, sostén 4 segundos y exhala 4 segundos. Repite 5 veces.', dur: '1 minuto' }
+  ],
+  Activa: [
+    { titulo: 'Estiramiento de cuello', desc: 'Inclina la cabeza hacia cada lado y sostén 15 segundos por lado.', dur: '30 segundos' },
+    { titulo: 'Rotación de hombros', desc: 'Realiza 10 giros de hombros hacia adelante y 10 hacia atrás.', dur: '40 segundos' },
+    { titulo: 'Estiramiento de muñecas', desc: 'Extiende los brazos y flexiona las muñecas hacia arriba y abajo, 15 segundos por lado.', dur: '30 segundos' }
+  ]
+};
+
+let persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '' };
+let pausasHoy = [];
+let fechaHoy = '';
+let tipoActual = '';
+let tipActual = null;
+let fotoPausaBase64 = '';
+let current = 'inicio';
+
+document.addEventListener('DOMContentLoaded', () => {
+  fechaHoy = new Date().toISOString().split('T')[0];
+  const ahora = new Date();
+  document.getElementById('heroDate').textContent = ahora.toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('resumenFecha').textContent = ahora.toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+
+  cargarSesion();
+
+  document.getElementById('fileIngreso').addEventListener('change', manejarFotoIngreso);
+  document.getElementById('filePausa').addEventListener('change', manejarFotoPausa);
+  document.querySelectorAll('input[name="tipoPausa"]').forEach(r => r.addEventListener('change', onTipoChange));
+});
+
+// ===== SESIÓN / PORTADA =====
+function cargarSesion() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      persona = data.persona || persona;
+      if (data.fecha === fechaHoy) pausasHoy = data.pausas || [];
+      if (data.observaciones) document.getElementById('observaciones').value = data.observaciones;
+    }
+  } catch (e) {}
+
+  if (persona.nombre && persona.cedula && persona.area) {
+    ocultarPortada();
+    aplicarPersonaUI();
+  }
+  renderPausas();
+}
+
+function manejarFotoIngreso(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    persona.fotoPerfil = ev.target.result;
+    document.getElementById('fotoIngresoPrev').src = persona.fotoPerfil;
+    document.getElementById('fotoIngresoPrev').style.display = 'block';
+    document.getElementById('fiIcon').style.display = 'none';
+    document.getElementById('fiTitle').textContent = 'Foto lista';
+    document.getElementById('fiSub').textContent = 'Toca para cambiarla';
+    document.getElementById('fotoIngresoBox').classList.add('has');
+  };
+  reader.readAsDataURL(file);
+}
+
+function comenzar() {
+  const area = document.getElementById('areaColaborador').value.trim();
+  const nombre = document.getElementById('nombreColaborador').value.trim();
+  const cedula = document.getElementById('cedulaColaborador').value.trim();
+  const err = document.getElementById('portadaErr');
+  if (!area || !nombre || !cedula || !persona.fotoPerfil) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  persona.area = area; persona.nombre = nombre; persona.cedula = cedula;
+  guardarSesionLocal();
+  ocultarPortada();
+  aplicarPersonaUI();
+}
+
+function ocultarPortada() { document.getElementById('portada').classList.add('hide'); }
+function reabrirPortada() { document.getElementById('portada').classList.remove('hide'); }
+
+function aplicarPersonaUI() {
+  document.getElementById('heroGreet').textContent = 'Hola, ' + (persona.nombre.split(' ')[0] || '');
+  document.getElementById('iArea').value = persona.area;
+  document.getElementById('iNombre').value = persona.nombre;
+  document.getElementById('iCedula').value = persona.cedula;
+}
+
+function guardarPersona() {
+  persona.area = document.getElementById('iArea').value.trim();
+  persona.nombre = document.getElementById('iNombre').value.trim();
+  persona.cedula = document.getElementById('iCedula').value.trim();
+  aplicarPersonaUI();
+  guardarSesionLocal();
+  mostrarToast('Información actualizada');
+}
+
+function guardarSesionLocal() {
+  localStorage.setItem(LS_KEY, JSON.stringify({
+    persona: persona, fecha: fechaHoy, pausas: pausasHoy,
+    observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value : ''
+  }));
+}
+
+// ===== NAVEGACIÓN =====
+function goTo(mod) {
+  current = mod;
+  document.querySelectorAll('.mod').forEach(m => m.classList.toggle('active', m.dataset.mod === mod));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.mod === mod));
+}
+
+// ===== NUEVA PAUSA =====
+function onTipoChange() {
+  tipoActual = document.querySelector('input[name="tipoPausa"]:checked').value;
+  mostrarTipAleatorio();
+}
+
+function mostrarTipAleatorio() {
+  const lista = TIPS[tipoActual];
+  tipActual = lista[Math.floor(Math.random() * lista.length)];
+  document.getElementById('tipTag').textContent = 'Reto ' + tipoActual;
+  document.getElementById('tipTitle').textContent = tipActual.titulo;
+  document.getElementById('tipDesc').textContent = tipActual.desc;
+  document.getElementById('tipDur').textContent = tipActual.dur;
+  document.getElementById('tipBox').style.display = 'block';
+}
+
+function otroReto() { mostrarTipAleatorio(); }
+
+function manejarFotoPausa(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    fotoPausaBase64 = ev.target.result;
+    document.getElementById('imgPausa').src = fotoPausaBase64;
+    document.getElementById('defPausa').style.display = 'none';
+    document.getElementById('prevPausa').style.display = 'block';
+    document.getElementById('uploadPausa').classList.add('has');
+  };
+  reader.readAsDataURL(file);
+}
+
+function quitarFotoPausa() {
+  fotoPausaBase64 = '';
+  document.getElementById('filePausa').value = '';
+  document.getElementById('defPausa').style.display = 'block';
+  document.getElementById('prevPausa').style.display = 'none';
+  document.getElementById('uploadPausa').classList.remove('has');
+}
+
+function registrarPausa() {
+  if (!tipoActual || !tipActual) { mostrarToast('Selecciona un tipo de pausa'); return; }
+  pausasHoy.push({
+    tipo: tipoActual,
+    titulo: tipActual.titulo,
+    hora: new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
+    foto: fotoPausaBase64
+  });
+  guardarSesionLocal();
+  renderPausas();
+  quitarFotoPausa();
+  document.querySelectorAll('input[name="tipoPausa"]').forEach(r => r.checked = false);
+  document.getElementById('tipBox').style.display = 'none';
+  mostrarToast('Pausa registrada · ' + tipActual.titulo);
+  tipoActual = ''; tipActual = null;
+  goTo('resumen');
+}
+
+// ===== CONTADORES Y LISTA =====
+function renderPausas() {
+  const visual = pausasHoy.filter(p => p.tipo === 'Visual').length;
+  const auditiva = pausasHoy.filter(p => p.tipo === 'Auditiva').length;
+  const activa = pausasHoy.filter(p => p.tipo === 'Activa').length;
+
+  document.getElementById('cntVisual').textContent = visual;
+  document.getElementById('cntAuditiva').textContent = auditiva;
+  document.getElementById('cntActiva').textContent = activa;
+  document.getElementById('sumVisual').textContent = visual;
+  document.getElementById('sumAuditiva').textContent = auditiva;
+  document.getElementById('sumActiva').textContent = activa;
+
+  const cont = document.getElementById('listaPausas');
+  if (!pausasHoy.length) {
+    cont.innerHTML = '<div class="empty-hint">Aún no has registrado pausas hoy.</div>';
+    return;
+  }
+  const iconos = { Visual: 'i-eye', Auditiva: 'i-ear', Activa: 'i-bolt' };
+  cont.innerHTML = pausasHoy.map((p, i) => `
+    <div class="item">
+      <div class="item-ic"><svg class="icon"><use href="#${iconos[p.tipo]}"/></svg></div>
+      <div class="item-body"><b>${p.titulo}</b><span>${p.tipo} · ${p.hora}</span></div>
+      <button type="button" class="btn btn-danger btn-sm" onclick="eliminarPausa(${i})"><svg class="icon icon-sm"><use href="#i-trash"/></svg></button>
+    </div>
+  `).join('');
+}
+
+function eliminarPausa(i) {
+  pausasHoy.splice(i, 1);
+  guardarSesionLocal();
+  renderPausas();
+}
+
+// ===== GUARDAR JORNADA EN BACKEND =====
+function finalizarJornada() {
+  if (!persona.nombre || !persona.cedula || !persona.area) {
+    mostrarToast('Completa tu información en Inicio');
+    goTo('inicio');
+    return;
+  }
+  guardarSesionLocal();
+  mostrarLoading('Guardando jornada...');
+
+  const gestion = {
+    area: persona.area,
+    nombre: persona.nombre,
+    cedula: persona.cedula,
+    fecha: fechaHoy,
+    fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil,
+    fotoPerfilURL: persona.fotoPerfilURL || '',
+    pausas: pausasHoy,
+    observaciones: document.getElementById('observaciones').value.trim(),
+    finalizada: true
+  };
+
+  fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
+    .then(r => r.json())
+    .then(res => {
+      ocultarLoading();
+      if (res && res.success) {
+        if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
+        if (res.pausas) pausasHoy = res.pausas;
+        guardarSesionLocal();
+        document.getElementById('successModal').classList.add('show');
+      } else {
+        mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
+      }
+    })
+    .catch(err => { ocultarLoading(); mostrarToast('Error de conexión: ' + err.message); });
+}
+
+function cerrarModalExito() { document.getElementById('successModal').classList.remove('show'); }
+
+// ===== UI HELPERS =====
+function mostrarLoading(msg) { document.getElementById('loadingMsg').textContent = msg; document.getElementById('loadingOverlay').classList.add('show'); }
+function ocultarLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
+function mostrarToast(msg) {
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+</script>
+</body>
+</html>
