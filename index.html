@@ -420,13 +420,7 @@
         <div class="profile-area" id="profileArea">—</div>
         <span class="profile-badge" id="profileBadge"><svg class="icon icon-sm"><use href="#i-id"/></svg><span id="profileCedula">—</span></span>
       </div>
-      <div id="datosForm">
-        <div class="field"><label class="label">Área</label><input type="text" id="iArea" class="input"></div>
-        <div class="field"><label class="label">Nombre completo</label><input type="text" id="iNombre" class="input"></div>
-        <div class="field"><label class="label">Cédula</label><input type="tel" id="iCedula" class="input" inputmode="numeric"></div>
-        <div class="save-row"><button class="btn btn-primary btn-block" id="btnCargarDatos" onclick="cargarDatosIniciales()"><svg class="icon"><use href="#i-upload"/></svg>Cargar datos</button></div>
-      </div>
-      <div class="profile-locked" id="profileLocked" style="display:none">
+      <div class="profile-locked" id="profileLocked">
         <svg class="icon icon-sm"><use href="#i-check"/></svg> Datos confirmados y guardados en el sistema. No se pueden editar.
       </div>
     </div>
@@ -562,19 +556,37 @@ const TIPS = {
     { id: 'memoria',     titulo: 'Memoria de iconos',     desc: 'Voltea las tarjetas y encuentra las 6 parejas iguales antes de que se acabe el tiempo.', dur: '75 segundos', seg: 75 },
     { id: 'colores',     titulo: 'Cazar el verde',        desc: 'Toca SOLO los círculos verdes. Si tocas otro color, suma penalización. Necesitas 12 aciertos.', dur: '40 segundos', seg: 40 },
     { id: 'diferencia',  titulo: 'Encuentra el diferente',desc: 'En cada ronda aparece una cuadrícula de iconos. Toca el único que es distinto. Completa 6 rondas.', dur: '60 segundos', seg: 60 },
-    { id: 'sopa',        titulo: 'Sopa de letras',        desc: 'Encuentra las 4 palabras de bienestar en la cuadrícula. Tócalas letra por letra.', dur: '90 segundos', seg: 90 }
+    { id: 'sopa',        titulo: 'Sopa de letras',        desc: 'Encuentra las 4 palabras de bienestar en la cuadrícula. Tócalas letra por letra.', dur: '90 segundos', seg: 90 },
+    { id: 'minas',       titulo: 'Busca minas',           desc: 'Destapa todas las casillas sin tocar las 3 minas escondidas.', dur: '90 segundos', seg: 90 },
+    { id: 'sonrisas',    titulo: 'Detector de sonrisas',  desc: 'Encuentra y toca las 6 caras felices escondidas entre las tristes.', dur: '40 segundos', seg: 40 },
+    { id: 'cazaLetras',  titulo: 'Cazar las vocales',     desc: 'Toca todas las letras "A" antes de que termine el tiempo. Hay 8 escondidas.', dur: '40 segundos', seg: 40 },
+    { id: 'mandala',     titulo: 'Pinta el mandala',      desc: 'Toca cada pétalo del mandala para pintarlo. Píntalos todos.', dur: '60 segundos', seg: 60 },
+    { id: 'enfoqueLejano',titulo: 'Enfoque lejano',       desc: 'Mira el punto verde que se aleja y se acerca. Tócalo cada vez que esté grande. Necesitas 8 toques.', dur: '50 segundos', seg: 50 },
+    { id: 'contar',      titulo: '¿Cuántos hay?',         desc: 'Cuenta cuántos iconos verdes hay y elige la respuesta correcta. 5 rondas.', dur: '50 segundos', seg: 50 }
   ],
   Auditiva: [
     { id: 'mate',        titulo: 'Reto matemático',       desc: 'Resuelve 6 operaciones mentales seguidas, sin pasarte de los 60 segundos.', dur: '60 segundos', seg: 60 },
     { id: 'triqui',      titulo: 'Triqui contra el bot',  desc: 'Empata o gana al bot. Si pierdes, no se valida.', dur: '60 segundos', seg: 60 },
     { id: 'ppt',         titulo: 'Piedra, papel o tijera',desc: 'El primero en ganar 3 rondas gana. Si pierdes el global, no se valida.', dur: '60 segundos', seg: 60 },
-    { id: 'ahorcado',    titulo: 'Adivina la palabra',    desc: 'Tienes 6 intentos para adivinar la palabra de bienestar.', dur: '90 segundos', seg: 90 }
+    { id: 'ahorcado',    titulo: 'Adivina la palabra',    desc: 'Tienes 6 intentos para adivinar la palabra de bienestar.', dur: '90 segundos', seg: 90 },
+    { id: 'sudoku',      titulo: 'Sudoku 4x4',            desc: 'Completa la cuadrícula. Cada fila, columna y bloque 2x2 debe tener los números del 1 al 4.', dur: '120 segundos', seg: 120 },
+    { id: 'adivina',     titulo: 'Adivina el número',     desc: 'Encuentra un número entre 1 y 50. Tienes 6 intentos y pistas de "más" o "menos".', dur: '60 segundos', seg: 60 },
+    { id: 'sumaRapida',  titulo: 'Suma rápida',           desc: 'Suma los 5 números que aparecen y elige el resultado correcto. 4 rondas.', dur: '60 segundos', seg: 60 },
+    { id: 'serie',       titulo: 'Completa la serie',     desc: 'Mira la secuencia y elige el número que continúa. 5 series.', dur: '60 segundos', seg: 60 },
+    { id: 'secuencia',   titulo: 'Memoriza la secuencia', desc: 'Memoriza la secuencia de colores y repítela. Cada ronda agrega un color más.', dur: '90 segundos', seg: 90 },
+    { id: 'unir',        titulo: 'Une palabras',          desc: 'Une cada palabra de bienestar con su definición. Son 4 pares.', dur: '60 segundos', seg: 60 }
   ],
   Activa: [
     { id: 'encestar',    titulo: 'Encesta la pelota',     desc: 'Toca el aro cada vez que la pelota pase por encima. Necesitas 8 canastas.', dur: '45 segundos', seg: 45 },
     { id: 'ninja',       titulo: 'Ninja de frutas',       desc: 'Toca las frutas que aparecen y NO toques las bombas. Necesitas 15 frutas.', dur: '40 segundos', seg: 40 },
     { id: 'laberinto',   titulo: 'Sal del laberinto',     desc: 'Mueve la ficha con las flechas y llega a la meta verde.', dur: '90 segundos', seg: 90 },
-    { id: 'dados21',     titulo: '21 con dados',          desc: 'Lanza los dados y acércate a 21. Si te pasas, pierdes. Si llegas a 17 o más sin pasarte, ganas.', dur: '60 segundos', seg: 60 }
+    { id: 'dados21',     titulo: '21 con dados',          desc: 'Lanza los dados y acércate a 21. Si te pasas, pierdes. Si llegas a 17 o más sin pasarte, ganas.', dur: '60 segundos', seg: 60 },
+    { id: 'tapRapido',   titulo: 'Tap rápido',            desc: 'Toca el botón 30 veces antes de que termine el tiempo.', dur: '20 segundos', seg: 20 },
+    { id: 'rompecabezas',titulo: 'Mini rompecabezas',     desc: 'Ordena las piezas deslizantes. Toca una pieza junto al hueco para moverla.', dur: '120 segundos', seg: 120 },
+    { id: 'simon',       titulo: 'Simon dice',            desc: 'Mira la secuencia de colores y repítela. Cada ronda agrega un color.', dur: '90 segundos', seg: 90 },
+    { id: 'typing',      titulo: 'Escribe rápido',        desc: 'Escribe correctamente las 5 palabras que aparecen.', dur: '60 segundos', seg: 60 },
+    { id: 'orden',       titulo: 'Orden alfabético',      desc: 'Toca las 6 palabras en orden alfabético.', dur: '40 segundos', seg: 40 },
+    { id: 'cruci',       titulo: 'Crucigrama mini',       desc: 'Completa el crucigrama de bienestar. 3 palabras conectadas.', dur: '120 segundos', seg: 120 }
   ]
 };
 
@@ -726,21 +738,18 @@ function iniciarJuego() {
   }, 1000);
 
   const area = document.getElementById('gameArea');
-  switch (tipActual.id) {
-    case 'memoria':    juegoMemoria(area); break;
-    case 'colores':    juegoColores(area); break;
-    case 'diferencia': juegoDiferencia(area); break;
-    case 'sopa':       juegoSopa(area); break;
-    case 'mate':       juegoMate(area); break;
-    case 'triqui':     juegoTriqui(area); break;
-    case 'ppt':        juegoPPT(area); break;
-    case 'ahorcado':   juegoAhorcado(area); break;
-    case 'encestar':   juegoEncestar(area); break;
-    case 'ninja':      juegoNinja(area); break;
-    case 'laberinto':  juegoLaberinto(area); break;
-    case 'dados21':    juegoDados(area); break;
-    default: area.textContent = 'Juego no disponible';
-  }
+  const map = {
+    memoria:juegoMemoria, colores:juegoColores, diferencia:juegoDiferencia, sopa:juegoSopa,
+    minas:juegoMinas, sonrisas:juegoSonrisas, cazaLetras:juegoCazaLetras, mandala:juegoMandala,
+    enfoqueLejano:juegoEnfoqueLejano, contar:juegoContar,
+    mate:juegoMate, triqui:juegoTriqui, ppt:juegoPPT, ahorcado:juegoAhorcado,
+    sudoku:juegoSudoku, adivina:juegoAdivina, sumaRapida:juegoSumaRapida, serie:juegoSerie,
+    secuencia:juegoSecuencia, unir:juegoUnir,
+    encestar:juegoEncestar, ninja:juegoNinja, laberinto:juegoLaberinto, dados21:juegoDados,
+    tapRapido:juegoTapRapido, rompecabezas:juegoRompecabezas, simon:juegoSimon,
+    typing:juegoTyping, orden:juegoOrden, cruci:juegoCruci
+  };
+  (map[tipActual.id] || (a => { a.textContent = 'Juego no disponible'; }))(area);
 }
 
 function juegoCompletado() {
@@ -1023,6 +1032,233 @@ function juegoDados(area) {
   document.getElementById('dadP').onclick = plantar;
 }
 
+// ============ 13. BUSCA MINAS (5x5, 3 minas) ============
+function juegoMinas(area){
+  const N=5, NM=3; const minas=new Set(); while(minas.size<NM) minas.add(Math.floor(Math.random()*N*N));
+  let abiertas=0; const seguras = N*N - NM;
+  area.innerHTML='<div class="ppt-info">Destapa todas las casillas <b>sin tocar las 3 minas</b></div><div class="dif-grid" id="mnG" style="grid-template-columns:repeat(5,1fr)"></div>';
+  const g=document.getElementById('mnG');
+  function vec(i){ const r=Math.floor(i/N), c=i%N; let n=0; for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){const nr=r+dr,nc=c+dc; if(nr<0||nc<0||nr>=N||nc>=N) continue; if (minas.has(nr*N+nc)) n++;} return n; }
+  for(let i=0;i<N*N;i++){ const c=document.createElement('div'); c.className='dif-cell'; c.textContent='?'; c.style.background='var(--bg-surface)'; c.style.borderColor='var(--border-light)'; c.style.color='var(--text-muted)';
+    c.onclick=()=>{ if(c.dataset.open) return; c.dataset.open=1; if (minas.has(i)){ c.textContent='💣'; c.style.background='#FEF2F2'; c.style.color='#DC2626'; mostrarToast('¡Pisaste una mina!'); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); return; } const n=vec(i); c.textContent=n||'·'; c.style.background='var(--brand-green-soft)'; c.style.color='var(--brand-green-deep)'; c.style.borderColor='var(--brand-green)'; abiertas++; if (abiertas>=seguras) juegoCompletado(); };
+    g.appendChild(c);
+  }
+}
+
+// ============ 14. DETECTOR DE SONRISAS ============
+function juegoSonrisas(area){
+  let aciertos=0; const META=6;
+  area.innerHTML='<div class="ppt-info">Toca las <b>caras felices</b> 😊 entre las tristes 😢. Necesitas '+META+'</div><div class="dif-grid" id="snG" style="grid-template-columns:repeat(5,1fr)"></div>';
+  const g=document.getElementById('snG');
+  function gen(){
+    g.innerHTML='';
+    for(let i=0;i<25;i++){ const c=document.createElement('div'); c.className='dif-cell';
+      const feliz = Math.random()<.28; c.textContent=feliz?'😊':'😢';
+      c.onclick=()=>{ if (feliz){ aciertos++; c.textContent='✅'; c.style.background='var(--brand-green-soft)'; if (aciertos>=META) juegoCompletado(); else if (![...g.children].some(x=>x.textContent==='😊')) gen(); } else { mostrarToast('Esa estaba triste'); }};
+      g.appendChild(c);
+    }
+  }
+  gen();
+}
+
+// ============ 15. CAZA LAS VOCALES (A) ============
+function juegoCazaLetras(area){
+  let aciertos=0; const META=8;
+  area.innerHTML='<div class="ppt-info">Toca TODAS las letras <b>A</b>. Necesitas '+META+'</div><div class="dif-grid" id="czG" style="grid-template-columns:repeat(6,1fr)"></div>';
+  const g=document.getElementById('czG');
+  const posA = new Set(); while (posA.size<META) posA.add(Math.floor(Math.random()*30));
+  for(let i=0;i<30;i++){ const c=document.createElement('div'); c.className='dif-cell'; c.style.fontSize='18px';
+    c.textContent = posA.has(i) ? 'A' : 'BCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(Math.random()*25));
+    c.onclick=()=>{ if (c.dataset.d) return; if (c.textContent==='A'){ c.dataset.d=1; c.style.background='var(--brand-green-soft)'; c.style.color='var(--brand-green-deep)'; aciertos++; if (aciertos>=META) juegoCompletado(); } else { mostrarToast('Esa no es A'); } };
+    g.appendChild(c);
+  }
+}
+
+// ============ 16. MANDALA ============
+function juegoMandala(area){
+  const N=12; let pintados=0;
+  area.innerHTML='<div class="ppt-info">Toca cada pétalo para pintarlo</div><svg viewBox="-100 -100 200 200" width="240" height="240" id="mdSVG" style="margin:0 auto;display:block"></svg>';
+  const svg=document.getElementById('mdSVG');
+  for(let i=0;i<N;i++){
+    const a=(i/N)*Math.PI*2; const x=Math.cos(a)*60, y=Math.sin(a)*60;
+    const p=document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    p.setAttribute('cx',x); p.setAttribute('cy',y); p.setAttribute('rx',24); p.setAttribute('ry',12);
+    p.setAttribute('transform','rotate('+(i*30)+' '+x+' '+y+')'); p.setAttribute('fill','#E5EAF0'); p.setAttribute('stroke','#3D4A5C'); p.setAttribute('stroke-width','1.5'); p.style.cursor='pointer';
+    p.onclick=()=>{ if (p.dataset.d) return; p.dataset.d=1; p.setAttribute('fill','#0FBF8B'); pintados++; if (pintados>=N) juegoCompletado(); };
+    svg.appendChild(p);
+  }
+  const cen=document.createElementNS('http://www.w3.org/2000/svg','circle'); cen.setAttribute('cx',0); cen.setAttribute('cy',0); cen.setAttribute('r',24); cen.setAttribute('fill','#0A9E72'); svg.appendChild(cen);
+}
+
+// ============ 17. ENFOQUE LEJANO ============
+function juegoEnfoqueLejano(area){
+  let toques=0; const META=8;
+  area.innerHTML='<div class="ppt-info">Toca el punto <b>solo cuando esté GRANDE</b>. Necesitas '+META+'</div><div style="position:relative;width:100%;height:220px;display:flex;align-items:center;justify-content:center"><div id="elDot" style="width:30px;height:30px;border-radius:50%;background:#0FBF8B;cursor:pointer;transition:transform 1.4s ease-in-out"></div></div><div class="ppt-score" id="elSc">0 / '+META+'</div>';
+  let grande=false; const dot=document.getElementById('elDot');
+  const fase=()=>{ grande=!grande; dot.style.transform=grande?'scale(3.5)':'scale(.6)'; };
+  fase(); ti(fase, 1500);
+  dot.onclick=()=>{ if (grande){ toques++; document.getElementById('elSc').textContent=toques+' / '+META; if (toques>=META) juegoCompletado(); } else { mostrarToast('Espera a que esté grande'); } };
+}
+
+// ============ 18. ¿CUÁNTOS HAY? ============
+function juegoContar(area){
+  let ronda=0;
+  function gen(){ if (gameTerminado) return; if (ronda>=5){ juegoCompletado(); return; }
+    const total = 12 + Math.floor(Math.random()*9); const verdes = 3 + Math.floor(Math.random()*7);
+    const cells = Array(total).fill(0); for(let k=0;k<verdes;k++){ let j; do{j=Math.floor(Math.random()*total);}while(cells[j]); cells[j]=1; }
+    area.innerHTML='<div class="ppt-info">¿Cuántos iconos <b style="color:#0FBF8B">verdes</b> hay? · '+(ronda+1)+'/5</div><div class="dif-grid" id="ctG" style="grid-template-columns:repeat(5,1fr)"></div><div class="mate-opts" id="ctO" style="max-width:260px"></div>';
+    const g=document.getElementById('ctG'); cells.forEach(v=>{ const c=document.createElement('div'); c.className='dif-cell'; c.textContent='●'; c.style.color = v?'#0FBF8B':'#5B6878'; g.appendChild(c); });
+    const opts=[verdes, verdes+1, verdes-1, verdes+2].sort(()=>Math.random()-.5);
+    const o=document.getElementById('ctO');
+    opts.forEach(v=>{ const b=document.createElement('button'); b.className='mate-opt'; b.textContent=v; b.onclick=()=>{ if (v===verdes){ ronda++; gen(); } else { mostrarToast('Cuenta otra vez'); } }; o.appendChild(b); });
+  }
+  gen();
+}
+
+// ============ 19. SUDOKU 4x4 ============
+function juegoSudoku(area){
+  const sol=[[1,2,3,4],[3,4,1,2],[2,1,4,3],[4,3,2,1]]; const tab=sol.map(r=>r.slice());
+  const huecos=8; let h=0; while(h<huecos){ const r=Math.floor(Math.random()*4), c=Math.floor(Math.random()*4); if (tab[r][c]!==0){ tab[r][c]=0; h++; } }
+  area.innerHTML='<div class="ppt-info">Llena la cuadrícula con <b>1-4</b>. Sin repetir en fila, columna ni bloque.</div><div class="mem-grid" id="sdG" style="max-width:240px;grid-template-columns:repeat(4,1fr);gap:4px"></div>';
+  const g=document.getElementById('sdG');
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    if (tab[r][c]!==0){ const d=document.createElement('div'); d.className='mem-card match'; d.style.fontSize='22px'; d.textContent=tab[r][c]; g.appendChild(d); }
+    else { const inp=document.createElement('input'); inp.type='tel'; inp.maxLength=1; inp.style.cssText='aspect-ratio:1;border:2px solid var(--brand-green);border-radius:10px;text-align:center;font-size:20px;font-weight:700;color:var(--brand-green-dark);background:#fff';
+      inp.oninput=()=>{ const v=parseInt(inp.value)||0; tab[r][c]=v; if (v===sol[r][c]) inp.style.background='var(--brand-green-soft)'; else inp.style.background='#fff'; if (tab.flat().every((v,i)=>v===sol.flat()[i])) juegoCompletado(); };
+      g.appendChild(inp);
+    }
+  }
+}
+
+// ============ 20. ADIVINA EL NÚMERO ============
+function juegoAdivina(area){
+  const N=Math.floor(Math.random()*50)+1; let intentos=6;
+  area.innerHTML='<div class="ppt-info">Encuentra un número <b>entre 1 y 50</b></div><div class="mate-prog" id="adP">Intentos: 6</div><div class="mate-q" id="adH">¿?</div><div style="display:flex;gap:6px;max-width:260px;margin:0 auto"><input id="adI" type="tel" inputmode="numeric" placeholder="Tu número" style="flex:1;padding:13px;border:1.5px solid var(--border-light);border-radius:10px;font-size:16px"><button class="btn btn-primary" onclick="adGuess()">OK</button></div>';
+  window.adGuess=()=>{ if (gameTerminado) return; const v=parseInt(document.getElementById('adI').value); if (!v) return; intentos--; document.getElementById('adP').textContent='Intentos: '+intentos;
+    if (v===N){ juegoCompletado(); } else if (intentos<=0){ mostrarToast('Era '+N); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); } else { document.getElementById('adH').textContent = v<N?'MÁS ↑':'MENOS ↓'; document.getElementById('adI').value=''; }
+  };
+}
+
+// ============ 21. SUMA RÁPIDA ============
+function juegoSumaRapida(area){
+  let r=0;
+  function gen(){ if (gameTerminado) return; if (r>=4){ juegoCompletado(); return; }
+    const ns=Array.from({length:5},()=>Math.floor(Math.random()*15)+1); const s=ns.reduce((a,b)=>a+b);
+    const opts=[s,s+3,s-2,s+5].sort(()=>Math.random()-.5);
+    area.innerHTML='<div class="mate-prog">'+(r+1)+' / 4</div><div class="mate-q" style="font-size:32px">'+ns.join(' + ')+'</div><div class="mate-opts" id="srO"></div>';
+    const o=document.getElementById('srO'); opts.forEach(v=>{ const b=document.createElement('button'); b.className='mate-opt'; b.textContent=v; b.onclick=()=>{ if (v===s){ r++; gen(); } else { mostrarToast('No, intenta'); } }; o.appendChild(b); });
+  }
+  gen();
+}
+
+// ============ 22. COMPLETA LA SERIE ============
+function juegoSerie(area){
+  const series=[[2,4,6,8,10,12],[1,3,5,7,9,11],[5,10,15,20,25,30],[3,6,9,12,15,18],[1,2,4,8,16,32],[2,5,8,11,14,17]]; let r=0;
+  function gen(){ if (gameTerminado) return; if (r>=5){ juegoCompletado(); return; }
+    const s=series[r%series.length]; const visible=s.slice(0,5); const correcto=s[5];
+    const opts=[correcto, correcto+1, correcto-2, correcto+3].sort(()=>Math.random()-.5);
+    area.innerHTML='<div class="mate-prog">'+(r+1)+' / 5</div><div class="mate-q" style="font-size:30px">'+visible.join(', ')+', ?</div><div class="mate-opts" id="seO"></div>';
+    const o=document.getElementById('seO'); opts.forEach(v=>{ const b=document.createElement('button'); b.className='mate-opt'; b.textContent=v; b.onclick=()=>{ if (v===correcto){ r++; gen(); } else { mostrarToast('Inténtalo'); } }; o.appendChild(b); });
+  }
+  gen();
+}
+
+// ============ 23. MEMORIZA SECUENCIA ============
+function juegoSecuencia(area){
+  const cols=['#FF5252','#3B82F6','#F59E0B','#0FBF8B']; let sec=[], jug=[], nivel=0;
+  area.innerHTML='<div class="ppt-info" id="seqI">Ronda 1 · Memoriza</div><div class="opt-grid" id="seqG" style="max-width:260px;margin:0 auto;grid-template-columns:repeat(2,1fr);gap:10px"></div>';
+  const g=document.getElementById('seqG');
+  cols.forEach((c,i)=>{ const b=document.createElement('button'); b.className='ppt-opt'; b.dataset.i=i; b.style.background=c; b.style.height='70px'; b.style.color='#fff'; b.onclick=()=>play(i,b); g.appendChild(b); });
+  function reproducir(){
+    document.getElementById('seqI').textContent='Ronda '+(nivel+1)+' · Memoriza';
+    sec.push(Math.floor(Math.random()*4)); let i=0;
+    const it = setInterval(()=>{ if (i>=sec.length){ clearInterval(it); document.getElementById('seqI').textContent='Tu turno'; jug=[]; return; } const btn=g.children[sec[i]]; btn.style.filter='brightness(1.6)'; tk(()=>btn.style.filter='',300); i++; }, 600);
+    gameTimers.push(it);
+  }
+  function play(i,btn){ if (gameTerminado) return; btn.style.filter='brightness(1.6)'; tk(()=>btn.style.filter='',200); jug.push(i);
+    if (jug[jug.length-1] !== sec[jug.length-1]){ mostrarToast('Te equivocaste'); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); return; }
+    if (jug.length===sec.length){ nivel++; if (nivel>=5){ juegoCompletado(); return; } tk(reproducir,700); }
+  }
+  reproducir();
+}
+
+// ============ 24. UNIR PALABRAS ============
+function juegoUnir(area){
+  const pares=[['SALUD','Estado de bienestar físico'],['PAUSA','Detenerse para recuperar'],['CALMA','Estado de paz interior'],['ENERGÍA','Fuerza vital del cuerpo']];
+  let sel=null, hechas=0;
+  area.innerHTML='<div class="ppt-info">Une cada palabra con su definición</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="unG"></div>';
+  const g=document.getElementById('unG');
+  const palabras=pares.map((p,i)=>({t:p[0],i,k:'p'})); const defs=pares.map((p,i)=>({t:p[1],i,k:'d'}));
+  [...palabras,...defs.slice().sort(()=>Math.random()-.5)].forEach(o=>{ const b=document.createElement('button'); b.className='mate-opt'; b.style.fontSize='13px'; b.style.padding='10px'; b.textContent=o.t; b.dataset.i=o.i; b.dataset.k=o.k;
+    b.onclick=()=>{ if (b.classList.contains('match')) return; if (!sel){ sel=b; b.style.background='var(--brand-green-soft)'; return; } if (sel.dataset.k===b.dataset.k){ sel.style.background=''; sel=b; b.style.background='var(--brand-green-soft)'; return; } if (sel.dataset.i===b.dataset.i){ sel.classList.add('match'); b.classList.add('match'); sel.style.background='var(--brand-green)'; sel.style.color='#fff'; b.style.background='var(--brand-green)'; b.style.color='#fff'; hechas++; sel=null; if (hechas>=pares.length) juegoCompletado(); } else { mostrarToast('No coinciden'); sel.style.background=''; sel=null; } };
+    g.appendChild(b);
+  });
+}
+
+// ============ 25. TAP RÁPIDO ============
+function juegoTapRapido(area){
+  let n=0; const META=30;
+  area.innerHTML='<div class="ppt-info">Toca el botón <b>'+META+' veces</b></div><div class="ppt-score" id="tpS">0 / '+META+'</div><button class="btn btn-primary" id="tpB" style="min-height:130px;font-size:24px;margin-top:14px;width:100%">TOCA AQUÍ</button>';
+  document.getElementById('tpB').onclick=()=>{ n++; document.getElementById('tpS').textContent=n+' / '+META; if (n>=META) juegoCompletado(); };
+}
+
+// ============ 26. ROMPECABEZAS DESLIZANTE 3x3 ============
+function juegoRompecabezas(area){
+  const tab=[1,2,3,4,5,6,7,8,0]; for(let k=0;k<60;k++){ const v=Math.floor(Math.random()*4); const i=tab.indexOf(0); const r=Math.floor(i/3),c=i%3; const opts=[[-1,0],[1,0],[0,-1],[0,1]][v]; const nr=r+opts[0],nc=c+opts[1]; if (nr<0||nc<0||nr>=3||nc>=3) continue; const ni=nr*3+nc; tab[i]=tab[ni]; tab[ni]=0; }
+  area.innerHTML='<div class="ppt-info">Ordena del 1 al 8. Toca una pieza junto al hueco para moverla.</div><div class="mem-grid" id="rpG" style="max-width:240px;grid-template-columns:repeat(3,1fr)"></div>';
+  function pintar(){
+    const g=document.getElementById('rpG'); g.innerHTML='';
+    tab.forEach((v,i)=>{ const c=document.createElement('button'); c.className='mem-card'; if (v===0){ c.style.background='transparent'; c.style.border='none'; } else { c.classList.add('flip'); c.textContent=v; c.onclick=()=>mov(i); } g.appendChild(c); });
+  }
+  function mov(i){ const h=tab.indexOf(0); const r=Math.floor(i/3),c=i%3, hr=Math.floor(h/3),hc=h%3; if (Math.abs(r-hr)+Math.abs(c-hc)!==1) return; tab[h]=tab[i]; tab[i]=0; pintar();
+    if (tab.slice(0,8).every((v,i)=>v===i+1)) juegoCompletado();
+  }
+  pintar();
+}
+
+// ============ 27. SIMON ============
+function juegoSimon(area){ juegoSecuencia(area); }
+
+// ============ 28. TYPING ============
+function juegoTyping(area){
+  const palabras=['salud','pausa','calma','bienestar','energia']; let r=0;
+  function gen(){ if (gameTerminado) return; if (r>=palabras.length){ juegoCompletado(); return; }
+    const p=palabras[r];
+    area.innerHTML='<div class="mate-prog">'+(r+1)+' / '+palabras.length+'</div><div class="mate-q">'+p.toUpperCase()+'</div><input id="tyI" type="text" autocapitalize="none" autocomplete="off" placeholder="escribe aquí" style="width:100%;padding:14px;border:2px solid var(--brand-green);border-radius:12px;font-size:18px;text-align:center;text-transform:lowercase">';
+    const i=document.getElementById('tyI'); i.focus(); i.oninput=()=>{ if (i.value.trim().toLowerCase()===p){ r++; gen(); } };
+  }
+  gen();
+}
+
+// ============ 29. ORDEN ALFABÉTICO ============
+function juegoOrden(area){
+  const ws=['BIENESTAR','CALMA','DESCANSO','ENERGÍA','SALUD','VIDA']; const ord=ws.slice().sort(); const baraja=ws.slice().sort(()=>Math.random()-.5); let i=0;
+  area.innerHTML='<div class="ppt-info">Toca en <b>orden alfabético</b> (de A a Z)</div><div class="mate-opts" id="orG" style="max-width:280px;grid-template-columns:1fr 1fr"></div>';
+  const g=document.getElementById('orG');
+  baraja.forEach(w=>{ const b=document.createElement('button'); b.className='mate-opt'; b.textContent=w; b.style.fontSize='13px'; b.style.padding='12px';
+    b.onclick=()=>{ if (b.classList.contains('match')) return; if (w===ord[i]){ b.classList.add('match'); b.style.background='var(--brand-green)'; b.style.color='#fff'; i++; if (i>=ord.length) juegoCompletado(); } else { mostrarToast('Empieza por: '+ord[i]); } };
+    g.appendChild(b);
+  });
+}
+
+// ============ 30. CRUCIGRAMA MINI ============
+function juegoCruci(area){
+  // Crucigrama 7x7 con SALUD horizontal y PAUSA vertical cruzando en 'A', CALMA vertical
+  const palabras=[{t:'SALUD',r:3,c:1,h:true},{t:'PAUSA',r:1,c:2,h:false},{t:'CALMA',r:3,c:4,h:false}];
+  const N=7; const grid=Array.from({length:N},()=>Array(N).fill(null));
+  palabras.forEach(p=>{ for(let k=0;k<p.t.length;k++){ const r=p.r+(p.h?0:k), c=p.c+(p.h?k:0); grid[r][c]={l:p.t[k],in:''}; } });
+  area.innerHTML='<div class="ppt-info">Completa las palabras de bienestar</div><div class="sopa-grid" id="ccG" style="grid-template-columns:repeat('+N+',1fr);max-width:260px"></div><div class="sopa-tags"><span class="sopa-tag">SALUD →</span><span class="sopa-tag">PAUSA ↓</span><span class="sopa-tag">CALMA ↓</span></div>';
+  const g=document.getElementById('ccG');
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    const cel=grid[r][c];
+    if (!cel){ const d=document.createElement('div'); d.style.background='transparent'; g.appendChild(d); }
+    else { const inp=document.createElement('input'); inp.maxLength=1; inp.style.cssText='aspect-ratio:1;width:100%;border:1.5px solid var(--brand-green);border-radius:5px;text-align:center;font-weight:700;text-transform:uppercase;background:#fff;color:var(--brand-green-dark)';
+      inp.oninput=()=>{ cel.in=(inp.value||'').toUpperCase(); inp.value=cel.in; if (cel.in===cel.l) inp.style.background='var(--brand-green-soft)'; else inp.style.background='#fff'; if (palabras.every(p=>{for(let k=0;k<p.t.length;k++){const rr=p.r+(p.h?0:k),cc=p.c+(p.h?k:0); if (grid[rr][cc].in!==p.t[k]) return false;} return true;})) juegoCompletado(); };
+      g.appendChild(inp);
+    }
+  }
+}
+
 // alias
 function detenerActividad(){ pararJuego(); }
 
@@ -1051,13 +1287,31 @@ function cargarSesion() {
   actualizarEstadoSalida();
 }
 
+function comprimirImagen(dataUrl, maxLado) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const lado = Math.max(img.width, img.height);
+      const escala = lado > maxLado ? maxLado / lado : 1;
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * escala);
+      c.height = Math.round(img.height * escala);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      resolve(c.toDataURL('image/jpeg', 0.75));
+    };
+    img.onerror = () => resolve(dataUrl);
+    img.src = dataUrl;
+  });
+}
+
 function manejarFotoIngreso(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = (ev) => {
-    persona.fotoPerfil = ev.target.result;
-    document.getElementById('fotoIngresoPrev').src = persona.fotoPerfil;
+  reader.onload = async (ev) => {
+    const comprimida = await comprimirImagen(ev.target.result, 480);
+    persona.fotoPerfil = comprimida;
+    document.getElementById('fotoIngresoPrev').src = comprimida;
     document.getElementById('fotoIngresoPrev').style.display = 'block';
     document.getElementById('fiIcon').style.display = 'none';
     document.getElementById('fiTitle').textContent = 'Foto lista';
@@ -1079,9 +1333,25 @@ function comenzar() {
   err.style.display = 'none';
   persona.area = area; persona.nombre = nombre; persona.cedula = cedula;
   if (!horaIngreso) horaIngreso = new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  persona.datosConfirmados = true;
   guardarSesionLocal();
   ocultarPortada();
   aplicarPersonaUI();
+  mostrarToast('Datos guardándose en el sistema...');
+
+  // Disparar guardado en segundo plano (fire-and-forget)
+  const gestion = {
+    area: persona.area, nombre: persona.nombre, cedula: persona.cedula, fecha: fechaHoy,
+    fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil, fotoPerfilURL: persona.fotoPerfilURL || '',
+    pausas: pausasHoy, horaIngreso: horaIngreso, horaSalida: '', observaciones: '', finalizada: false
+  };
+  fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
+    .then(r => r.json()).then(res => {
+      if (res && res.success) {
+        if (res.fotoPerfilURL) { persona.fotoPerfilURL = res.fotoPerfilURL; guardarSesionLocal(); aplicarPersonaUI(); }
+        mostrarToast('Datos guardados correctamente');
+      } else { mostrarToast('Error al guardar: ' + (res && res.error || 'desconocido')); }
+    }).catch(e => mostrarToast('Conexión lenta, reintenta más tarde'));
 }
 
 function ocultarPortada() { document.getElementById('portada').classList.add('hide'); }
@@ -1089,9 +1359,6 @@ function reabrirPortada() { document.getElementById('portada').classList.remove(
 
 function aplicarPersonaUI() {
   document.getElementById('heroGreet').textContent = 'Hola, ' + (persona.nombre.split(' ')[0] || '');
-  document.getElementById('iArea').value = persona.area;
-  document.getElementById('iNombre').value = persona.nombre;
-  document.getElementById('iCedula').value = persona.cedula;
   document.getElementById('profileNombre').textContent = persona.nombre || '—';
   document.getElementById('profileArea').textContent = persona.area || '—';
   document.getElementById('profileCedula').textContent = persona.cedula || '—';
@@ -1101,47 +1368,15 @@ function aplicarPersonaUI() {
   const profAv = document.getElementById('profileAvatar');
   if (foto) {
     topAv.classList.add('has');
-    topAv.innerHTML = '<img src="' + foto + '" alt="">';
+    topAv.innerHTML = '<img src="' + foto + '" alt="" onerror="this.style.display=\'none\'">';
     profAv.src = foto;
     profAv.style.display = 'block';
+    profAv.onerror = () => {
+      if (persona.fotoPerfil && profAv.src !== persona.fotoPerfil) profAv.src = persona.fotoPerfil;
+      else { profAv.style.display = 'none'; document.getElementById('profileAvatarIc').style.display = 'flex'; }
+    };
     document.getElementById('profileAvatarIc').style.display = 'none';
   }
-
-  document.getElementById('datosForm').style.display = persona.datosConfirmados ? 'none' : 'block';
-  document.getElementById('profileLocked').style.display = persona.datosConfirmados ? 'flex' : 'none';
-}
-
-function cargarDatosIniciales() {
-  const area = document.getElementById('iArea').value.trim();
-  const nombre = document.getElementById('iNombre').value.trim();
-  const cedula = document.getElementById('iCedula').value.trim();
-  if (!area || !nombre || !cedula) { mostrarToast('Completa área, nombre y cédula'); return; }
-  persona.area = area; persona.nombre = nombre; persona.cedula = cedula;
-  if (!horaIngreso) horaIngreso = new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  guardarSesionLocal();
-  aplicarPersonaUI();
-
-  mostrarLoading('Cargando datos al sistema...');
-  const gestion = {
-    area: persona.area, nombre: persona.nombre, cedula: persona.cedula, fecha: fechaHoy,
-    fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil, fotoPerfilURL: persona.fotoPerfilURL || '',
-    pausas: pausasHoy, horaIngreso: horaIngreso, horaSalida: '', observaciones: '', finalizada: false
-  };
-  fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
-    .then(r => r.json())
-    .then(res => {
-      ocultarLoading();
-      if (res && res.success) {
-        if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
-        persona.datosConfirmados = true;
-        guardarSesionLocal();
-        aplicarPersonaUI();
-        mostrarToast('Datos cargados al Sheets correctamente');
-      } else {
-        mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
-      }
-    })
-    .catch(err => { ocultarLoading(); mostrarToast('Error de conexión: ' + err.message); });
 }
 
 function guardarSesionLocal() {
@@ -1183,42 +1418,86 @@ function quitarFotoPausa(){}
 
 // ===== CERTIFICADO PNG =====
 function generarCertificadoBase64() {
+  const W = 1000, H = 700;
   const c = document.createElement('canvas');
-  c.width = 900; c.height = 600;
+  c.width = W; c.height = H;
   const ctx = c.getContext('2d');
-  // fondo
-  const gr = ctx.createLinearGradient(0,0,900,600);
-  gr.addColorStop(0,'#FAFCFE'); gr.addColorStop(1,'#E6F9F2');
-  ctx.fillStyle = gr; ctx.fillRect(0,0,900,600);
-  // borde
-  ctx.strokeStyle = '#0FBF8B'; ctx.lineWidth = 10; ctx.strokeRect(20,20,860,560);
-  ctx.strokeStyle = '#086B4D'; ctx.lineWidth = 2; ctx.strokeRect(40,40,820,520);
-  // header
-  ctx.fillStyle = '#0A9E72'; ctx.fillRect(40,40,820,80);
-  ctx.fillStyle = '#fff'; ctx.font = 'bold 34px Arial'; ctx.textAlign='center';
-  ctx.fillText('PAR SERVICIOS · PAUSAS SALUDABLES', 450, 92);
-  // titulo
-  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 46px Georgia'; ctx.fillText('CERTIFICADO DE BIENESTAR', 450, 200);
-  // texto
-  ctx.fillStyle = '#3D4A5C'; ctx.font = '20px Arial';
-  ctx.fillText('Se otorga el presente certificado a', 450, 250);
-  ctx.fillStyle = '#0A9E72'; ctx.font = 'bold 38px Georgia';
-  ctx.fillText(persona.nombre.toUpperCase(), 450, 305);
+
+  // Fondo crema con textura sutil
+  ctx.fillStyle = '#FAFCFE'; ctx.fillRect(0,0,W,H);
+  // Esquinas decorativas (halo verde radial)
+  const halo1 = ctx.createRadialGradient(0,0,0,0,0,400); halo1.addColorStop(0,'rgba(15,191,139,.22)'); halo1.addColorStop(1,'rgba(15,191,139,0)');
+  ctx.fillStyle = halo1; ctx.fillRect(0,0,W,H);
+  const halo2 = ctx.createRadialGradient(W,H,0,W,H,420); halo2.addColorStop(0,'rgba(10,158,114,.18)'); halo2.addColorStop(1,'rgba(10,158,114,0)');
+  ctx.fillStyle = halo2; ctx.fillRect(0,0,W,H);
+
+  // Marco doble con esquinas redondeadas
+  rr(ctx, 30, 30, W-60, H-60, 18); ctx.lineWidth = 6; ctx.strokeStyle = '#0FBF8B'; ctx.stroke();
+  rr(ctx, 50, 50, W-100, H-100, 12); ctx.lineWidth = 1.5; ctx.strokeStyle = '#0A9E72'; ctx.stroke();
+
+  // Banda superior verde
+  ctx.fillStyle = '#0A9E72'; rr(ctx, 50, 50, W-100, 96, 12); ctx.fill();
+  // Logo simulado (círculo verde con hojita)
+  ctx.fillStyle = '#FAFCFE'; ctx.beginPath(); ctx.arc(120, 98, 30, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#0FBF8B'; ctx.beginPath(); ctx.moveTo(120,80); ctx.quadraticCurveTo(140,98,120,120); ctx.quadraticCurveTo(100,98,120,80); ctx.fill();
+  ctx.fillStyle = '#0A9E72'; ctx.beginPath(); ctx.moveTo(120,80); ctx.quadraticCurveTo(140,98,120,120); ctx.lineTo(120,80); ctx.fill();
+  // Texto banda
+  ctx.fillStyle = '#FAFCFE'; ctx.textAlign='left';
+  ctx.font = 'bold 28px Arial'; ctx.fillText('PAR SERVICIOS', 175, 92);
+  ctx.font = '14px Arial'; ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.fillText('Programa de Bienestar Laboral · Pausas Saludables', 175, 118);
+  // Sello redondo a la derecha
+  ctx.strokeStyle = '#FAFCFE'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(W-110, 98, 36, 0, Math.PI*2); ctx.stroke();
+  ctx.font = 'bold 11px Arial'; ctx.textAlign='center'; ctx.fillStyle = '#FAFCFE';
+  ctx.fillText('VERIFICADO', W-110, 92); ctx.fillText('PAR', W-110, 108);
+
+  // Cuerpo
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#5B6878'; ctx.font = '15px Arial';
+  ctx.fillText('SE OTORGA EL PRESENTE RECONOCIMIENTO A', W/2, 210);
+
+  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 50px Georgia';
+  ctx.fillText(persona.nombre.toUpperCase(), W/2, 270);
+
+  ctx.fillStyle = '#3D4A5C'; ctx.font = '16px Arial';
+  ctx.fillText('Cédula ' + persona.cedula + '   ·   Área ' + persona.area, W/2, 302);
+
+  // Línea decorativa
+  ctx.strokeStyle = '#0FBF8B'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(W/2 - 60, 322); ctx.lineTo(W/2 + 60, 322); ctx.stroke();
+  ctx.fillStyle = '#0FBF8B'; ctx.beginPath(); ctx.arc(W/2, 322, 4, 0, Math.PI*2); ctx.fill();
+
   ctx.fillStyle = '#3D4A5C'; ctx.font = '18px Arial';
-  ctx.fillText('CC ' + persona.cedula + ' · Área: ' + persona.area, 450, 335);
-  ctx.font = '20px Arial';
-  ctx.fillText('Por completar exitosamente la pausa saludable', 450, 380);
-  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 26px Arial';
-  ctx.fillText('"' + tipActual.titulo + '" · ' + tipoActual, 450, 415);
-  // fecha
-  ctx.fillStyle = '#5B6878'; ctx.font = '16px Arial';
-  ctx.fillText('Fecha: ' + new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'}) + ' · Hora: ' + new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}), 450, 480);
-  // firma
-  ctx.strokeStyle = '#0A9E72'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(330,530); ctx.lineTo(570,530); ctx.stroke();
-  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 14px Arial';
-  ctx.fillText('PAR SERVICIOS · Bienestar Laboral', 450, 555);
+  ctx.fillText('Por completar exitosamente la pausa saludable', W/2, 365);
+
+  // Banner del juego
+  rr(ctx, W/2 - 280, 390, 560, 80, 14);
+  ctx.fillStyle = '#E6F9F2'; ctx.fill();
+  ctx.strokeStyle = '#0FBF8B'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = '#0A9E72'; ctx.font = 'bold 13px Arial';
+  ctx.fillText('PAUSA ' + tipoActual.toUpperCase(), W/2, 415);
+  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 26px Georgia';
+  ctx.fillText(tipActual.titulo, W/2, 450);
+
+  // Fecha y hora
+  const ahora = new Date();
+  ctx.fillStyle = '#5B6878'; ctx.font = '14px Arial';
+  ctx.fillText('Realizada el ' + ahora.toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'}) + ' a las ' + ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}), W/2, 500);
+
+  // Pie con firma estilizada
+  ctx.strokeStyle = '#0A9E72'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(W/2 - 120, 590); ctx.lineTo(W/2 + 120, 590); ctx.stroke();
+  ctx.fillStyle = '#086B4D'; ctx.font = 'italic bold 18px Georgia';
+  ctx.fillText('Bienestar PAR', W/2, 615);
+  ctx.fillStyle = '#5B6878'; ctx.font = '12px Arial';
+  ctx.fillText('Departamento de Bienestar Laboral · PAR SERVICIOS', W/2, 635);
+  ctx.font = '10px Arial'; ctx.fillStyle = '#9aa3b0';
+  ctx.fillText('Documento generado automáticamente — ID: ' + Date.now().toString(36).toUpperCase(), W/2, 658);
+
   return c.toDataURL('image/png');
 }
+
+// rect redondeado
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); }
 
 function registrarPausa() {
   if (!persona.nombre || !persona.cedula || !persona.area) {
