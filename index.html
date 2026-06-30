@@ -102,12 +102,22 @@
   /* LISTA PAUSAS DEL DÍA */
   .item{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-lg);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
   .item-ic{width:38px;height:38px;border-radius:10px;background:var(--brand-green-soft);color:var(--brand-green-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .item-thumb{width:38px;height:38px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--brand-green)}
   .item-body{flex:1;min-width:0}.item-body b{font-size:13.5px;display:block}.item-body span{font-size:11.5px;color:var(--text-muted)}
   .empty-hint{text-align:center;color:var(--text-muted);font-size:13px;padding:18px 0}
 
   /* RESUMEN */
+  .card-resumen{padding-top:20px}
+  .resumen-hero{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:18px;border-bottom:1px dashed var(--border-light)}
+  .resumen-ring-wrap{position:relative;width:80px;height:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .resumen-ring-wrap svg{position:absolute;inset:0;transition:stroke-dashoffset .6s ease}
+  .resumen-ring-txt{font-family:'Bebas Neue';font-size:17px;color:var(--brand-green-dark)}
+  .resumen-hero-text{flex:1;min-width:0}
+  .resumen-estado{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:600}
+  .resumen-estado.ok{color:var(--brand-green-dark)}
   .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-  .sum-cell{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);padding:14px;text-align:center}
+  .sum-cell{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);padding:14px;text-align:center;transition:var(--ease)}
+  .sum-cell.active{background:var(--brand-green-soft);border-color:var(--brand-green)}
   .sum-cell b{font-family:'Bebas Neue';font-size:22px;color:var(--brand-green-dark);display:block}
   .sum-cell span{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow Condensed'}
 
@@ -123,7 +133,7 @@
 
   /* OVERLAYS */
   .overlay{position:fixed;inset:0;background:rgba(42,52,65,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.overlay.show{display:flex}
-  .modal{background:#fff;border-radius:var(--r-xl);padding:30px 26px;max-width:380px;width:100%;text-align:center;box-shadow:var(--sh-lg)}
+  .modal{background:#fff;border-radius:var(--r-xl);padding:30px 26px;max-width:380px;width:100%;text-align:center;box-shadow:var(--sh-lg);max-height:88vh;overflow-y:auto}
   .spinner{width:40px;height:40px;border:3.5px solid var(--brand-green-soft);border-top-color:var(--brand-green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}@keyframes spin{to{transform:rotate(360deg)}}
   .modal-msg{font-size:14px;color:var(--text-main);font-weight:500}
   .ok-ic{width:68px;height:68px;background:var(--success-soft);color:var(--success);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px}
@@ -328,19 +338,29 @@
 
   <!-- RESUMEN -->
   <section class="mod" data-mod="resumen">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-list"/></svg></div>
-        <div class="card-head-text"><div class="card-title">Pausas de hoy</div><div class="card-sub" id="resumenFecha">—</div></div>
+    <div class="card card-resumen">
+      <div class="resumen-hero">
+        <div class="resumen-ring-wrap">
+          <svg viewBox="0 0 80 80" width="80" height="80">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border-light)" stroke-width="7"/>
+            <circle id="resumenRing" cx="40" cy="40" r="34" fill="none" stroke="var(--brand-green)" stroke-width="7" stroke-linecap="round" stroke-dasharray="213" stroke-dashoffset="213" transform="rotate(-90 40 40)"/>
+          </svg>
+          <div class="resumen-ring-txt" id="resumenRingTxt">0/1</div>
+        </div>
+        <div class="resumen-hero-text">
+          <div class="card-title" style="font-size:18px">Tu jornada de hoy</div>
+          <div class="card-sub" id="resumenFecha">—</div>
+          <div class="resumen-estado" id="resumenEstado">Aún no has tomado tu pausa</div>
+        </div>
       </div>
       <div class="sum-grid">
-        <div class="sum-cell"><b id="sumVisual">0</b><span>Visuales</span></div>
-        <div class="sum-cell"><b id="sumAuditiva">0</b><span>Auditivas</span></div>
-        <div class="sum-cell"><b id="sumActiva">0</b><span>Activas</span></div>
+        <div class="sum-cell"><svg class="icon icon-lg" style="color:var(--brand-green-dark);margin-bottom:6px"><use href="#i-eye"/></svg><b id="sumVisual">0</b><span>Visuales</span></div>
+        <div class="sum-cell"><svg class="icon icon-lg" style="color:var(--brand-green-dark);margin-bottom:6px"><use href="#i-ear"/></svg><b id="sumAuditiva">0</b><span>Auditivas</span></div>
+        <div class="sum-cell"><svg class="icon icon-lg" style="color:var(--brand-green-dark);margin-bottom:6px"><use href="#i-bolt"/></svg><b id="sumActiva">0</b><span>Activas</span></div>
       </div>
       <div id="listaPausas"></div>
-      <div class="field" style="margin-top:6px"><label class="label">Observaciones</label><textarea id="observaciones" class="textarea" placeholder="¿Cómo te sentiste hoy?"></textarea></div>
-      <div class="save-row"><button class="btn btn-primary btn-block" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Guardar observaciones</button></div>
+      <div class="field" style="margin-top:14px"><label class="label">Observaciones</label><textarea id="observaciones" class="textarea" placeholder="¿Cómo te sentiste hoy?"></textarea></div>
+      <div class="save-row"><button class="btn btn-primary btn-block" id="btnSalida" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Registrar salida del día</button></div>
     </div>
   </section>
 
@@ -414,19 +434,24 @@ const LS_KEY = 'pausas_par_v1';
 
 const TIPS = {
   Visual: [
-    { titulo: 'Regla 20-20-20', desc: 'Mira un objeto a 6 metros de distancia durante 20 segundos. Ayuda a relajar el enfoque de tus ojos.', dur: '20 segundos', seg: 20, juego: 'seguir' },
-    { titulo: 'Parpadeo consciente', desc: 'Parpadea lento y completo siguiendo el ritmo del círculo. Hidrata tus ojos y reduce la fatiga visual.', dur: '30 segundos', seg: 30, juego: 'parpadeo' },
-    { titulo: 'Enfoque cercano-lejano', desc: 'Alterna la mirada entre un objeto cercano y uno lejano siguiendo el punto en pantalla.', dur: '40 segundos', seg: 40, juego: 'seguir' }
+    { titulo: 'Regla 20-20-20', desc: 'Sigue el punto con la mirada de un lado a otro durante 20 segundos. Relaja el enfoque de tus ojos.', dur: '20 segundos', seg: 20, juego: 'seguir', dir: 'h' },
+    { titulo: 'Parpadeo consciente', desc: 'Parpadea lento y completo siguiendo el ojo que aparece en pantalla. Hidrata tus ojos.', dur: '30 segundos', seg: 30, juego: 'parpadeo' },
+    { titulo: 'Enfoque cercano-lejano', desc: 'Alterna la mirada entre cerca y lejos siguiendo el punto, ahora en movimiento rápido.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'h', vel: 700 },
+    { titulo: 'Trazo ocular', desc: 'Sigue el punto de arriba a abajo sin mover la cabeza, solo los ojos.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'v' },
+    { titulo: 'Caza visual', desc: 'Toca el botón apenas el círculo se ponga verde. Pon a prueba tu reacción visual.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 }
   ],
   Auditiva: [
-    { titulo: 'Pausa de silencio', desc: 'Cierra los ojos y trata de identificar 3 sonidos distintos de tu entorno mientras respiras.', dur: '30 segundos', seg: 30, juego: 'respirar' },
     { titulo: 'Respiración 4-4-4', desc: 'Inhala 4 segundos, sostén 4 segundos y exhala 4 segundos siguiendo el círculo que respira.', dur: '48 segundos', seg: 48, juego: 'respirar' },
-    { titulo: 'Respiración guiada', desc: 'Sigue el círculo: inhala cuando crece, exhala cuando se encoge. Repite el ciclo completo.', dur: '1 minuto', seg: 60, juego: 'respirar' }
+    { titulo: 'Respiración guiada', desc: 'Sigue el círculo: inhala cuando crece, exhala cuando se encoge. Repite el ciclo completo.', dur: '1 minuto', seg: 60, juego: 'respirar' },
+    { titulo: 'Cuenta de respiraciones', desc: 'Respira al ritmo del círculo y observa cuántas respiraciones completas alcanzas a hacer.', dur: '40 segundos', seg: 40, juego: 'cuenta' },
+    { titulo: 'Calma interior', desc: 'Cierra los ojos, relaja los hombros y deja que el círculo guíe tu respiración profunda.', dur: '30 segundos', seg: 30, juego: 'respirar' },
+    { titulo: 'Reacción consciente', desc: 'Toca el botón apenas el círculo se ponga verde, manteniendo tu mente enfocada y en calma.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 }
   ],
   Activa: [
     { titulo: 'Estiramiento de cuello', desc: 'Toca el botón cada vez que cambies de lado al estirar el cuello.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
     { titulo: 'Rotación de hombros', desc: 'Toca el botón en cada giro completo de hombros, 10 en total.', dur: '40 segundos', seg: 40, juego: 'toques', meta: 10 },
-    { titulo: 'Estiramiento de muñecas', desc: 'Toca el botón en cada repetición al flexionar tus muñecas.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 }
+    { titulo: 'Estiramiento de muñecas', desc: 'Toca el botón en cada repetición al flexionar tus muñecas.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
+    { titulo: 'Reacción y estiramiento', desc: 'Ponte de pie y toca el botón apenas el círculo se ponga verde, estirando los brazos en cada toque.', dur: '35 segundos', seg: 35, juego: 'flash', meta: 6 }
   ]
 };
 
@@ -436,6 +461,39 @@ const BENEFICIOS = {
   Activa: 'Moverte unos segundos mejora tu circulación, libera tensión muscular y previene lesiones por esfuerzo repetitivo.'
 };
 
+const MOTIVACIONALES = [
+  'Cada pausa que tomas es una inversión en tu salud a largo plazo.',
+  'Tu cuerpo te lo agradece cada vez que le das un respiro.',
+  'Pequeñas pausas, grandes beneficios para tu bienestar.',
+  'Hoy elegiste cuidarte, y eso ya es un gran paso.',
+  'Un colaborador que se cuida, rinde mejor y vive mejor.',
+  'La constancia en tus pausas construye hábitos saludables de por vida.',
+  'Tu bienestar es tan importante como tus metas laborales.',
+  'Cuidar tu cuerpo hoy es construir tu energía de mañana.',
+  '¡Excelente! Cada pausa suma a una jornada más sana.',
+  'Date este momento, lo mereces y lo necesitas.',
+  'Las pausas activas previenen lesiones que ni notas que evitaste.',
+  'Tu mente también descansa cuando le das espacio a tu cuerpo.',
+  'Seguir cuidándote es la mejor decisión que puedes tomar hoy.',
+  'Un pequeño descanso puede cambiar el resto de tu día.',
+  'Eres ejemplo de bienestar para tu equipo de trabajo.',
+  'Recargaste energía, ahora sigue tu jornada con más claridad.',
+  'La salud se construye con hábitos diarios, como este.',
+  'Bien hecho, tu cuerpo necesitaba justo este momento.',
+  'Cada pausa te acerca a una mejor versión de ti mismo.',
+  'El autocuidado en el trabajo también es productividad.',
+  'Tu esfuerzo por cuidarte no pasa desapercibido.',
+  'Sigue así, la constancia es la clave del bienestar.',
+  'Una mente despejada toma mejores decisiones, ¡bien hecho!',
+  'Hoy tu cuerpo descansó un poco gracias a ti.',
+  'Las grandes jornadas se construyen con pequeñas pausas.',
+  'Tu bienestar físico y mental importa, y hoy lo demostraste.',
+  'Sigue priorizando tu salud, el resto se acomoda solo.',
+  'Una pausa consciente vale más que mil excusas.',
+  'Gracias por cuidarte, lo notará tu cuerpo y tu mente.',
+  'Vas por buen camino, sigue construyendo este hábito.'
+];
+
 let persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '' };
 let pausasHoy = [];
 let fechaHoy = '';
@@ -443,6 +501,9 @@ let tipoActual = '';
 let tipActual = null;
 let fotoPausaBase64 = '';
 let current = 'inicio';
+let horaIngreso = '';
+let horaSalida = '';
+let diaFinalizado = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   fechaHoy = new Date().toISOString().split('T')[0];
@@ -470,12 +531,24 @@ function cerrarFlor() {
   document.getElementById('flowerOverlay').classList.remove('open');
   document.getElementById('flowerBtn').classList.remove('open');
 }
-function yaTomoPausaHoy() { return pausasHoy.length >= 1; }
+function yaTomoPausaHoy() { return pausasHoy.length >= 1 || diaFinalizado; }
 function actualizarEstadoFlor() {
   document.getElementById('flowerBtn').style.opacity = yaTomoPausaHoy() ? '.45' : '1';
 }
+function actualizarEstadoSalida() {
+  const btn = document.getElementById('btnSalida');
+  if (!btn) return;
+  if (diaFinalizado) {
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="icon"><use href="#i-check"/></svg>Salida registrada · ' + horaSalida;
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="icon"><use href="#i-save"/></svg>Registrar salida del día';
+  }
+}
 function elegirTipo(tipo) {
   cerrarFlor();
+  quitarFotoPausa();
   tipoActual = tipo;
   mostrarTipAleatorio();
   resetActividad();
@@ -489,16 +562,20 @@ function cerrarPausaModal() {
 }
 
 // ===== MINI-ACTIVIDADES GUIADAS =====
-let actTimer = null, actInterval = null, actTotal = 0, actRestante = 0, actToques = 0;
+let actTimer = null, actTimer2 = null, actInterval = null, actFlashTimer = null, actTotal = 0, actRestante = 0, actToques = 0, actVerde = false, actRespiros = 0;
 
 function resetActividad() {
   detenerActividad();
   actTotal = tipActual.seg || 30;
   actRestante = actTotal;
   actToques = 0;
+  actRespiros = 0;
+  actVerde = false;
+  const juego = tipActual.juego;
   document.getElementById('activityTime').textContent = 'Listo para empezar';
-  document.getElementById('activityNum').textContent = tipActual.juego === 'toques' ? '0/' + (tipActual.meta || 8) : '';
+  document.getElementById('activityNum').textContent = (juego === 'toques' || juego === 'flash') ? '0/' + (tipActual.meta || 5) : '';
   document.getElementById('activityDot').style.display = 'none';
+  document.getElementById('activityDot').style.background = 'var(--brand-green-dark)';
   document.getElementById('activityRing').style.strokeDashoffset = '327';
   const btn = document.getElementById('activityBtn');
   btn.disabled = false;
@@ -507,7 +584,7 @@ function resetActividad() {
   const stage = document.getElementById('activityStage');
   const old = stage.querySelector('.breathing-circle'); if (old) old.remove();
 
-  if (tipActual.juego === 'respirar') {
+  if (juego === 'respirar' || juego === 'cuenta') {
     const circ = document.createElement('div');
     circ.className = 'breathing-circle';
     circ.id = 'breathCircle';
@@ -517,20 +594,31 @@ function resetActividad() {
 
 function iniciarActividad() {
   const btn = document.getElementById('activityBtn');
+  const juego = tipActual.juego;
   btn.disabled = true;
   btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-clock"/></svg>Actividad en curso...';
 
-  if (tipActual.juego === 'toques') {
+  if (juego === 'toques') {
     btn.disabled = false;
     btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>Toca aquí en cada repetición';
     btn.onclick = registrarToque;
-  } else if (tipActual.juego === 'seguir') {
+  } else if (juego === 'seguir') {
     document.getElementById('activityDot').style.display = 'block';
     moverPunto();
-  } else if (tipActual.juego === 'parpadeo') {
+  } else if (juego === 'parpadeo') {
     document.getElementById('activityNum').textContent = '👁';
-  } else if (tipActual.juego === 'respirar') {
+  } else if (juego === 'respirar') {
     cicloRespiracion();
+  } else if (juego === 'cuenta') {
+    cicloRespiracion();
+    actTimer2 = setInterval(() => { actRespiros++; document.getElementById('activityNum').textContent = actRespiros; }, 4000);
+  } else if (juego === 'flash') {
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-bolt"/></svg>Toca cuando esté verde';
+    btn.onclick = registrarFlash;
+    document.getElementById('activityDot').style.display = 'block';
+    document.getElementById('activityDot').style.left = '50%';
+    programarFlash();
   }
 
   actInterval = setInterval(() => {
@@ -543,9 +631,16 @@ function iniciarActividad() {
 
 function moverPunto() {
   const dot = document.getElementById('activityDot');
-  let der = true;
-  dot.style.left = '20%';
-  actTimer = setInterval(() => { dot.style.left = der ? '80%' : '20%'; der = !der; }, 1100);
+  const dir = tipActual.dir || 'h';
+  const vel = tipActual.vel || 1100;
+  let alterno = true;
+  if (dir === 'v') { dot.style.left = '50%'; dot.style.top = '20%'; }
+  else { dot.style.left = '20%'; dot.style.top = '50%'; }
+  actTimer = setInterval(() => {
+    if (dir === 'v') dot.style.top = alterno ? '80%' : '20%';
+    else dot.style.left = alterno ? '80%' : '20%';
+    alterno = !alterno;
+  }, vel);
 }
 
 function cicloRespiracion() {
@@ -555,6 +650,34 @@ function cicloRespiracion() {
   const fase = () => { circ.style.transform = inhalando ? 'scale(1.5)' : 'scale(1)'; inhalando = !inhalando; };
   fase();
   actTimer = setInterval(fase, 4000);
+}
+
+function programarFlash() {
+  const dot = document.getElementById('activityDot');
+  const espera = 900 + Math.random() * 1600;
+  actFlashTimer = setTimeout(() => {
+    actVerde = true;
+    dot.style.background = '#0FBF8B';
+    dot.style.boxShadow = '0 0 0 8px rgba(15,191,139,.25)';
+  }, espera);
+}
+
+function registrarFlash() {
+  const dot = document.getElementById('activityDot');
+  const meta = tipActual.meta || 5;
+  if (!actVerde) return;
+  actVerde = false;
+  actToques++;
+  dot.style.background = 'var(--brand-green-dark)';
+  dot.style.boxShadow = 'none';
+  document.getElementById('activityNum').textContent = actToques + '/' + meta;
+  if (actToques >= meta) {
+    clearTimeout(actFlashTimer);
+    document.getElementById('activityBtn').disabled = true;
+    document.getElementById('activityBtn').innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>¡Reacciones completas!';
+  } else {
+    programarFlash();
+  }
 }
 
 function registrarToque() {
@@ -579,6 +702,8 @@ function finActividad() {
 function detenerActividad() {
   if (actInterval) { clearInterval(actInterval); actInterval = null; }
   if (actTimer) { clearInterval(actTimer); actTimer = null; }
+  if (actTimer2) { clearInterval(actTimer2); actTimer2 = null; }
+  if (actFlashTimer) { clearTimeout(actFlashTimer); actFlashTimer = null; }
 }
 
 // ===== SESIÓN / PORTADA =====
@@ -588,7 +713,12 @@ function cargarSesion() {
     if (raw) {
       const data = JSON.parse(raw);
       persona = data.persona || persona;
-      if (data.fecha === fechaHoy) pausasHoy = data.pausas || [];
+      if (data.fecha === fechaHoy) {
+        pausasHoy = data.pausas || [];
+        horaIngreso = data.horaIngreso || '';
+        horaSalida = data.horaSalida || '';
+        diaFinalizado = !!data.diaFinalizado;
+      }
       if (data.observaciones) document.getElementById('observaciones').value = data.observaciones;
     }
   } catch (e) {}
@@ -598,6 +728,7 @@ function cargarSesion() {
     aplicarPersonaUI();
   }
   renderPausas();
+  actualizarEstadoSalida();
 }
 
 function manejarFotoIngreso(e) {
@@ -627,6 +758,7 @@ function comenzar() {
   }
   err.style.display = 'none';
   persona.area = area; persona.nombre = nombre; persona.cedula = cedula;
+  if (!horaIngreso) horaIngreso = new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   guardarSesionLocal();
   ocultarPortada();
   aplicarPersonaUI();
@@ -654,6 +786,7 @@ function guardarPersona() {
 function guardarSesionLocal() {
   localStorage.setItem(LS_KEY, JSON.stringify({
     persona: persona, fecha: fechaHoy, pausas: pausasHoy,
+    horaIngreso: horaIngreso, horaSalida: horaSalida, diaFinalizado: diaFinalizado,
     observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value : ''
   }));
 }
@@ -733,8 +866,10 @@ function registrarPausa() {
     fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil,
     fotoPerfilURL: persona.fotoPerfilURL || '',
     pausas: pausasHoy,
+    horaIngreso: horaIngreso,
+    horaSalida: '',
     observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value.trim() : '',
-    finalizada: true
+    finalizada: false
   };
 
   fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
@@ -747,7 +882,7 @@ function registrarPausa() {
         guardarSesionLocal();
         document.getElementById('pausaModal').classList.remove('show');
         document.getElementById('okTitle').textContent = '¡Pausa ' + tipoActual.toLowerCase() + ' completada!';
-        document.getElementById('okSub').textContent = 'Quedó registrada en tu jornada de hoy.';
+        document.getElementById('okSub').textContent = MOTIVACIONALES[Math.floor(Math.random() * MOTIVACIONALES.length)];
         document.getElementById('beneficioTexto').textContent = BENEFICIOS[tipoActual];
         document.getElementById('successModal').classList.add('show');
         quitarFotoPausa();
@@ -772,16 +907,26 @@ function renderPausas() {
   document.getElementById('sumVisual').textContent = visual;
   document.getElementById('sumAuditiva').textContent = auditiva;
   document.getElementById('sumActiva').textContent = activa;
+  document.getElementById('sumVisual').closest('.sum-cell').classList.toggle('active', visual > 0);
+  document.getElementById('sumAuditiva').closest('.sum-cell').classList.toggle('active', auditiva > 0);
+  document.getElementById('sumActiva').closest('.sum-cell').classList.toggle('active', activa > 0);
+
+  const hecha = pausasHoy.length > 0 ? 1 : 0;
+  document.getElementById('resumenRing').style.strokeDashoffset = hecha ? '0' : '213';
+  document.getElementById('resumenRingTxt').textContent = hecha + '/1';
+  const estado = document.getElementById('resumenEstado');
+  estado.textContent = hecha ? '¡Pausa de hoy completada!' : 'Aún no has tomado tu pausa';
+  estado.classList.toggle('ok', !!hecha);
 
   const cont = document.getElementById('listaPausas');
   if (!pausasHoy.length) {
-    cont.innerHTML = '<div class="empty-hint">Aún no has registrado pausas hoy.</div>';
+    cont.innerHTML = '<div class="empty-hint">Aún no has registrado pausas hoy. Usa el botón verde para empezar.</div>';
     return;
   }
   const iconos = { Visual: 'i-eye', Auditiva: 'i-ear', Activa: 'i-bolt' };
   cont.innerHTML = pausasHoy.map((p, i) => `
     <div class="item">
-      <div class="item-ic"><svg class="icon"><use href="#${iconos[p.tipo]}"/></svg></div>
+      ${p.fotoURL || p.foto ? `<img src="${p.fotoURL || p.foto}" class="item-thumb" alt="">` : `<div class="item-ic"><svg class="icon"><use href="#${iconos[p.tipo]}"/></svg></div>`}
       <div class="item-body"><b>${p.titulo}</b><span>${p.tipo} · ${p.hora}</span></div>
       <button type="button" class="btn btn-danger btn-sm" onclick="eliminarPausa(${i})"><svg class="icon icon-sm"><use href="#i-trash"/></svg></button>
     </div>
@@ -801,8 +946,11 @@ function finalizarJornada() {
     goTo('inicio');
     return;
   }
+  if (diaFinalizado) { mostrarToast('Ya registraste tu salida de hoy.'); return; }
+
+  horaSalida = new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   guardarSesionLocal();
-  mostrarLoading('Guardando jornada...');
+  mostrarLoading('Registrando salida...');
 
   const gestion = {
     area: persona.area,
@@ -812,6 +960,8 @@ function finalizarJornada() {
     fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil,
     fotoPerfilURL: persona.fotoPerfilURL || '',
     pausas: pausasHoy,
+    horaIngreso: horaIngreso,
+    horaSalida: horaSalida,
     observaciones: document.getElementById('observaciones').value.trim(),
     finalizada: true
   };
@@ -823,7 +973,12 @@ function finalizarJornada() {
       if (res && res.success) {
         if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
         if (res.pausas) pausasHoy = res.pausas;
+        diaFinalizado = true;
         guardarSesionLocal();
+        actualizarEstadoSalida();
+        document.getElementById('okTitle').textContent = '¡Salida registrada!';
+        document.getElementById('okSub').textContent = 'Tu jornada de hoy quedó completa. Nos vemos mañana.';
+        document.getElementById('beneficioTexto').textContent = 'Gracias por cuidar tu bienestar durante la jornada de hoy.';
         document.getElementById('successModal').classList.add('show');
       } else {
         mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
