@@ -34,6 +34,9 @@
   .topbar-row{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
   .logo-mini{height:34px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
   .topbar-brand{flex:1}.topbar-brand b{font-family:'Bebas Neue';font-weight:400;font-size:18px;letter-spacing:1px;display:block}.topbar-brand span{font-size:11.5px;opacity:.78;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:1.5px}
+  .topbar-avatar{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;overflow:hidden}
+  .topbar-avatar img{width:100%;height:100%;object-fit:cover;display:none}
+  .topbar-avatar.has svg{display:none}.topbar-avatar.has img{display:block}
   .greet{max-width:720px;margin:16px auto 0;position:relative;z-index:1}
   .greet h1{font-size:21px}.greet p{font-size:12.5px;opacity:.82;margin-top:3px;font-family:'Barlow'}
   .pausas-counter{max-width:720px;margin:14px auto 0;display:flex;gap:10px;position:relative;z-index:1}
@@ -122,9 +125,39 @@
   .sum-cell span{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow Condensed'}
 
   /* BOTTOM NAV */
-  .bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--border-light);padding:12px 18px;padding-bottom:max(12px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center}
-  .nav-fab{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;border-radius:30px;border:none;background:var(--gh-green);color:#fff;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.8px;text-transform:uppercase;font-size:13.5px;cursor:pointer;box-shadow:0 10px 24px -6px var(--sh-green);transition:var(--ease)}
-  .nav-fab:hover{transform:translateY(-2px)}
+  .bottomnav2{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--border-light);padding:10px 22px;padding-bottom:max(10px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;height:74px}
+  .nav-side{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:var(--text-muted);font-family:'Barlow Condensed';font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;padding:6px 14px;border-radius:var(--r-md);transition:var(--ease)}
+  .nav-side.active{color:var(--brand-green-dark);background:var(--brand-green-soft)}
+  .nav-side .icon{width:21px;height:21px}
+
+  /* PERFIL */
+  .profile-card{text-align:center}
+  .profile-head{padding-bottom:18px;border-bottom:1px dashed var(--border-light);margin-bottom:18px}
+  .profile-avatar-wrap{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;position:relative;background:var(--brand-green-soft);display:flex;align-items:center;justify-content:center;border:3px solid var(--brand-green)}
+  .profile-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;display:none}
+  .profile-avatar-ic{color:var(--brand-green-dark)}
+  .profile-name{font-family:'Bebas Neue';font-size:20px;color:var(--text-dark)}
+  .profile-area{font-size:13px;color:var(--text-muted);margin-top:2px}
+  .profile-badge{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:11.5px;font-weight:700;color:var(--brand-green-deep);background:var(--brand-green-soft);padding:5px 12px;border-radius:20px;font-family:'Barlow Condensed'}
+  .profile-locked{display:flex;align-items:center;gap:9px;background:var(--success-soft);color:var(--brand-green-deep);border-radius:var(--r-md);padding:13px 15px;font-size:13px;font-weight:600}
+
+  /* DASHBOARD */
+  .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .dash-cell{background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);padding:14px;text-align:center}
+  .dash-cell b{font-family:'Bebas Neue';font-size:24px;color:var(--brand-green-dark);display:block}
+  .dash-cell span{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;font-family:'Barlow Condensed'}
+  .dash-bars{display:flex;align-items:flex-end;gap:6px;height:70px;margin-bottom:18px;padding:0 4px}
+  .dash-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:5px}
+  .dash-bar{width:100%;max-width:26px;background:var(--brand-green-soft);border-radius:6px 6px 0 0;transition:height .4s ease}
+  .dash-bar.has{background:var(--gh-green)}
+  .dash-bar-lbl{font-size:9.5px;color:var(--text-muted);font-family:'Barlow Condensed';text-transform:uppercase}
+  .badges-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .badge-item{display:flex;align-items:center;gap:10px;padding:11px;border-radius:var(--r-md);border:1.5px solid var(--border-light);background:var(--bg-surface);opacity:.45}
+  .badge-item.unlocked{opacity:1;background:var(--brand-green-soft);border-color:var(--brand-green)}
+  .badge-ic{width:34px;height:34px;border-radius:50%;background:var(--brand-green-dark);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .badge-item:not(.unlocked) .badge-ic{background:var(--text-muted)}
+  .badge-txt b{display:block;font-size:11.5px;font-weight:700;color:var(--text-dark)}
+  .badge-txt span{font-size:10px;color:var(--text-muted)}
 
   /* TOAST */
   .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 18px;border-radius:var(--r-md);font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-lg);opacity:0;pointer-events:none;transition:all .3s;z-index:9998}
@@ -178,9 +211,9 @@
   .flower-wrap{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;pointer-events:none}
   .flower-overlay{position:fixed;inset:0;background:rgba(42,52,65,.45);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:65;pointer-events:none}
   .flower-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
-  .flower-center{position:absolute;bottom:18px;width:64px;height:64px;border-radius:50%;background:var(--gh-green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -6px var(--sh-green);cursor:pointer;z-index:80;pointer-events:auto;transition:transform .3s var(--ease-bounce)}
+  .flower-center{position:absolute;bottom:42px;width:64px;height:64px;border-radius:50%;background:var(--gh-green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -6px var(--sh-green);cursor:pointer;z-index:80;pointer-events:auto;transition:transform .3s var(--ease-bounce)}
   .flower-center.open{transform:rotate(45deg) scale(1.05)}
-  .petal{position:absolute;bottom:18px;left:50%;width:60px;height:60px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#fff;color:var(--brand-green-dark);border:1.5px solid var(--border-light);box-shadow:var(--sh-md);cursor:pointer;z-index:75;pointer-events:none;opacity:0;transform:translate(-50%,0) scale(.4);transition:transform .35s var(--ease-bounce),opacity .25s ease;font-size:10px;font-weight:700;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.4px}
+  .petal{position:absolute;bottom:42px;left:50%;width:60px;height:60px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#fff;color:var(--brand-green-dark);border:1.5px solid var(--border-light);box-shadow:var(--sh-md);cursor:pointer;z-index:75;pointer-events:none;opacity:0;transform:translate(-50%,0) scale(.4);transition:transform .35s var(--ease-bounce),opacity .25s ease;font-size:10px;font-weight:700;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.4px}
   .petal span{display:block}
   .flower-overlay.open .petal{opacity:1;pointer-events:auto;transform:translate(calc(-50% + var(--x)),var(--y)) scale(1)}
   .petal.done{background:var(--brand-green-soft);color:var(--brand-green-deep);border-color:var(--brand-green)}
@@ -299,6 +332,7 @@
       <text x="78" y="40" font-family="Bebas Neue, sans-serif" font-size="34" fill="#0FBF8B">SERVICIOS</text>
     </svg>
     <div class="topbar-brand"><b>Pausas Saludables</b><span>Bienestar en tu jornada</span></div>
+    <div class="topbar-avatar" id="topbarAvatar"><svg class="icon icon-lg"><use href="#i-user"/></svg></div>
   </div>
   <div class="greet"><h1 id="heroGreet">Hola</h1><p id="heroDate"></p></div>
   <div class="pausas-counter">
@@ -310,29 +344,31 @@
 
 <main class="stage" id="stage">
 
-  <div class="tabs">
-    <button class="tab-btn active" data-mod="inicio" onclick="goTo('inicio')"><svg class="icon icon-sm"><use href="#i-user"/></svg>Inicio</button>
-    <button class="tab-btn" data-mod="resumen" onclick="goTo('resumen')"><svg class="icon icon-sm"><use href="#i-list"/></svg>Resumen</button>
-  </div>
-
-  <!-- INICIO -->
+  <!-- INICIO / PERFIL -->
   <section class="mod active" data-mod="inicio">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-user"/></svg></div>
-        <div class="card-head-text"><div class="card-title">Mi información</div><div class="card-sub">Datos del colaborador</div></div>
+    <div class="card profile-card">
+      <div class="profile-head">
+        <div class="profile-avatar-wrap"><img id="profileAvatar" class="profile-avatar" alt=""><div class="profile-avatar-ic" id="profileAvatarIc"><svg class="icon icon-xl"><use href="#i-user"/></svg></div></div>
+        <div class="profile-name" id="profileNombre">—</div>
+        <div class="profile-area" id="profileArea">—</div>
+        <span class="profile-badge" id="profileBadge"><svg class="icon icon-sm"><use href="#i-id"/></svg><span id="profileCedula">—</span></span>
       </div>
-      <div class="field"><label class="label">Área</label><input type="text" id="iArea" class="input"></div>
-      <div class="field"><label class="label">Nombre completo</label><input type="text" id="iNombre" class="input"></div>
-      <div class="field"><label class="label">Cédula</label><input type="tel" id="iCedula" class="input" inputmode="numeric"></div>
-      <div class="save-row"><button class="btn btn-primary btn-block" onclick="guardarPersona()"><svg class="icon"><use href="#i-save"/></svg>Guardar cambios</button></div>
+      <div id="datosForm">
+        <div class="field"><label class="label">Área</label><input type="text" id="iArea" class="input"></div>
+        <div class="field"><label class="label">Nombre completo</label><input type="text" id="iNombre" class="input"></div>
+        <div class="field"><label class="label">Cédula</label><input type="tel" id="iCedula" class="input" inputmode="numeric"></div>
+        <div class="save-row"><button class="btn btn-primary btn-block" id="btnCargarDatos" onclick="cargarDatosIniciales()"><svg class="icon"><use href="#i-upload"/></svg>Cargar datos</button></div>
+      </div>
+      <div class="profile-locked" id="profileLocked" style="display:none">
+        <svg class="icon icon-sm"><use href="#i-check"/></svg> Datos confirmados y guardados en el sistema. No se pueden editar.
+      </div>
     </div>
     <div class="card">
       <div class="card-head">
         <div class="card-chip"><svg class="icon icon-lg"><use href="#i-leaf"/></svg></div>
         <div class="card-head-text"><div class="card-title">¿Por qué hacer pausas?</div><div class="card-sub">Tip del día</div></div>
       </div>
-      <p style="font-size:13.5px;color:var(--text-main);line-height:1.65">Las pausas activas, visuales y auditivas reducen la fatiga, mejoran tu concentración y previenen lesiones por esfuerzo repetitivo. Realiza al menos 3 pausas al día, una de cada tipo.</p>
+      <p style="font-size:13.5px;color:var(--text-main);line-height:1.65">Las pausas activas, visuales y auditivas reducen la fatiga, mejoran tu concentración y previenen lesiones por esfuerzo repetitivo.</p>
     </div>
   </section>
 
@@ -360,11 +396,31 @@
       </div>
       <div id="listaPausas"></div>
       <div class="field" style="margin-top:14px"><label class="label">Observaciones</label><textarea id="observaciones" class="textarea" placeholder="¿Cómo te sentiste hoy?"></textarea></div>
-      <div class="save-row"><button class="btn btn-primary btn-block" id="btnSalida" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Registrar salida del día</button></div>
+      <div class="save-row"><button class="btn btn-primary btn-block" id="btnSalida" onclick="finalizarJornada()"><svg class="icon"><use href="#i-save"/></svg>Finalizar y registrar salida</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-chip"><svg class="icon icon-lg"><use href="#i-leaf"/></svg></div>
+        <div class="card-head-text"><div class="card-title">Beneficios acumulados</div><div class="card-sub">Tu historial de bienestar</div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-cell"><b id="dashTotal">0</b><span>Pausas totales</span></div>
+        <div class="dash-cell"><b id="dashRacha">0</b><span>Días seguidos</span></div>
+        <div class="dash-cell"><b id="dashDias">0</b><span>Días activo</span></div>
+      </div>
+      <div class="dash-bars" id="dashBars"></div>
+      <div class="badges-grid" id="badgesGrid"></div>
     </div>
   </section>
 
 </main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottomnav2">
+  <button class="nav-side active" id="navInicio" onclick="goTo('inicio')"><svg class="icon"><use href="#i-user"/></svg><span>Inicio</span></button>
+  <button class="nav-side" id="navResumen" onclick="goTo('resumen')"><svg class="icon"><use href="#i-list"/></svg><span>Resumen</span></button>
+</nav>
 
 <!-- MENU FLOR -->
 <div class="flower-overlay" id="flowerOverlay" onclick="if(event.target===this)cerrarFlor()">
@@ -431,27 +487,53 @@
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxcODg567xmToQAxB_rP_g_O8FjSJl6excc7EgFYEBfYk9DS_QXJKAHcM7Ua0PDd-s/exec';
 const LS_KEY = 'pausas_par_v1';
+const HIST_KEY = 'pausas_par_historial';
+
+const BADGES = [
+  { meta: 1, titulo: 'Primer paso', desc: '1 pausa registrada', ic: 'i-leaf' },
+  { meta: 5, titulo: 'En marcha', desc: '5 pausas acumuladas', ic: 'i-bolt' },
+  { meta: 10, titulo: 'Constante', desc: '10 pausas acumuladas', ic: 'i-check' },
+  { meta: 20, titulo: 'Hábito sano', desc: '20 pausas acumuladas', ic: 'i-eye' },
+  { meta: 30, titulo: 'Bienestar real', desc: '30 pausas acumuladas', ic: 'i-ear' },
+  { meta: 50, titulo: 'Embajador PAR', desc: '50 pausas acumuladas', ic: 'i-id' }
+];
 
 const TIPS = {
   Visual: [
     { titulo: 'Regla 20-20-20', desc: 'Sigue el punto con la mirada de un lado a otro durante 20 segundos. Relaja el enfoque de tus ojos.', dur: '20 segundos', seg: 20, juego: 'seguir', dir: 'h' },
     { titulo: 'Parpadeo consciente', desc: 'Parpadea lento y completo siguiendo el ojo que aparece en pantalla. Hidrata tus ojos.', dur: '30 segundos', seg: 30, juego: 'parpadeo' },
     { titulo: 'Enfoque cercano-lejano', desc: 'Alterna la mirada entre cerca y lejos siguiendo el punto, ahora en movimiento rápido.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'h', vel: 700 },
-    { titulo: 'Trazo ocular', desc: 'Sigue el punto de arriba a abajo sin mover la cabeza, solo los ojos.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'v' },
-    { titulo: 'Caza visual', desc: 'Toca el botón apenas el círculo se ponga verde. Pon a prueba tu reacción visual.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 }
+    { titulo: 'Trazo ocular vertical', desc: 'Sigue el punto de arriba a abajo sin mover la cabeza, solo los ojos.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'v' },
+    { titulo: 'Caza visual', desc: 'Toca el botón apenas el círculo se ponga verde. Pon a prueba tu reacción visual.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 },
+    { titulo: 'Seguimiento lento', desc: 'Sigue el punto de lado a lado a ritmo pausado, sin perder el enfoque.', dur: '40 segundos', seg: 40, juego: 'seguir', dir: 'h', vel: 1600 },
+    { titulo: 'Parpadeo profundo', desc: 'Parpadea despacio y completo durante toda la actividad para descansar la córnea.', dur: '40 segundos', seg: 40, juego: 'parpadeo' },
+    { titulo: 'Reacción rápida visual', desc: 'Concéntrate en el círculo y toca apenas cambie a verde, sin parpadear de más.', dur: '25 segundos', seg: 25, juego: 'flash', meta: 4 },
+    { titulo: 'Trazo vertical lento', desc: 'Sigue el punto de arriba a abajo a un ritmo relajado, soltando la tensión ocular.', dur: '35 segundos', seg: 35, juego: 'seguir', dir: 'v', vel: 1500 },
+    { titulo: 'Enfoque sostenido', desc: 'Mantén la vista en el punto mientras se mueve rápido de lado a lado.', dur: '25 segundos', seg: 25, juego: 'seguir', dir: 'h', vel: 600 }
   ],
   Auditiva: [
     { titulo: 'Respiración 4-4-4', desc: 'Inhala 4 segundos, sostén 4 segundos y exhala 4 segundos siguiendo el círculo que respira.', dur: '48 segundos', seg: 48, juego: 'respirar' },
     { titulo: 'Respiración guiada', desc: 'Sigue el círculo: inhala cuando crece, exhala cuando se encoge. Repite el ciclo completo.', dur: '1 minuto', seg: 60, juego: 'respirar' },
     { titulo: 'Cuenta de respiraciones', desc: 'Respira al ritmo del círculo y observa cuántas respiraciones completas alcanzas a hacer.', dur: '40 segundos', seg: 40, juego: 'cuenta' },
     { titulo: 'Calma interior', desc: 'Cierra los ojos, relaja los hombros y deja que el círculo guíe tu respiración profunda.', dur: '30 segundos', seg: 30, juego: 'respirar' },
-    { titulo: 'Reacción consciente', desc: 'Toca el botón apenas el círculo se ponga verde, manteniendo tu mente enfocada y en calma.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 }
+    { titulo: 'Reacción consciente', desc: 'Toca el botón apenas el círculo se ponga verde, manteniendo tu mente enfocada y en calma.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 },
+    { titulo: 'Respiración larga', desc: 'Sigue el círculo en su ciclo más extendido para una relajación más profunda.', dur: '1 minuto', seg: 60, juego: 'respirar' },
+    { titulo: 'Cuenta consciente', desc: 'Observa el círculo respirar y cuenta mentalmente cada ciclo completo.', dur: '48 segundos', seg: 48, juego: 'cuenta' },
+    { titulo: 'Silencio activo', desc: 'Respira profundo siguiendo el círculo mientras sueltas la tensión de la mandíbula y cuello.', dur: '35 segundos', seg: 35, juego: 'respirar' },
+    { titulo: 'Atención al pulso', desc: 'Toca el botón en el instante justo que el círculo se ilumine, sin perder la calma.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 },
+    { titulo: 'Respiración exprés', desc: 'Un ciclo corto e intenso de respiración guiada para recargar tu concentración.', dur: '24 segundos', seg: 24, juego: 'respirar' }
   ],
   Activa: [
     { titulo: 'Estiramiento de cuello', desc: 'Toca el botón cada vez que cambies de lado al estirar el cuello.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
     { titulo: 'Rotación de hombros', desc: 'Toca el botón en cada giro completo de hombros, 10 en total.', dur: '40 segundos', seg: 40, juego: 'toques', meta: 10 },
     { titulo: 'Estiramiento de muñecas', desc: 'Toca el botón en cada repetición al flexionar tus muñecas.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
-    { titulo: 'Reacción y estiramiento', desc: 'Ponte de pie y toca el botón apenas el círculo se ponga verde, estirando los brazos en cada toque.', dur: '35 segundos', seg: 35, juego: 'flash', meta: 6 }
+    { titulo: 'Reacción y estiramiento', desc: 'Ponte de pie y toca el botón apenas el círculo se ponga verde, estirando los brazos en cada toque.', dur: '35 segundos', seg: 35, juego: 'flash', meta: 6 },
+    { titulo: 'Estiramiento de espalda', desc: 'Toca el botón en cada inclinación lateral de tu torso, 8 repeticiones.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
+    { titulo: 'Marcha en el sitio', desc: 'Toca el botón en cada paso que das marchando en tu lugar.', dur: '40 segundos', seg: 40, juego: 'toques', meta: 12 },
+    { titulo: 'Estiramiento de piernas', desc: 'Toca el botón en cada elevación de rodilla, alternando ambas piernas.', dur: '35 segundos', seg: 35, juego: 'toques', meta: 10 },
+    { titulo: 'Reacción de pie', desc: 'De pie, toca apenas el círculo se ponga verde y aprovecha para estirar los tobillos.', dur: '30 segundos', seg: 30, juego: 'flash', meta: 5 },
+    { titulo: 'Estiramiento de tríceps', desc: 'Toca el botón en cada repetición al estirar los brazos por detrás de la cabeza.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
+    { titulo: 'Reacción y respiración activa', desc: 'Toca apenas el círculo cambie a verde, respirando profundo entre cada toque.', dur: '35 segundos', seg: 35, juego: 'flash', meta: 6 }
   ]
 };
 
@@ -494,7 +576,7 @@ const MOTIVACIONALES = [
   'Vas por buen camino, sigue construyendo este hábito.'
 ];
 
-let persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '' };
+let persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '', datosConfirmados: false };
 let pausasHoy = [];
 let fechaHoy = '';
 let tipoActual = '';
@@ -504,6 +586,7 @@ let current = 'inicio';
 let horaIngreso = '';
 let horaSalida = '';
 let diaFinalizado = false;
+let salidaPendienteCierre = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   fechaHoy = new Date().toISOString().split('T')[0];
@@ -772,15 +855,56 @@ function aplicarPersonaUI() {
   document.getElementById('iArea').value = persona.area;
   document.getElementById('iNombre').value = persona.nombre;
   document.getElementById('iCedula').value = persona.cedula;
+  document.getElementById('profileNombre').textContent = persona.nombre || '—';
+  document.getElementById('profileArea').textContent = persona.area || '—';
+  document.getElementById('profileCedula').textContent = persona.cedula || '—';
+
+  const foto = persona.fotoPerfilURL || persona.fotoPerfil;
+  const topAv = document.getElementById('topbarAvatar');
+  const profAv = document.getElementById('profileAvatar');
+  if (foto) {
+    topAv.classList.add('has');
+    topAv.innerHTML = '<img src="' + foto + '" alt="">';
+    profAv.src = foto;
+    profAv.style.display = 'block';
+    document.getElementById('profileAvatarIc').style.display = 'none';
+  }
+
+  document.getElementById('datosForm').style.display = persona.datosConfirmados ? 'none' : 'block';
+  document.getElementById('profileLocked').style.display = persona.datosConfirmados ? 'flex' : 'none';
 }
 
-function guardarPersona() {
-  persona.area = document.getElementById('iArea').value.trim();
-  persona.nombre = document.getElementById('iNombre').value.trim();
-  persona.cedula = document.getElementById('iCedula').value.trim();
-  aplicarPersonaUI();
+function cargarDatosIniciales() {
+  const area = document.getElementById('iArea').value.trim();
+  const nombre = document.getElementById('iNombre').value.trim();
+  const cedula = document.getElementById('iCedula').value.trim();
+  if (!area || !nombre || !cedula) { mostrarToast('Completa área, nombre y cédula'); return; }
+  persona.area = area; persona.nombre = nombre; persona.cedula = cedula;
+  if (!horaIngreso) horaIngreso = new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   guardarSesionLocal();
-  mostrarToast('Información actualizada');
+  aplicarPersonaUI();
+
+  mostrarLoading('Cargando datos al sistema...');
+  const gestion = {
+    area: persona.area, nombre: persona.nombre, cedula: persona.cedula, fecha: fechaHoy,
+    fotoPerfil: persona.fotoPerfilURL ? '' : persona.fotoPerfil, fotoPerfilURL: persona.fotoPerfilURL || '',
+    pausas: pausasHoy, horaIngreso: horaIngreso, horaSalida: '', observaciones: '', finalizada: false
+  };
+  fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ gestion }) })
+    .then(r => r.json())
+    .then(res => {
+      ocultarLoading();
+      if (res && res.success) {
+        if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
+        persona.datosConfirmados = true;
+        guardarSesionLocal();
+        aplicarPersonaUI();
+        mostrarToast('Datos cargados al Sheets correctamente');
+      } else {
+        mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
+      }
+    })
+    .catch(err => { ocultarLoading(); mostrarToast('Error de conexión: ' + err.message); });
 }
 
 function guardarSesionLocal() {
@@ -795,7 +919,9 @@ function guardarSesionLocal() {
 function goTo(mod) {
   current = mod;
   document.querySelectorAll('.mod').forEach(m => m.classList.toggle('active', m.dataset.mod === mod));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.mod === mod));
+  document.getElementById('navInicio').classList.toggle('active', mod === 'inicio');
+  document.getElementById('navResumen').classList.toggle('active', mod === 'resumen');
+  if (mod === 'resumen') renderDashboard();
 }
 
 // ===== NUEVA PAUSA =====
@@ -855,6 +981,7 @@ function registrarPausa() {
   };
   pausasHoy.push(pausa);
   guardarSesionLocal();
+  guardarHistorialHoy();
   renderPausas();
 
   mostrarLoading('Guardando tu pausa...');
@@ -936,7 +1063,67 @@ function renderPausas() {
 function eliminarPausa(i) {
   pausasHoy.splice(i, 1);
   guardarSesionLocal();
+  guardarHistorialHoy();
   renderPausas();
+}
+
+// ===== HISTORIAL / DASHBOARD =====
+function leerHistorial() {
+  try { return JSON.parse(localStorage.getItem(HIST_KEY)) || {}; } catch (e) { return {}; }
+}
+
+function guardarHistorialHoy() {
+  const hist = leerHistorial();
+  hist[fechaHoy] = {
+    visual: pausasHoy.filter(p => p.tipo === 'Visual').length,
+    auditiva: pausasHoy.filter(p => p.tipo === 'Auditiva').length,
+    activa: pausasHoy.filter(p => p.tipo === 'Activa').length
+  };
+  localStorage.setItem(HIST_KEY, JSON.stringify(hist));
+}
+
+function renderDashboard() {
+  const hist = leerHistorial();
+  const fechas = Object.keys(hist).sort();
+  let total = 0;
+  fechas.forEach(f => { const d = hist[f]; total += (d.visual || 0) + (d.auditiva || 0) + (d.activa || 0); });
+
+  let racha = 0;
+  let cursor = new Date(fechaHoy + 'T00:00:00');
+  while (true) {
+    const key = cursor.toISOString().split('T')[0];
+    const d = hist[key];
+    const tot = d ? (d.visual || 0) + (d.auditiva || 0) + (d.activa || 0) : 0;
+    if (tot > 0) { racha++; cursor.setDate(cursor.getDate() - 1); }
+    else break;
+  }
+
+  document.getElementById('dashTotal').textContent = total;
+  document.getElementById('dashRacha').textContent = racha;
+  document.getElementById('dashDias').textContent = fechas.length;
+
+  const dias7 = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toISOString().split('T')[0];
+    const data = hist[key];
+    const tot = data ? (data.visual || 0) + (data.auditiva || 0) + (data.activa || 0) : 0;
+    dias7.push({ lbl: d.toLocaleDateString('es-CO', { weekday: 'short' }).slice(0,1).toUpperCase(), tot });
+  }
+  const maxTot = Math.max(1, ...dias7.map(d => d.tot));
+  document.getElementById('dashBars').innerHTML = dias7.map(d => `
+    <div class="dash-bar-col">
+      <div class="dash-bar ${d.tot > 0 ? 'has' : ''}" style="height:${d.tot > 0 ? Math.max(14, (d.tot / maxTot) * 60) : 4}px"></div>
+      <div class="dash-bar-lbl">${d.lbl}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('badgesGrid').innerHTML = BADGES.map(b => `
+    <div class="badge-item ${total >= b.meta ? 'unlocked' : ''}">
+      <div class="badge-ic"><svg class="icon icon-sm"><use href="#${b.ic}"/></svg></div>
+      <div class="badge-txt"><b>${b.titulo}</b><span>${b.desc}</span></div>
+    </div>
+  `).join('');
 }
 
 // ===== GUARDAR JORNADA EN BACKEND =====
@@ -974,11 +1161,13 @@ function finalizarJornada() {
         if (res.fotoPerfilURL) persona.fotoPerfilURL = res.fotoPerfilURL;
         if (res.pausas) pausasHoy = res.pausas;
         diaFinalizado = true;
+        guardarHistorialHoy();
         guardarSesionLocal();
         actualizarEstadoSalida();
+        salidaPendienteCierre = true;
         document.getElementById('okTitle').textContent = '¡Salida registrada!';
         document.getElementById('okSub').textContent = 'Tu jornada de hoy quedó completa. Nos vemos mañana.';
-        document.getElementById('beneficioTexto').textContent = 'Gracias por cuidar tu bienestar durante la jornada de hoy.';
+        document.getElementById('beneficioTexto').textContent = 'Gracias por cuidar tu bienestar durante la jornada de hoy. Vuelves a la pantalla de inicio de sesión.';
         document.getElementById('successModal').classList.add('show');
       } else {
         mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
@@ -987,7 +1176,31 @@ function finalizarJornada() {
     .catch(err => { ocultarLoading(); mostrarToast('Error de conexión: ' + err.message); });
 }
 
-function cerrarModalExito() { document.getElementById('successModal').classList.remove('show'); }
+function cerrarModalExito() {
+  document.getElementById('successModal').classList.remove('show');
+  if (salidaPendienteCierre) { salidaPendienteCierre = false; cerrarSesionCompleta(); }
+}
+
+function cerrarSesionCompleta() {
+  localStorage.removeItem(LS_KEY);
+  persona = { area: '', nombre: '', cedula: '', fotoPerfil: '', fotoPerfilURL: '', datosConfirmados: false };
+  pausasHoy = []; horaIngreso = ''; horaSalida = ''; diaFinalizado = false;
+  document.getElementById('areaColaborador').value = '';
+  document.getElementById('nombreColaborador').value = '';
+  document.getElementById('cedulaColaborador').value = '';
+  document.getElementById('fotoIngresoPrev').style.display = 'none';
+  document.getElementById('fiIcon').style.display = 'flex';
+  document.getElementById('fiTitle').textContent = 'Tu foto';
+  document.getElementById('fiSub').textContent = 'Toca para tomarla (cámara frontal)';
+  document.getElementById('fotoIngresoBox').classList.remove('has');
+  document.getElementById('topbarAvatar').classList.remove('has');
+  document.getElementById('topbarAvatar').innerHTML = '<svg class="icon icon-lg"><use href="#i-user"/></svg>';
+  document.getElementById('profileAvatar').style.display = 'none';
+  document.getElementById('profileAvatarIc').style.display = 'flex';
+  document.getElementById('observaciones').value = '';
+  goTo('inicio');
+  reabrirPortada();
+}
 
 // ===== UI HELPERS =====
 function mostrarLoading(msg) { document.getElementById('loadingMsg').textContent = msg; document.getElementById('loadingOverlay').classList.add('show'); }
