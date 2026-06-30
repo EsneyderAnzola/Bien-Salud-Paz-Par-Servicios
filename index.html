@@ -218,16 +218,82 @@
   .flower-overlay.open .petal{opacity:1;pointer-events:auto;transform:translate(calc(-50% + var(--x)),var(--y)) scale(1)}
   .petal.done{background:var(--brand-green-soft);color:var(--brand-green-deep);border-color:var(--brand-green)}
 
-  /* ===== ACTIVIDAD GUIADA ===== */
-  .activity-box{margin-top:16px;border:1.5px solid var(--border-light);border-radius:var(--r-lg);padding:20px;text-align:center;background:var(--bg-surface)}
-  .activity-stage{position:relative;width:150px;height:150px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
-  .activity-stage svg{position:absolute;inset:0}
-  .activity-ring-anim{transition:stroke-dashoffset 1s linear}
-  .activity-dot{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--brand-green-dark);left:50%;top:50%;transform:translate(-50%,-50%);display:none;transition:left 1.1s ease-in-out,top 1.1s ease-in-out;box-shadow:0 0 0 6px rgba(15,191,139,.2)}
-  .activity-num{font-family:'Bebas Neue';font-size:42px;color:var(--brand-green-dark)}
-  .activity-time{font-size:15px;color:var(--text-dark);margin-bottom:14px;font-weight:700}
-  .breathing-circle{width:84px;height:84px;border-radius:50%;background:var(--brand-green-soft);border:3px solid var(--brand-green);position:absolute;transition:transform 4s ease-in-out}
-  #activityBtn{min-height:64px;font-size:16px;padding:16px 20px}
+  /* ===== MINIJUEGO HOST ===== */
+  .game-topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:12px;background:var(--bg-surface);border-radius:var(--r-md);border:1.5px solid var(--border-light)}
+  .game-meta{flex:1;min-width:0}.game-meta b{display:block;font-family:'Bebas Neue';font-size:17px;color:var(--text-dark)}.game-meta span{font-size:12px;color:var(--text-muted);font-weight:600}
+  .game-timer-wrap{position:relative;width:44px;height:44px;flex-shrink:0}
+  .game-timer-wrap svg{position:absolute;inset:0}
+  .game-timer-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:15px;color:var(--brand-green-deep)}
+  .game-area{min-height:280px;background:#fff;border:1.5px solid var(--border-light);border-radius:var(--r-md);padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;position:relative;overflow:hidden;user-select:none}
+
+  /* MEMORIA */
+  .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:280px;margin:0 auto}
+  .mem-card{aspect-ratio:1;background:var(--brand-green-dark);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:24px;transition:transform .2s;border:none}
+  .mem-card.flip{background:#fff;border:2px solid var(--brand-green);color:var(--brand-green-deep)}
+  .mem-card.match{background:var(--brand-green-soft);border:2px solid var(--brand-green);color:var(--brand-green-deep);cursor:default}
+  /* COLORES */
+  .col-grid{position:relative;width:100%;height:260px}
+  .col-dot{position:absolute;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-weight:700;transition:transform .15s}
+  .col-dot:active{transform:scale(.85)}
+  /* DIFERENCIA */
+  .dif-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:260px;margin:0 auto}
+  .dif-cell{aspect-ratio:1;background:var(--brand-green-soft);border:1.5px solid var(--brand-green);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--brand-green-dark);font-size:22px;cursor:pointer}
+  /* SOPA */
+  .sopa-info{font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:8px}
+  .sopa-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
+  .sopa-tag{font-size:11px;padding:4px 10px;background:var(--bg-surface);border-radius:14px;border:1px solid var(--border-light);font-weight:700}
+  .sopa-tag.ok{background:var(--brand-green-soft);color:var(--brand-green-deep);border-color:var(--brand-green);text-decoration:line-through}
+  .sopa-grid{display:grid;gap:3px;width:100%;max-width:260px;margin:0 auto}
+  .sopa-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--bg-surface);border-radius:5px;font-weight:700;font-size:14px;color:var(--text-dark);cursor:pointer;border:1.5px solid transparent}
+  .sopa-cell.sel{background:var(--brand-green);color:#fff}
+  .sopa-cell.ok{background:var(--brand-green-soft);color:var(--brand-green-deep);border-color:var(--brand-green)}
+  /* MATE */
+  .mate-q{font-family:'Bebas Neue';font-size:48px;color:var(--brand-green-dark);text-align:center;margin:10px 0}
+  .mate-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:260px;margin:0 auto}
+  .mate-opt{padding:18px;background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);font-size:20px;font-weight:700;cursor:pointer}
+  .mate-opt:hover{border-color:var(--brand-green)}
+  .mate-prog{font-size:13px;color:var(--text-muted);font-weight:700}
+  /* TRIQUI */
+  .tri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:240px;margin:10px auto}
+  .tri-cell{aspect-ratio:1;background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:38px;cursor:pointer;color:var(--brand-green-dark)}
+  .tri-cell:hover:empty{background:var(--brand-green-soft)}
+  /* PPT */
+  .ppt-info{font-size:13px;color:var(--text-muted);text-align:center}
+  .ppt-score{font-family:'Bebas Neue';font-size:28px;text-align:center;color:var(--brand-green-dark)}
+  .ppt-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:260px;margin:14px auto}
+  .ppt-opt{padding:18px 8px;background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:var(--r-md);font-size:24px;cursor:pointer;text-align:center}
+  .ppt-msg{font-size:14px;font-weight:700;color:var(--brand-green-deep);text-align:center;min-height:20px}
+  /* AHORCADO */
+  .ahor-word{font-family:'Bebas Neue';font-size:32px;letter-spacing:6px;text-align:center;margin:14px 0;color:var(--brand-green-dark)}
+  .ahor-tries{font-size:13px;text-align:center;color:var(--text-muted);font-weight:700;margin-bottom:10px}
+  .ahor-keys{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:100%}
+  .ahor-key{padding:8px 0;background:var(--bg-surface);border:1.5px solid var(--border-light);border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase}
+  .ahor-key.used{opacity:.35;cursor:default}
+  /* ENCESTAR */
+  .enc-stage{position:relative;width:100%;height:260px;background:linear-gradient(to bottom,var(--brand-green-soft) 0%,#fff 100%);border-radius:var(--r-md);overflow:hidden}
+  .enc-hoop{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:80px;height:24px;border:4px solid var(--brand-green-dark);border-radius:50%;background:transparent;cursor:pointer}
+  .enc-ball{position:absolute;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff9d4d,#cc5500);bottom:-30px;transition:bottom .8s ease-out,left .8s ease-out}
+  .enc-score{position:absolute;top:8px;right:10px;background:var(--brand-green-dark);color:#fff;padding:4px 10px;border-radius:14px;font-family:'Bebas Neue';font-size:15px;letter-spacing:1px}
+  /* NINJA */
+  .nin-stage{position:relative;width:100%;height:280px;background:#1a1a1a;border-radius:var(--r-md);overflow:hidden}
+  .nin-item{position:absolute;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer}
+  .nin-item.fruta{background:radial-gradient(circle at 30% 30%,#ff5252,#a31313)}
+  .nin-item.bomba{background:radial-gradient(circle at 30% 30%,#444,#000);color:#ff5252;border:2px solid #ff5252}
+  .nin-score{position:absolute;top:8px;left:10px;background:rgba(255,255,255,.15);color:#fff;padding:4px 10px;border-radius:14px;font-family:'Bebas Neue';font-size:15px}
+  /* LABERINTO */
+  .lab-stage{display:grid;gap:1px;background:var(--text-dark);padding:2px;border-radius:8px;margin:0 auto}
+  .lab-cell{width:22px;height:22px;background:#fff;border-radius:2px}
+  .lab-cell.wall{background:var(--text-dark)}
+  .lab-cell.goal{background:var(--brand-green)}
+  .lab-cell.player{background:var(--brand-green-dark);border-radius:50%;box-shadow:0 0 0 2px var(--brand-green-soft) inset}
+  .lab-pad{display:grid;grid-template-columns:repeat(3,46px);grid-template-rows:repeat(3,46px);gap:5px;margin-top:14px}
+  .lab-btn{background:var(--brand-green);color:#fff;border:none;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;font-weight:700}
+  .lab-btn.empty{background:transparent;cursor:default}
+  /* DADOS */
+  .dad-display{display:flex;gap:12px;justify-content:center;margin:18px 0}
+  .dad-cube{width:64px;height:64px;border-radius:12px;background:#fff;border:3px solid var(--brand-green-dark);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:36px;color:var(--brand-green-dark)}
+  .dad-total{font-family:'Bebas Neue';font-size:46px;text-align:center;color:var(--brand-green-deep)}
+  .dad-actions{display:flex;gap:8px;width:100%;max-width:260px;margin:14px auto 0}
 </style>
 </head>
 <body>
@@ -435,37 +501,28 @@
 
 <!-- MODAL PAUSA -->
 <div class="overlay" id="pausaModal"><div class="modal" style="max-width:420px;text-align:left">
-  <div class="tip-card" id="tipCard" style="margin-bottom:14px">
-    <span class="tip-tag" id="tipTag">Reto</span>
-    <div class="tip-title" id="tipTitle">—</div>
-    <div class="tip-desc" id="tipDesc">—</div>
-    <div class="tip-dur"><svg class="icon icon-sm"><use href="#i-clock"/></svg><span id="tipDur">—</span></div>
-  </div>
-  <button type="button" class="btn btn-soft btn-block" onclick="otroReto()"><svg class="icon icon-sm"><use href="#i-refresh"/></svg>Probar otro reto</button>
-
-  <div class="activity-box" id="activityBox">
-    <div class="activity-stage" id="activityStage">
-      <svg viewBox="0 0 150 150" width="150" height="150">
-        <circle cx="75" cy="75" r="66" fill="none" stroke="var(--border-light)" stroke-width="8"/>
-        <circle id="activityRing" cx="75" cy="75" r="66" fill="none" stroke="var(--brand-green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="414" stroke-dashoffset="414" transform="rotate(-90 75 75)"/>
-      </svg>
-      <div class="activity-dot" id="activityDot"></div>
-      <div class="activity-num" id="activityNum">0</div>
+  <div id="gameIntro">
+    <div class="tip-card" style="margin-bottom:14px">
+      <span class="tip-tag" id="tipTag">Reto</span>
+      <div class="tip-title" id="tipTitle">—</div>
+      <div class="tip-desc" id="tipDesc">—</div>
+      <div class="tip-dur"><svg class="icon icon-sm"><use href="#i-clock"/></svg><span id="tipDur">—</span></div>
     </div>
-    <div class="activity-time" id="activityTime">Listo para empezar</div>
-    <button type="button" class="btn btn-primary btn-block" id="activityBtn" onclick="iniciarActividad()"><svg class="icon icon-sm"><use href="#i-bolt"/></svg>Iniciar actividad guiada</button>
+    <button type="button" class="btn btn-soft btn-block" onclick="otroReto()"><svg class="icon icon-sm"><use href="#i-refresh"/></svg>Probar otro reto</button>
+    <button type="button" class="btn btn-primary btn-block" style="margin-top:10px;min-height:60px;font-size:16px" onclick="iniciarJuego()"><svg class="icon"><use href="#i-bolt"/></svg>Iniciar minijuego</button>
+    <button type="button" class="btn btn-outline btn-block" style="margin-top:8px" onclick="cerrarPausaModal()">Cancelar</button>
   </div>
 
-  <div class="field" style="margin-top:16px"><label class="label">Evidencia fotográfica <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
-    <div class="upload" id="uploadPausa">
-      <input type="file" id="filePausa" accept="image/*" capture="environment">
-      <div id="defPausa"><div class="upload-ic"><svg class="icon icon-lg"><use href="#i-camera"/></svg></div><div class="upload-t">Foto de tu pausa</div><div class="upload-h">Cámara o galería</div></div>
-      <div id="prevPausa" style="display:none"><img id="imgPausa" class="preview-img"><div class="preview-act"><button type="button" class="btn btn-outline btn-sm" onclick="event.stopPropagation();document.getElementById('filePausa').click()"><svg class="icon icon-sm"><use href="#i-upload"/></svg>Cambiar</button><button type="button" class="btn btn-danger btn-sm" onclick="event.stopPropagation();quitarFotoPausa()"><svg class="icon icon-sm"><use href="#i-trash"/></svg>Quitar</button></div></div>
+  <div id="gameHost" style="display:none">
+    <div class="game-topbar">
+      <div class="game-meta"><b id="gameTitulo">—</b><span id="gameStatus">—</span></div>
+      <div class="game-timer-wrap">
+        <svg viewBox="0 0 44 44" width="44" height="44"><circle cx="22" cy="22" r="18" fill="none" stroke="var(--border-light)" stroke-width="4"/><circle id="gameRing" cx="22" cy="22" r="18" fill="none" stroke="var(--brand-green)" stroke-width="4" stroke-linecap="round" stroke-dasharray="113" stroke-dashoffset="0" transform="rotate(-90 22 22)"/></svg>
+        <span class="game-timer-txt" id="gameTimer">0</span>
+      </div>
     </div>
-  </div>
-  <div class="save-row" style="display:flex;gap:8px">
-    <button class="btn btn-outline" style="flex:1" onclick="cerrarPausaModal()">Cancelar</button>
-    <button class="btn btn-primary" style="flex:2" onclick="registrarPausa()"><svg class="icon"><use href="#i-check"/></svg>Completar pausa</button>
+    <div id="gameArea" class="game-area"></div>
+    <button type="button" class="btn btn-outline btn-block" style="margin-top:12px" onclick="abandonarJuego()">Cancelar reto</button>
   </div>
 </div></div>
 
@@ -478,10 +535,11 @@
   <div class="ok-ic"><svg class="icon icon-xl"><use href="#i-check"/></svg></div>
   <div class="ok-title" id="okTitle">¡Pausa completada!</div>
   <div class="ok-sub" id="okSub">Tu pausa de hoy quedó registrada.</div>
-  <div class="tip-card" id="beneficioCard" style="text-align:left;margin-bottom:18px">
+  <div class="tip-card" id="beneficioCard" style="text-align:left;margin-bottom:14px">
     <span class="tip-tag"><svg class="icon icon-sm"><use href="#i-leaf"/></svg> Beneficio</span>
     <div class="tip-desc" id="beneficioTexto">—</div>
   </div>
+  <img id="certPreview" style="display:none;width:100%;border-radius:var(--r-md);border:1.5px solid var(--brand-green);margin-bottom:14px" alt="Certificado">
   <button class="btn btn-primary btn-block" onclick="cerrarModalExito()"><svg class="icon"><use href="#i-check"/></svg>Listo</button>
 </div></div>
 
@@ -501,40 +559,22 @@ const BADGES = [
 
 const TIPS = {
   Visual: [
-    { titulo: 'Regla 20-20-20', desc: 'PASO 1: Sigue el punto verde con los ojos, sin mover la cabeza.', dur: '20 segundos', seg: 20, juego: 'seguir', dir: 'h' },
-    { titulo: 'Parpadeo consciente', desc: 'PASO 1: Parpadea despacio cada vez que veas el ojo en pantalla.', dur: '30 segundos', seg: 30, juego: 'parpadeo' },
-    { titulo: 'Enfoque cercano-lejano', desc: 'PASO 1: Sigue el punto verde con los ojos de lado a lado.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'h', vel: 700 },
-    { titulo: 'Trazo ocular vertical', desc: 'PASO 1: Sigue el punto verde de arriba hacia abajo con los ojos.', dur: '30 segundos', seg: 30, juego: 'seguir', dir: 'v' },
-    { titulo: 'Toca y descansa la vista', desc: 'PASO 1: Toca el botón verde grande 5 veces, descansando los ojos entre cada toque.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 5 },
-    { titulo: 'Seguimiento lento', desc: 'PASO 1: Sigue el punto verde con los ojos, despacio y sin apurarte.', dur: '40 segundos', seg: 40, juego: 'seguir', dir: 'h', vel: 1600 },
-    { titulo: 'Parpadeo profundo', desc: 'PASO 1: Parpadea fuerte y completo cada vez que veas el ojo en pantalla.', dur: '40 segundos', seg: 40, juego: 'parpadeo' },
-    { titulo: 'Toca cada 5 segundos', desc: 'PASO 1: Toca el botón verde grande 4 veces mientras descansas la vista.', dur: '25 segundos', seg: 25, juego: 'toques', meta: 4 },
-    { titulo: 'Trazo vertical lento', desc: 'PASO 1: Sigue el punto verde de arriba hacia abajo, despacio.', dur: '35 segundos', seg: 35, juego: 'seguir', dir: 'v', vel: 1500 },
-    { titulo: 'Enfoque sostenido', desc: 'PASO 1: No pierdas de vista el punto verde mientras se mueve.', dur: '25 segundos', seg: 25, juego: 'seguir', dir: 'h', vel: 600 }
+    { id: 'memoria',     titulo: 'Memoria de iconos',     desc: 'Voltea las tarjetas y encuentra las 6 parejas iguales antes de que se acabe el tiempo.', dur: '75 segundos', seg: 75 },
+    { id: 'colores',     titulo: 'Cazar el verde',        desc: 'Toca SOLO los círculos verdes. Si tocas otro color, suma penalización. Necesitas 12 aciertos.', dur: '40 segundos', seg: 40 },
+    { id: 'diferencia',  titulo: 'Encuentra el diferente',desc: 'En cada ronda aparece una cuadrícula de iconos. Toca el único que es distinto. Completa 6 rondas.', dur: '60 segundos', seg: 60 },
+    { id: 'sopa',        titulo: 'Sopa de letras',        desc: 'Encuentra las 4 palabras de bienestar en la cuadrícula. Tócalas letra por letra.', dur: '90 segundos', seg: 90 }
   ],
   Auditiva: [
-    { titulo: 'Respiración 4-4-4', desc: 'PASO 1: Inhala mientras el círculo crece. PASO 2: Exhala mientras se encoge.', dur: '48 segundos', seg: 48, juego: 'respirar' },
-    { titulo: 'Respiración guiada', desc: 'PASO 1: Inhala cuando el círculo crece. PASO 2: Exhala cuando se encoge.', dur: '1 minuto', seg: 60, juego: 'respirar' },
-    { titulo: 'Cuenta de respiraciones', desc: 'PASO 1: Respira siguiendo el círculo. Mira el número de respiraciones que llevas.', dur: '40 segundos', seg: 40, juego: 'cuenta' },
-    { titulo: 'Calma interior', desc: 'PASO 1: Cierra los ojos y respira siguiendo el ritmo del círculo.', dur: '30 segundos', seg: 30, juego: 'respirar' },
-    { titulo: 'Toca y respira', desc: 'PASO 1: Toca el botón verde grande 5 veces, respirando profundo entre cada toque.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 5 },
-    { titulo: 'Respiración larga', desc: 'PASO 1: Inhala cuando el círculo crece. PASO 2: Exhala cuando se encoge. Repite tranquilo.', dur: '1 minuto', seg: 60, juego: 'respirar' },
-    { titulo: 'Cuenta consciente', desc: 'PASO 1: Respira siguiendo el círculo y observa cuántas veces respiraste.', dur: '48 segundos', seg: 48, juego: 'cuenta' },
-    { titulo: 'Silencio activo', desc: 'PASO 1: Respira profundo siguiendo el círculo, sin pensar en nada más.', dur: '35 segundos', seg: 35, juego: 'respirar' },
-    { titulo: 'Toca con calma', desc: 'PASO 1: Toca el botón verde grande 5 veces, tomando aire entre cada toque.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 5 },
-    { titulo: 'Respiración exprés', desc: 'PASO 1: Inhala cuando el círculo crece. PASO 2: Exhala cuando se encoge.', dur: '24 segundos', seg: 24, juego: 'respirar' }
+    { id: 'mate',        titulo: 'Reto matemático',       desc: 'Resuelve 6 operaciones mentales seguidas, sin pasarte de los 60 segundos.', dur: '60 segundos', seg: 60 },
+    { id: 'triqui',      titulo: 'Triqui contra el bot',  desc: 'Empata o gana al bot. Si pierdes, no se valida.', dur: '60 segundos', seg: 60 },
+    { id: 'ppt',         titulo: 'Piedra, papel o tijera',desc: 'El primero en ganar 3 rondas gana. Si pierdes el global, no se valida.', dur: '60 segundos', seg: 60 },
+    { id: 'ahorcado',    titulo: 'Adivina la palabra',    desc: 'Tienes 6 intentos para adivinar la palabra de bienestar.', dur: '90 segundos', seg: 90 }
   ],
   Activa: [
-    { titulo: 'Estiramiento de cuello', desc: 'PASO 1: Toca el botón verde grande cada vez que cambies de lado al estirar el cuello.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
-    { titulo: 'Rotación de hombros', desc: 'PASO 1: Toca el botón verde grande en cada giro de hombros, hasta llegar a 10.', dur: '40 segundos', seg: 40, juego: 'toques', meta: 10 },
-    { titulo: 'Estiramiento de muñecas', desc: 'PASO 1: Toca el botón verde grande en cada repetición al flexionar tus muñecas.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
-    { titulo: 'Estiramiento de brazos', desc: 'PASO 1: Ponte de pie. PASO 2: Toca el botón verde grande en cada estiramiento de brazos.', dur: '35 segundos', seg: 35, juego: 'toques', meta: 6 },
-    { titulo: 'Estiramiento de espalda', desc: 'PASO 1: Toca el botón verde grande en cada inclinación de tu torso, hasta llegar a 8.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
-    { titulo: 'Marcha en el sitio', desc: 'PASO 1: Toca el botón verde grande en cada paso que das marchando en tu lugar.', dur: '40 segundos', seg: 40, juego: 'toques', meta: 12 },
-    { titulo: 'Estiramiento de piernas', desc: 'PASO 1: Toca el botón verde grande en cada elevación de rodilla, alternando piernas.', dur: '35 segundos', seg: 35, juego: 'toques', meta: 10 },
-    { titulo: 'Estiramiento de tobillos', desc: 'PASO 1: Ponte de pie. PASO 2: Toca el botón verde grande en cada giro de tobillo.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 5 },
-    { titulo: 'Estiramiento de tríceps', desc: 'PASO 1: Toca el botón verde grande en cada repetición al estirar los brazos atrás.', dur: '30 segundos', seg: 30, juego: 'toques', meta: 8 },
-    { titulo: 'Movimiento y respiración', desc: 'PASO 1: Toca el botón verde grande y respira profundo entre cada toque.', dur: '35 segundos', seg: 35, juego: 'toques', meta: 6 }
+    { id: 'encestar',    titulo: 'Encesta la pelota',     desc: 'Toca el aro cada vez que la pelota pase por encima. Necesitas 8 canastas.', dur: '45 segundos', seg: 45 },
+    { id: 'ninja',       titulo: 'Ninja de frutas',       desc: 'Toca las frutas que aparecen y NO toques las bombas. Necesitas 15 frutas.', dur: '40 segundos', seg: 40 },
+    { id: 'laberinto',   titulo: 'Sal del laberinto',     desc: 'Mueve la ficha con las flechas y llega a la meta verde.', dur: '90 segundos', seg: 90 },
+    { id: 'dados21',     titulo: '21 con dados',          desc: 'Lanza los dados y acércate a 21. Si te pasas, pierdes. Si llegas a 17 o más sin pasarte, ganas.', dur: '60 segundos', seg: 60 }
   ]
 };
 
@@ -598,7 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarSesion();
 
   document.getElementById('fileIngreso').addEventListener('change', manejarFotoIngreso);
-  document.getElementById('filePausa').addEventListener('change', manejarFotoPausa);
   actualizarEstadoFlor();
 });
 
@@ -645,150 +684,347 @@ function cerrarPausaModal() {
   tipoActual = ''; tipActual = null;
 }
 
-// ===== MINI-ACTIVIDADES GUIADAS =====
-let actTimer = null, actTimer2 = null, actInterval = null, actFlashTimer = null, actTotal = 0, actRestante = 0, actToques = 0, actVerde = false, actRespiros = 0;
+// ===== MOTOR DE MINIJUEGOS =====
+let gameInterval = null, gameTimers = [], gameRestante = 0, gameTotal = 0, gameTerminado = false;
 
 function resetActividad() {
-  detenerActividad();
-  actTotal = tipActual.seg || 30;
-  actRestante = actTotal;
-  actToques = 0;
-  actRespiros = 0;
-  actVerde = false;
-  const juego = tipActual.juego;
-  document.getElementById('activityTime').textContent = 'Listo para empezar';
-  document.getElementById('activityNum').textContent = (juego === 'toques' || juego === 'flash') ? '0/' + (tipActual.meta || 5) : '';
-  document.getElementById('activityDot').style.display = 'none';
-  document.getElementById('activityDot').style.background = 'var(--brand-green-dark)';
-  document.getElementById('activityRing').style.strokeDashoffset = '414';
-  const btn = document.getElementById('activityBtn');
-  btn.disabled = false;
-  btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-bolt"/></svg>Iniciar actividad guiada';
-  btn.onclick = iniciarActividad;
-  const stage = document.getElementById('activityStage');
-  const old = stage.querySelector('.breathing-circle'); if (old) old.remove();
-
-  if (juego === 'respirar' || juego === 'cuenta') {
-    const circ = document.createElement('div');
-    circ.className = 'breathing-circle';
-    circ.id = 'breathCircle';
-    stage.appendChild(circ);
-  }
+  pararJuego();
+  document.getElementById('gameIntro').style.display = 'block';
+  document.getElementById('gameHost').style.display = 'none';
 }
 
-function iniciarActividad() {
-  const btn = document.getElementById('activityBtn');
-  const juego = tipActual.juego;
-  btn.disabled = true;
-  btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-clock"/></svg>Actividad en curso...';
+function abandonarJuego() { pararJuego(); cerrarPausaModal(); }
 
-  if (juego === 'toques') {
-    btn.disabled = false;
-    btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>Toca aquí en cada repetición';
-    btn.onclick = registrarToque;
-  } else if (juego === 'seguir') {
-    document.getElementById('activityDot').style.display = 'block';
-    moverPunto();
-  } else if (juego === 'parpadeo') {
-    document.getElementById('activityNum').textContent = '👁';
-  } else if (juego === 'respirar') {
-    cicloRespiracion();
-  } else if (juego === 'cuenta') {
-    cicloRespiracion();
-    actTimer2 = setInterval(() => { actRespiros++; document.getElementById('activityNum').textContent = actRespiros; }, 4000);
-  } else if (juego === 'flash') {
-    btn.disabled = false;
-    btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-bolt"/></svg>Toca cuando esté verde';
-    btn.onclick = registrarFlash;
-    document.getElementById('activityDot').style.display = 'block';
-    document.getElementById('activityDot').style.left = '50%';
-    programarFlash();
-  }
+function pararJuego() {
+  if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
+  gameTimers.forEach(t => { clearTimeout(t); clearInterval(t); });
+  gameTimers = [];
+  gameTerminado = true;
+}
 
-  actInterval = setInterval(() => {
-    actRestante--;
-    document.getElementById('activityTime').textContent = actRestante + ' s restantes';
-    document.getElementById('activityRing').style.strokeDashoffset = String(414 - (414 * ((actTotal - actRestante) / actTotal)));
-    if (actRestante <= 0) finActividad();
+function tk(fn, ms) { const t = setTimeout(fn, ms); gameTimers.push(t); return t; }
+function ti(fn, ms) { const t = setInterval(fn, ms); gameTimers.push(t); return t; }
+
+function iniciarJuego() {
+  if (!tipActual) return;
+  gameTerminado = false;
+  gameTotal = tipActual.seg || 60;
+  gameRestante = gameTotal;
+  document.getElementById('gameIntro').style.display = 'none';
+  document.getElementById('gameHost').style.display = 'block';
+  document.getElementById('gameTitulo').textContent = tipActual.titulo;
+  document.getElementById('gameStatus').textContent = 'En curso';
+  document.getElementById('gameTimer').textContent = gameRestante;
+  document.getElementById('gameRing').style.strokeDashoffset = '0';
+  document.getElementById('gameArea').innerHTML = '';
+
+  gameInterval = setInterval(() => {
+    gameRestante--;
+    document.getElementById('gameTimer').textContent = gameRestante;
+    document.getElementById('gameRing').style.strokeDashoffset = String(113 * (1 - gameRestante / gameTotal));
+    if (gameRestante <= 0 && !gameTerminado) juegoFallido();
   }, 1000);
-}
 
-function moverPunto() {
-  const dot = document.getElementById('activityDot');
-  const dir = tipActual.dir || 'h';
-  const vel = tipActual.vel || 1100;
-  let alterno = true;
-  if (dir === 'v') { dot.style.left = '50%'; dot.style.top = '20%'; }
-  else { dot.style.left = '20%'; dot.style.top = '50%'; }
-  actTimer = setInterval(() => {
-    if (dir === 'v') dot.style.top = alterno ? '80%' : '20%';
-    else dot.style.left = alterno ? '80%' : '20%';
-    alterno = !alterno;
-  }, vel);
-}
-
-function cicloRespiracion() {
-  const circ = document.getElementById('breathCircle');
-  if (!circ) return;
-  let inhalando = true;
-  const fase = () => { circ.style.transform = inhalando ? 'scale(1.5)' : 'scale(1)'; inhalando = !inhalando; };
-  fase();
-  actTimer = setInterval(fase, 4000);
-}
-
-function programarFlash() {
-  const dot = document.getElementById('activityDot');
-  const espera = 900 + Math.random() * 1600;
-  actFlashTimer = setTimeout(() => {
-    actVerde = true;
-    dot.style.background = '#0FBF8B';
-    dot.style.boxShadow = '0 0 0 8px rgba(15,191,139,.25)';
-  }, espera);
-}
-
-function registrarFlash() {
-  const dot = document.getElementById('activityDot');
-  const meta = tipActual.meta || 5;
-  if (!actVerde) return;
-  actVerde = false;
-  actToques++;
-  dot.style.background = 'var(--brand-green-dark)';
-  dot.style.boxShadow = 'none';
-  document.getElementById('activityNum').textContent = actToques + '/' + meta;
-  if (actToques >= meta) {
-    clearTimeout(actFlashTimer);
-    document.getElementById('activityBtn').disabled = true;
-    document.getElementById('activityBtn').innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>¡Reacciones completas!';
-  } else {
-    programarFlash();
+  const area = document.getElementById('gameArea');
+  switch (tipActual.id) {
+    case 'memoria':    juegoMemoria(area); break;
+    case 'colores':    juegoColores(area); break;
+    case 'diferencia': juegoDiferencia(area); break;
+    case 'sopa':       juegoSopa(area); break;
+    case 'mate':       juegoMate(area); break;
+    case 'triqui':     juegoTriqui(area); break;
+    case 'ppt':        juegoPPT(area); break;
+    case 'ahorcado':   juegoAhorcado(area); break;
+    case 'encestar':   juegoEncestar(area); break;
+    case 'ninja':      juegoNinja(area); break;
+    case 'laberinto':  juegoLaberinto(area); break;
+    case 'dados21':    juegoDados(area); break;
+    default: area.textContent = 'Juego no disponible';
   }
 }
 
-function registrarToque() {
-  actToques++;
-  const meta = tipActual.meta || 8;
-  document.getElementById('activityNum').textContent = actToques + '/' + meta;
-  if (actToques >= meta) {
-    document.getElementById('activityBtn').disabled = true;
-    document.getElementById('activityBtn').innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>¡Repeticiones completas!';
+function juegoCompletado() {
+  if (gameTerminado) return;
+  gameTerminado = true;
+  pararJuego();
+  document.getElementById('gameStatus').textContent = '¡Reto superado!';
+  registrarPausa();
+}
+
+function juegoFallido() {
+  if (gameTerminado) return;
+  gameTerminado = true;
+  pararJuego();
+  mostrarToast('Tiempo agotado. No completaste el reto, intenta otro.');
+  tk(() => cerrarPausaModal(), 1400);
+}
+
+// ============ 1. MEMORIA ============
+function juegoMemoria(area) {
+  const icos = ['🧠','💧','🌿','💪','👁','👂','💚','🧘'];
+  const pares = icos.slice(0,6); const baraja = [...pares,...pares].sort(()=>Math.random()-.5);
+  let abierta = null, lock = false, parejas = 0;
+  area.innerHTML = '<div class="mem-grid" id="memGrid"></div>';
+  const grid = document.getElementById('memGrid');
+  baraja.forEach((ic, i) => {
+    const c = document.createElement('button'); c.className = 'mem-card'; c.dataset.ic = ic; c.dataset.i = i;
+    c.onclick = () => {
+      if (lock || c.classList.contains('flip') || c.classList.contains('match')) return;
+      c.classList.add('flip'); c.textContent = ic;
+      if (!abierta) { abierta = c; return; }
+      if (abierta.dataset.ic === ic) {
+        abierta.classList.add('match'); c.classList.add('match'); abierta = null; parejas++;
+        if (parejas >= 6) juegoCompletado();
+      } else {
+        lock = true;
+        tk(() => { abierta.classList.remove('flip'); abierta.textContent=''; c.classList.remove('flip'); c.textContent=''; abierta = null; lock = false; }, 700);
+      }
+    };
+    grid.appendChild(c);
+  });
+}
+
+// ============ 2. COLORES ============
+function juegoColores(area) {
+  let aciertos = 0;
+  area.innerHTML = '<div class="ppt-info">Toca <b style="color:#0FBF8B">solo los verdes</b>. Llega a 12 aciertos.</div><div class="ppt-score" id="colScore">0 / 12</div><div class="col-grid" id="colStage"></div>';
+  const stage = document.getElementById('colStage');
+  const colores = ['#0FBF8B','#0FBF8B','#FF5252','#F59E0B','#3B82F6','#0FBF8B','#A855F7'];
+  function spawn() {
+    if (gameTerminado) return;
+    const dot = document.createElement('div'); dot.className = 'col-dot';
+    const col = colores[Math.floor(Math.random()*colores.length)];
+    dot.style.background = col;
+    dot.style.left = (Math.random()*82) + '%';
+    dot.style.top = (Math.random()*78) + '%';
+    dot.onclick = () => {
+      if (col === '#0FBF8B') { aciertos++; document.getElementById('colScore').textContent = aciertos + ' / 12'; if (aciertos >= 12) juegoCompletado(); }
+      else { aciertos = Math.max(0, aciertos - 1); document.getElementById('colScore').textContent = aciertos + ' / 12'; }
+      dot.remove();
+    };
+    stage.appendChild(dot);
+    tk(() => dot.remove(), 1500);
+  }
+  ti(spawn, 600);
+}
+
+// ============ 3. DIFERENCIA ============
+function juegoDiferencia(area) {
+  const icos = ['🧠','💧','🌿','💪','👁','👂','💚','🌟','🍀','⭐'];
+  let ronda = 0;
+  function siguiente() {
+    if (gameTerminado) return;
+    if (ronda >= 6) { juegoCompletado(); return; }
+    const base = icos[Math.floor(Math.random()*icos.length)];
+    let diff = base; while (diff === base) diff = icos[Math.floor(Math.random()*icos.length)];
+    const pos = Math.floor(Math.random()*16);
+    area.innerHTML = '<div class="ppt-info">Toca el icono <b>diferente</b> · Ronda <b>'+(ronda+1)+'/6</b></div><div class="dif-grid" id="difG"></div>';
+    const g = document.getElementById('difG');
+    for (let i=0;i<16;i++){
+      const c = document.createElement('div'); c.className='dif-cell'; c.textContent = i===pos?diff:base;
+      c.onclick = () => { if (i===pos){ ronda++; siguiente(); } else { mostrarToast('No es ese'); } };
+      g.appendChild(c);
+    }
+  }
+  siguiente();
+}
+
+// ============ 4. SOPA DE LETRAS ============
+function juegoSopa(area) {
+  const PALABRAS = ['SALUD','PAUSA','CALMA','VIDA'];
+  const N = 8; const grid = Array.from({length:N},()=>Array.from({length:N},()=>String.fromCharCode(65+Math.floor(Math.random()*26))));
+  PALABRAS.forEach(p => {
+    let ok=false, tries=0;
+    while(!ok && tries<60){tries++;
+      const horiz = Math.random()<.5, r=Math.floor(Math.random()*N), c=Math.floor(Math.random()*(N-p.length));
+      if (horiz) { for(let k=0;k<p.length;k++) grid[r][c+k]=p[k]; ok=true; }
+      else { const rr=Math.floor(Math.random()*(N-p.length)),cc=Math.floor(Math.random()*N); for(let k=0;k<p.length;k++) grid[rr+k][cc]=p[k]; ok=true; }
+    }
+  });
+  let encontradas = new Set(); let sel = [];
+  area.innerHTML = '<div class="sopa-tags" id="sopaTags"></div><div class="sopa-grid" id="sopaG" style="grid-template-columns:repeat('+N+',1fr)"></div><div class="sopa-info">Tócalas en orden, letra por letra. Toca otra vez para deseleccionar.</div>';
+  const tagsEl = document.getElementById('sopaTags');
+  PALABRAS.forEach(p => { const t = document.createElement('div'); t.className='sopa-tag'; t.id='tag-'+p; t.textContent=p; tagsEl.appendChild(t); });
+  const g = document.getElementById('sopaG');
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    const cell = document.createElement('div'); cell.className='sopa-cell'; cell.textContent=grid[r][c]; cell.dataset.k=r+','+c;
+    cell.onclick = () => {
+      if (cell.classList.contains('ok')) return;
+      if (cell.classList.contains('sel')){ cell.classList.remove('sel'); sel = sel.filter(s=>s.k!==cell.dataset.k); return; }
+      cell.classList.add('sel'); sel.push({k:cell.dataset.k,l:cell.textContent,el:cell});
+      const w = sel.map(s=>s.l).join('');
+      const match = PALABRAS.find(p => p === w && !encontradas.has(p));
+      if (match){ sel.forEach(s=>{s.el.classList.remove('sel'); s.el.classList.add('ok');}); encontradas.add(match); document.getElementById('tag-'+match).classList.add('ok'); sel = []; if (encontradas.size>=PALABRAS.length) juegoCompletado(); }
+      else if (!PALABRAS.some(p => p.startsWith(w) && !encontradas.has(p))) { sel.forEach(s=>s.el.classList.remove('sel')); sel = []; }
+    };
+    g.appendChild(cell);
   }
 }
 
-function finActividad() {
-  detenerActividad();
-  document.getElementById('activityTime').textContent = '¡Actividad completada!';
-  document.getElementById('activityRing').style.strokeDashoffset = '0';
-  const btn = document.getElementById('activityBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<svg class="icon icon-sm"><use href="#i-check"/></svg>Actividad completada';
+// ============ 5. MATEMÁTICO ============
+function juegoMate(area) {
+  let i = 0; const total = 6;
+  function pregunta(){
+    if (gameTerminado) return;
+    if (i>=total){ juegoCompletado(); return; }
+    const a=Math.floor(Math.random()*12)+2, b=Math.floor(Math.random()*12)+2, op=['+','-','×'][Math.floor(Math.random()*3)];
+    const r = op==='+'?a+b:op==='-'?a-b:a*b;
+    const opts = [r, r+1, r-2, r+3].sort(()=>Math.random()-.5);
+    area.innerHTML = '<div class="mate-prog">'+(i+1)+' / '+total+'</div><div class="mate-q">'+a+' '+op+' '+b+' = ?</div><div class="mate-opts" id="mateOpts"></div>';
+    const o = document.getElementById('mateOpts');
+    opts.forEach(v => { const b=document.createElement('button'); b.className='mate-opt'; b.textContent=v; b.onclick=()=>{ if (v===r){i++; pregunta();} else mostrarToast('Inténtalo otra vez'); }; o.appendChild(b); });
+  }
+  pregunta();
 }
 
-function detenerActividad() {
-  if (actInterval) { clearInterval(actInterval); actInterval = null; }
-  if (actTimer) { clearInterval(actTimer); actTimer = null; }
-  if (actTimer2) { clearInterval(actTimer2); actTimer2 = null; }
-  if (actFlashTimer) { clearTimeout(actFlashTimer); actFlashTimer = null; }
+// ============ 6. TRIQUI ============
+function juegoTriqui(area) {
+  const b = Array(9).fill(''); const Y='X', X='O'; let fin=false;
+  area.innerHTML = '<div class="ppt-info">Tú eres <b>X</b>. Empata o gana al bot.</div><div class="tri-grid" id="triG"></div>';
+  const g = document.getElementById('triG');
+  function render(){ g.innerHTML=''; b.forEach((v,i)=>{ const c=document.createElement('button'); c.className='tri-cell'; c.textContent=v; c.onclick=()=>jugar(i); g.appendChild(c); }); }
+  function lineas(){ return [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; }
+  function ganador(t){ for(const l of lineas()) if (b[l[0]]===t && b[l[1]]===t && b[l[2]]===t) return true; return false; }
+  function lleno(){ return b.every(v=>v); }
+  function jugar(i){ if (fin||b[i]) return; b[i]=Y; render(); if (ganador(Y)){fin=true; juegoCompletado(); return;} if (lleno()){fin=true; juegoCompletado(); return;} tk(()=>{const libres=b.map((v,i)=>v?-1:i).filter(i=>i>=0); const m=libres[Math.floor(Math.random()*libres.length)]; b[m]=X; render(); if (ganador(X)){fin=true; mostrarToast('Te ganó el bot'); tk(cerrarPausaModal,1400);} else if (lleno()){fin=true; juegoCompletado();}},400); }
+  render();
 }
+
+// ============ 7. PPT ============
+function juegoPPT(area) {
+  let yo=0, bot=0;
+  area.innerHTML = '<div class="ppt-score" id="pptS">0 - 0</div><div class="ppt-info">Llega a 3 antes que el bot</div><div class="ppt-msg" id="pptM">Elige tu jugada</div><div class="ppt-opts" id="pptO"></div>';
+  const o = document.getElementById('pptO');
+  ['✊','✋','✌'].forEach((v,i)=>{ const b=document.createElement('button'); b.className='ppt-opt'; b.textContent=v; b.onclick=()=>jugar(i); o.appendChild(b); });
+  function jugar(j){ if (gameTerminado) return; const bv=Math.floor(Math.random()*3); const res = j===bv?0 : (j-bv+3)%3===1?1:-1;
+    document.getElementById('pptM').textContent = res>0?'¡Ganaste la ronda!':res<0?'Perdiste la ronda':'Empate';
+    if (res>0) yo++; if (res<0) bot++;
+    document.getElementById('pptS').textContent = yo+' - '+bot;
+    if (yo>=3){ juegoCompletado(); } else if (bot>=3){ mostrarToast('Te ganó el bot'); tk(cerrarPausaModal,1400); gameTerminado=true; pararJuego(); }
+  }
+}
+
+// ============ 8. AHORCADO ============
+function juegoAhorcado(area) {
+  const palabras = ['SALUD','PAUSA','BIENESTAR','CALMA','RESPIRA','EJERCICIO','DESCANSO','ENERGIA'];
+  const w = palabras[Math.floor(Math.random()*palabras.length)];
+  let vidas = 6, adiv = new Set();
+  area.innerHTML = '<div class="ahor-tries" id="ahorTries"></div><div class="ahor-word" id="ahorW"></div><div class="ahor-keys" id="ahorK"></div>';
+  const kE = document.getElementById('ahorK');
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZÑ'.split('').forEach(l => { const b=document.createElement('button'); b.className='ahor-key'; b.textContent=l; b.onclick=()=>probar(l,b); kE.appendChild(b); });
+  function render(){
+    document.getElementById('ahorW').textContent = w.split('').map(l => adiv.has(l)?l:'_').join(' ');
+    document.getElementById('ahorTries').textContent = 'Vidas: '+'❤'.repeat(vidas)+'·'.repeat(6-vidas);
+  }
+  function probar(l,btn){ if (gameTerminado||btn.classList.contains('used')) return; btn.classList.add('used'); adiv.add(l); if (!w.includes(l)) vidas--; render();
+    if (w.split('').every(x=>adiv.has(x))) juegoCompletado();
+    else if (vidas<=0){ mostrarToast('La palabra era '+w); tk(cerrarPausaModal,1600); gameTerminado=true; pararJuego(); }
+  }
+  render();
+}
+
+// ============ 9. ENCESTAR ============
+function juegoEncestar(area) {
+  let score = 0;
+  area.innerHTML = '<div class="enc-stage" id="encS"><div class="enc-score" id="encSc">0 / 8</div><div class="enc-hoop" id="encH"></div></div>';
+  const stg = document.getElementById('encS');
+  let hoopX = 50, dir = 1;
+  ti(() => { hoopX += dir*1.4; if (hoopX>78||hoopX<8) dir=-dir; document.getElementById('encH').style.left = hoopX+'%'; }, 30);
+  function lanzar(){
+    if (gameTerminado) return;
+    const ball = document.createElement('div'); ball.className='enc-ball';
+    const startX = 10 + Math.random()*70; ball.style.left = startX+'%';
+    stg.appendChild(ball);
+    tk(() => {
+      ball.style.bottom = '210px'; ball.style.left = (hoopX+5) + '%';
+      tk(() => {
+        const dist = Math.abs((parseFloat(ball.style.left)) - (hoopX+5));
+        if (dist < 6){ score++; document.getElementById('encSc').textContent = score+' / 8'; if (score>=8) juegoCompletado(); }
+        ball.remove();
+      }, 850);
+    }, 30);
+    if (!gameTerminado) tk(lanzar, 1400);
+  }
+  lanzar();
+}
+
+// ============ 10. NINJA ============
+function juegoNinja(area) {
+  let score = 0;
+  area.innerHTML = '<div class="nin-stage" id="ninS"><div class="nin-score" id="ninSc">0 / 15</div></div>';
+  const stg = document.getElementById('ninS');
+  function spawn(){
+    if (gameTerminado) return;
+    const it = document.createElement('div');
+    const bomba = Math.random()<.22;
+    it.className = 'nin-item '+(bomba?'bomba':'fruta');
+    it.textContent = bomba?'💣':['🍎','🍊','🍇','🍓','🥝'][Math.floor(Math.random()*5)];
+    it.style.left = (Math.random()*82)+'%';
+    it.style.top = (Math.random()*80)+'%';
+    it.onclick = () => {
+      if (bomba){ mostrarToast('¡Tocaste una bomba!'); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); return; }
+      score++; document.getElementById('ninSc').textContent = score+' / 15'; it.remove(); if (score>=15) juegoCompletado();
+    };
+    stg.appendChild(it);
+    tk(() => it.remove(), 1200);
+  }
+  ti(spawn, 480);
+}
+
+// ============ 11. LABERINTO ============
+function juegoLaberinto(area) {
+  const M = [
+    '#########',
+    '#P. .   #',
+    '# # ### #',
+    '#   #   #',
+    '### # ###',
+    '#   #   #',
+    '# ### # #',
+    '#     #G#',
+    '#########'
+  ];
+  const grid = M.map(r => r.split(''));
+  let pr = 1, pc = 1;
+  area.innerHTML = '<div class="lab-stage" id="labS" style="grid-template-columns:repeat(9,22px)"></div><div class="lab-pad" id="labPad"></div>';
+  function render(){
+    const s = document.getElementById('labS'); s.innerHTML='';
+    grid.forEach((row,r) => row.forEach((v,c) => {
+      const d=document.createElement('div'); d.className='lab-cell';
+      if (v==='#') d.classList.add('wall');
+      if (v==='G') d.classList.add('goal');
+      if (r===pr&&c===pc) d.classList.add('player');
+      s.appendChild(d);
+    }));
+  }
+  function mov(dr,dc){ const nr=pr+dr,nc=pc+dc; if (nr<0||nc<0||nr>=grid.length||nc>=grid[0].length) return; if (grid[nr][nc]==='#') return; pr=nr; pc=nc; render(); if (grid[pr][pc]==='G') juegoCompletado(); }
+  const pad = document.getElementById('labPad');
+  const layout = [['','▲',''],['◀','','▶'],['','▼','']];
+  const dirs = {'▲':[-1,0],'▼':[1,0],'◀':[0,-1],'▶':[0,1]};
+  layout.forEach(row => row.forEach(v => { const b=document.createElement('button'); if (!v){b.className='lab-btn empty';} else {b.className='lab-btn'; b.textContent=v; b.onclick=()=>mov(...dirs[v]);} pad.appendChild(b); }));
+  render();
+}
+
+// ============ 12. DADOS 21 ============
+function juegoDados(area) {
+  let total = 0, tirado = false;
+  area.innerHTML = '<div class="ppt-info">Llega a 17-21. Si pasas de 21, pierdes.</div><div class="dad-display" id="dadD"></div><div class="dad-total" id="dadT">0</div><div class="dad-actions"><button class="btn btn-primary" style="flex:2" id="dadL">Lanzar dados</button><button class="btn btn-soft" style="flex:1" id="dadP">Plantarse</button></div>';
+  function lanzar(){
+    if (gameTerminado) return;
+    const a=Math.floor(Math.random()*6)+1, b=Math.floor(Math.random()*6)+1;
+    document.getElementById('dadD').innerHTML = '<div class="dad-cube">'+a+'</div><div class="dad-cube">'+b+'</div>';
+    total += a+b; document.getElementById('dadT').textContent = total;
+    tirado = true;
+    if (total>21){ mostrarToast('Te pasaste ('+total+')'); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); }
+    else if (total>=17 && total<=21) { tk(()=>{document.getElementById('dadP').click();},300); }
+  }
+  function plantar(){ if (!tirado){ mostrarToast('Lanza primero'); return; } if (total>=17 && total<=21) juegoCompletado(); else { mostrarToast('Te faltó: '+total); gameTerminado=true; pararJuego(); tk(cerrarPausaModal,1400); } }
+  document.getElementById('dadL').onclick = lanzar;
+  document.getElementById('dadP').onclick = plantar;
+}
+
+// alias
+function detenerActividad(){ pararJuego(); }
 
 // ===== SESIÓN / PORTADA =====
 function cargarSesion() {
@@ -942,26 +1178,46 @@ function mostrarTipAleatorio() {
 
 function otroReto() { mostrarTipAleatorio(); resetActividad(); }
 
-function manejarFotoPausa(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    fotoPausaBase64 = ev.target.result;
-    document.getElementById('imgPausa').src = fotoPausaBase64;
-    document.getElementById('defPausa').style.display = 'none';
-    document.getElementById('prevPausa').style.display = 'block';
-    document.getElementById('uploadPausa').classList.add('has');
-  };
-  reader.readAsDataURL(file);
-}
+function manejarFotoPausa(){}
+function quitarFotoPausa(){}
 
-function quitarFotoPausa() {
-  fotoPausaBase64 = '';
-  document.getElementById('filePausa').value = '';
-  document.getElementById('defPausa').style.display = 'block';
-  document.getElementById('prevPausa').style.display = 'none';
-  document.getElementById('uploadPausa').classList.remove('has');
+// ===== CERTIFICADO PNG =====
+function generarCertificadoBase64() {
+  const c = document.createElement('canvas');
+  c.width = 900; c.height = 600;
+  const ctx = c.getContext('2d');
+  // fondo
+  const gr = ctx.createLinearGradient(0,0,900,600);
+  gr.addColorStop(0,'#FAFCFE'); gr.addColorStop(1,'#E6F9F2');
+  ctx.fillStyle = gr; ctx.fillRect(0,0,900,600);
+  // borde
+  ctx.strokeStyle = '#0FBF8B'; ctx.lineWidth = 10; ctx.strokeRect(20,20,860,560);
+  ctx.strokeStyle = '#086B4D'; ctx.lineWidth = 2; ctx.strokeRect(40,40,820,520);
+  // header
+  ctx.fillStyle = '#0A9E72'; ctx.fillRect(40,40,820,80);
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 34px Arial'; ctx.textAlign='center';
+  ctx.fillText('PAR SERVICIOS · PAUSAS SALUDABLES', 450, 92);
+  // titulo
+  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 46px Georgia'; ctx.fillText('CERTIFICADO DE BIENESTAR', 450, 200);
+  // texto
+  ctx.fillStyle = '#3D4A5C'; ctx.font = '20px Arial';
+  ctx.fillText('Se otorga el presente certificado a', 450, 250);
+  ctx.fillStyle = '#0A9E72'; ctx.font = 'bold 38px Georgia';
+  ctx.fillText(persona.nombre.toUpperCase(), 450, 305);
+  ctx.fillStyle = '#3D4A5C'; ctx.font = '18px Arial';
+  ctx.fillText('CC ' + persona.cedula + ' · Área: ' + persona.area, 450, 335);
+  ctx.font = '20px Arial';
+  ctx.fillText('Por completar exitosamente la pausa saludable', 450, 380);
+  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 26px Arial';
+  ctx.fillText('"' + tipActual.titulo + '" · ' + tipoActual, 450, 415);
+  // fecha
+  ctx.fillStyle = '#5B6878'; ctx.font = '16px Arial';
+  ctx.fillText('Fecha: ' + new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'}) + ' · Hora: ' + new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}), 450, 480);
+  // firma
+  ctx.strokeStyle = '#0A9E72'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(330,530); ctx.lineTo(570,530); ctx.stroke();
+  ctx.fillStyle = '#086B4D'; ctx.font = 'bold 14px Arial';
+  ctx.fillText('PAR SERVICIOS · Bienestar Laboral', 450, 555);
+  return c.toDataURL('image/png');
 }
 
 function registrarPausa() {
@@ -972,20 +1228,20 @@ function registrarPausa() {
     return;
   }
   if (!tipoActual || !tipActual) { mostrarToast('Selecciona un tipo de pausa'); return; }
-  detenerActividad();
 
+  const certBase64 = generarCertificadoBase64();
   const pausa = {
     tipo: tipoActual,
     titulo: tipActual.titulo,
     hora: new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
-    foto: fotoPausaBase64
+    certificado: certBase64
   };
   pausasHoy.push(pausa);
   guardarSesionLocal();
   guardarHistorialHoy();
   renderPausas();
 
-  mostrarLoading('Guardando tu pausa...');
+  mostrarLoading('Guardando tu pausa y certificado...');
   const gestion = {
     area: persona.area,
     nombre: persona.nombre,
@@ -1009,11 +1265,13 @@ function registrarPausa() {
         if (res.pausas) pausasHoy = res.pausas;
         guardarSesionLocal();
         document.getElementById('pausaModal').classList.remove('show');
-        document.getElementById('okTitle').textContent = '¡Pausa ' + tipoActual.toLowerCase() + ' completada!';
+        document.getElementById('okTitle').textContent = '¡Reto superado!';
         document.getElementById('okSub').textContent = MOTIVACIONALES[Math.floor(Math.random() * MOTIVACIONALES.length)];
-        document.getElementById('beneficioTexto').textContent = BENEFICIOS[tipoActual];
+        document.getElementById('beneficioTexto').textContent = BENEFICIOS[tipoActual] + ' Tu certificado quedó guardado en Drive.';
+        const cImg = document.getElementById('certPreview');
+        const urlCert = (res.pausas && res.pausas.length) ? (res.pausas[res.pausas.length - 1].certificadoURL || certBase64) : certBase64;
+        if (cImg) { cImg.src = urlCert; cImg.style.display = 'block'; }
         document.getElementById('successModal').classList.add('show');
-        quitarFotoPausa();
         tipoActual = ''; tipActual = null;
         actualizarEstadoFlor();
       } else {
@@ -1054,7 +1312,7 @@ function renderPausas() {
   const iconos = { Visual: 'i-eye', Auditiva: 'i-ear', Activa: 'i-bolt' };
   cont.innerHTML = pausasHoy.map((p, i) => `
     <div class="item">
-      ${p.fotoURL || p.foto ? `<img src="${p.fotoURL || p.foto}" class="item-thumb" alt="">` : `<div class="item-ic"><svg class="icon"><use href="#${iconos[p.tipo]}"/></svg></div>`}
+      ${p.certificadoURL ? `<a href="${p.certificadoURL}" target="_blank"><img src="${p.certificadoURL}" class="item-thumb" alt=""></a>` : (p.fotoURL ? `<img src="${p.fotoURL}" class="item-thumb" alt="">` : `<div class="item-ic"><svg class="icon"><use href="#${iconos[p.tipo]}"/></svg></div>`)}
       <div class="item-body"><b>${p.titulo}</b><span>${p.tipo} · ${p.hora}</span></div>
       <button type="button" class="btn btn-danger btn-sm" onclick="eliminarPausa(${i})"><svg class="icon icon-sm"><use href="#i-trash"/></svg></button>
     </div>
@@ -1169,6 +1427,7 @@ function finalizarJornada() {
         document.getElementById('okTitle').textContent = '¡Salida registrada!';
         document.getElementById('okSub').textContent = 'Tu jornada de hoy quedó completa. Nos vemos mañana.';
         document.getElementById('beneficioTexto').textContent = 'Gracias por cuidar tu bienestar durante la jornada de hoy. Vuelves a la pantalla de inicio de sesión.';
+        document.getElementById('certPreview').style.display = 'none';
         document.getElementById('successModal').classList.add('show');
       } else {
         mostrarToast('Error: ' + (res && res.error ? res.error : 'desconocido'));
